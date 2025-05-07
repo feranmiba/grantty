@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import useAuth from "./utils/useAuth";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners"; // Import the spinner
+import { Link } from "react-router-dom";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -21,7 +22,6 @@ function SignIn() {
       [name]: value,
     });
   };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true); // Set loading to true when starting the sign-in process
@@ -35,6 +35,11 @@ function SignIn() {
       } else {
         toast.success("Sign in successful!");  // Toast on success
       }
+  
+      // Wait for 2 seconds before redirecting to the home page
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
     } catch (error: any) {
       setIsLoading(false); // Reset loading after the request finishes
   
@@ -43,6 +48,7 @@ function SignIn() {
       console.error("Error signing in:", errorMessage);
     }
   };
+  
   
   return (
     <section className="h-screen w-full flex flex-col md:flex-row overflow-hidden">
@@ -86,9 +92,9 @@ function SignIn() {
           </a>
           <div className="text-right flex gap-4 items-center">
             <p>Don’t have an account?</p>
-            <a href="/auth/signup" className="text-blue-600 hover:underline border px-3 py-2">
+            <Link to="/auth/signup" className="text-blue-600 hover:underline border px-3 py-2">
               Sign Up
-            </a>
+            </Link>
           </div>
         </div>
 

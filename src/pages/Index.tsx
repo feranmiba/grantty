@@ -6,6 +6,8 @@ import WhyGranttySection from "@/components/WhyGranttySection";
 import EligibilitySection from "@/components/EligibilitySection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import FaQs from "@/components/FaQs";
+import Testimonials from "@/components/Testimonials";
 
 const Index = () => {
   return (
@@ -16,7 +18,9 @@ const Index = () => {
         <HowItWorksSection />
         <WhyGranttySection />
         <EligibilitySection />
+        <Testimonials />
         <CTASection />
+        <FaQs />
       </main>
       <Footer />
     </div>

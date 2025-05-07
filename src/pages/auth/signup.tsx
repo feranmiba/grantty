@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import useAuth from "./utils/useAuth";
 import { ClipLoader } from "react-spinners"; // Import the spinner
 import { toast } from "react-toastify"; // Import react-toastify
+import { Link } from "react-router-dom";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -26,25 +27,30 @@ function SignUp() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true); // Set loading to true when starting the sign-up process
-
+  
     try {
       const response = await signUp(formData);
       setIsLoading(false); // Reset loading after the request finishes
-
+  
       if (response?.message) {
         toast.success(response.message); // Show success toast
       } else {
         toast.success("Sign up successful!"); // Show success toast
       }
+  
+      // Wait for 2 seconds before redirecting
+      setTimeout(() => {
+        window.location.href = "/auth/signin";
+      }, 2000);
     } catch (error: any) {
       setIsLoading(false);
-
+  
       const errorMessage = error?.response?.data?.message || "Error signing up, please try again.";
       toast.error(errorMessage); // Show error toast
       console.error("Error signing up:", errorMessage);
     }
   };
-
+  
   return (
     <section className="h-screen w-full flex flex-col md:flex-row overflow-hidden">
       <motion.div
@@ -87,9 +93,9 @@ function SignUp() {
           </a>
           <div className="text-right flex gap-4 items-center">
             <p>Already have an account?</p>
-            <a href="/auth/signin" className="text-blue-600 hover:underline border px-3 py-2">
+            <Link to="/auth/signin" className="text-blue-600 hover:underline border px-3 py-2">
               Sign In
-            </a>
+            </Link>
           </div>
         </div>
 
