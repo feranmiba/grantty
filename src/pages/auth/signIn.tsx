@@ -37,9 +37,9 @@ function SignIn() {
       }
   
       // Wait for 2 seconds before redirecting to the home page
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 2000);
+      // setTimeout(() => {
+      //   window.location.href = "/";
+      // }, 2000);
     } catch (error: any) {
       setIsLoading(false); // Reset loading after the request finishes
   

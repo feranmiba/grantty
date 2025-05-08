@@ -23,6 +23,7 @@ const useAuth = () => {
       }
 
       const data = await response.json();
+      console.log("Login response data:", data.accessToken); 
       setToken(data.accessToken);
 
       showToast("Login Successful", "You have logged in successfully.");

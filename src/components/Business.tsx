@@ -5,38 +5,33 @@ const GranttyAdvantage: React.FC = () => {
   const [businessInfoList, setBusinessInfoList] = useState<any[]>([]);
 
   useEffect(() => {
-    // Simulate fetching data from backend
     const fetchData = async () => {
-      // Replace with actual backend call, e.g., fetch('/api/businesses')
-      const response = [
-        {
-          startup_id: 1,
-          name: 'Frontlett',
-          description: 'A group-buying platform helping startups access discounted services.',
-          foundedBy: 'James Doe',
-          grantGoal: 'N3M',
-          raisedAmount: 'N300,000',
-          toGo: 'N300,000',
-        },
-        {
-          startup_id: 2,
-          name: 'Techify',
-          description: 'A tech startup building cutting-edge solutions for businesses.',
-          foundedBy: 'Jane Smith',
-          grantGoal: 'N5M',
-          raisedAmount: 'N1,000,000',
-          toGo: 'N4M',
-        },
-      ];
-      setBusinessInfoList(response);
+      try {
+        const response = await fetch('https://grantty-backend.onrender.com/startup', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setBusinessInfoList(data.data); 
+      } catch (error) {
+        console.error('Error fetching business data:', error);
+      }
     };
+
     fetchData();
   }, []);
 
   return (
     <div className="text-center py-8">
       <h1 className="text-3xl font-bold mb-8">Businesses Empowered by the Grantty Advantage</h1>
-      <div className="flex justify-around space-x-8">
+      <div className="flex justify-around flex-wrap space-x-8">
         {businessInfoList.map((business) => (
           <Card key={business.startup_id} businessInfo={business} />
         ))}
@@ -54,21 +49,21 @@ const Card: React.FC<{ businessInfo: any }> = ({ businessInfo }) => {
   };
 
   return (
-    <div className="border border-gray-300 p-6 w-80 shadow-lg rounded-lg">
+    <div className="border border-gray-300 p-6 w-[30%] mt-5 shadow-lg rounded-lg">
       <div className="h-32 bg-gray-200 mb-4"></div>
-      <h2 className="text-2xl font-semibold">{businessInfo.name}</h2>
-      <p className="text-gray-600 mt-2">{businessInfo.description}</p>
+      <h2 className="text-2xl font-semibold">{businessInfo.startup_name}</h2>
+      <p className="text-gray-600 mt-2">{businessInfo.startup_description}</p>
       <p className="font-medium mt-4">
-        <strong>Founded By:</strong> {businessInfo.foundedBy}
+        <strong>Founded By:</strong> {businessInfo.founder_full_name}
       </p>
       <p className="font-medium">
-        <strong>Grant Goal:</strong> {businessInfo.grantGoal}
+        <strong>Grant Goal:</strong> {businessInfo.amount_of_funds}
       </p>
       <p className="font-medium">
-        <strong>Raised:</strong> {businessInfo.raisedAmount}
+        <strong>Raised:</strong> {businessInfo.raisedAmount || 'N/A'} {/* Handle missing data */}
       </p>
       <p className="font-medium mb-4">
-        <strong>To-go:</strong> {businessInfo.toGo}
+        <strong>To-go:</strong> {businessInfo.toGo || 'N/A'} {/* Handle missing data */}
       </p>
       <button
         onClick={handleGrantStartup}
@@ -86,4 +81,5 @@ const Card: React.FC<{ businessInfo: any }> = ({ businessInfo }) => {
 };
 
 export default GranttyAdvantage;
+
 

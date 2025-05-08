@@ -18,7 +18,7 @@ import { useAuthStore} from "./store/useAuthStore";  // Import Zustand store
 const queryClient = new QueryClient();
 
 const App = () => {
-  const { token } = useAuthStore();  // Get the token from the store
+  const { token } = useAuthStore(); 
 
   return (
     <React.StrictMode>

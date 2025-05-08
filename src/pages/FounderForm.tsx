@@ -54,36 +54,57 @@ const MultiStepForm: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
-    if (files && files[0]) {
-      setFormData({ ...formData, [name]: files[0] });
+    
+    if (files && files.length > 0) {
+      // Handle file input
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: files[0], // Store the first file from the input
+      }));
     } else {
-      setFormData({ ...formData, [name]: value });
+      // Handle text input
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
     }
   };
+  
+  
 
   const handleSubmit = async () => {
-    const formDataToSubmit = new FormData();
-
-    // Append form data, handling both files and other inputs
-    Object.entries(formData).forEach(([key, value]) => {
-      if (value instanceof File) {
-        formDataToSubmit.append(key, value);
-      } else {
-        formDataToSubmit.append(key, String(value));
-      }
-    });
-
     try {
-      const response =  submitStartup(formDataToSubmit);
-      alert('Form submitted successfully!');
-    
-              toast.success("Profile created successfully!"); // Show success toast
-        
+      const formDataToSubmit = new FormData();
+  
+      // Append form data, handling both files and other inputs
+      Object.entries(formData).forEach(([key, value]) => {
+        if (value instanceof File) {
+          formDataToSubmit.append(key, value, value.name); // Include the file name
+        } else {
+          formDataToSubmit.append(key, String(value));
+        }
+      });
+  
+      console.log("Form Data before submission:");
+      for (let pair of formDataToSubmit.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+  
+      // Call the API with the form data
+      await submitStartup(formDataToSubmit);
+  
+      // Success feedback
+      toast.success("Profile created successfully!");
+      alert("Form submitted successfully!");
     } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('Submission failed. Please try again.');
+      console.error("Error submitting form:", error);
+      toast.error("Submission failed. Please try again.");
+      alert("Submission failed. Please try again.");
     }
   };
+  
+  
+  
 
 
 
@@ -123,7 +144,7 @@ const MultiStepForm: React.FC = () => {
                 <label>Website or Landing Page URL</label>
                 <input name="startup_website" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_website} />
                 <label>Company Logo</label>
-                <input type="file" name="profile_image" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.profile_image} />
+                <input type="file" name="profile_image" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
                 <label>Country of Operation</label>
                 <input name="startup_location" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_location} />
                 <label>Business Stage</label>
@@ -143,7 +164,7 @@ const MultiStepForm: React.FC = () => {
                 <label>Phone Number</label>
                 <input name="phone_no" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.phone_no} />
                 <label>Profile Image</label>
-                <input type="file" name="founder_profile_img" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.founder_profile_img} />
+                <input type="file" name="founder_profile_img" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
                 <label>NIN</label>
                 <input name="founder_nin" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.founder_nin} />
                 <label>LinkedIn Profile</label>
@@ -173,7 +194,7 @@ const MultiStepForm: React.FC = () => {
                 <label>Total Team Size</label>
                 <input name="no_of_teams" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.no_of_teams} />
                 <label>Co-founder Name</label>
-                <input name="coFounde" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.cofounder} />
+                <input name="cofounder" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.cofounder} />
                 <label>Co-founder LinkedIn Profile</label>
                 <input name="coFounderLinkedIn" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
                 <label>Co-founder NIN</label>
@@ -208,7 +229,7 @@ const MultiStepForm: React.FC = () => {
                 <label>How much funds are you seeking?</label>
                 <input name="amount_of_funds" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.amount_of_funds} />
                 <label>Planned use of funds</label>
-                <input name="useage_of_funds" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.usage_of_funds} />
+                <input name="usage_of_funds" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.usage_of_funds} />
 
                 <label className="block mb-2">Have you raised money before?</label>
                 <div className="mb-2">
@@ -232,7 +253,7 @@ const MultiStepForm: React.FC = () => {
 
             <div className="flex justify-between mt-4">
               <button onClick={prevStep} className="bg-gray-200 px-4 py-2 rounded" disabled={currentStep === 0}>Back</button>
-              <button onClick={nextStep} className="bg-black text-white px-4 py-2 rounded">
+              <button   onClick={currentStep === steps.length - 1 ? handleSubmit : nextStep}  className="bg-black text-white px-4 py-2 rounded">
                 {currentStep === steps.length - 1 ? 'Submit' : 'Next'}
               </button>
             </div>
