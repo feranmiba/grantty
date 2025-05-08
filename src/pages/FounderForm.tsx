@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import useStartup from '@/utils/useStartup';
+import { toast } from "react-toastify"; 
+
 
 interface Step {
   label: string;
@@ -18,44 +21,73 @@ const steps: Step[] = [
 const MultiStepForm: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
-    startupName: '',
-    webUrl: '',
-    companyLogo: '',
-    country: '',
-    businessStage: '',
-    industry: '',
-    fullName: '',
-    email: '',
-    phoneNumber: '',
-    profileImage: '',
+    startup_name: '',
+    startup_description: '',
+    startup_location: '',
+    startup_website: '',
+    startup_email: '',
+    picture: null ,
+    team_size: '',
+    no_of_teams: '',
+    cofounder: '',
+    profile_image: null ,
+    linkedin_profile: '',
     nin: '',
-    linkedin: '',
+    amount_of_funds: '',
+    usage_of_funds: '',
+    no_of_customers: '',
+    video: null ,
+    startup_industry: '',
+    full_name: '',
+    founder_linkedin_profile: '',
+    email_address: '',
+    phone_no: '',
+    founder_profile_img: null ,
+    founder_nin: '',
     role: '',
-    numberOfFounders: '',
-    totalTeamSize: '',
-    coFounderName: '',
-    coFounderLinkedIn: '',
-    coFounderNIN: '',
-    shortSummary: '',
-    detailedDescription: '',
-    industrySector: '',
     hasLaunched: '',
-    numberOfUsers: '',
-    fundsSeeking: '',
-    plannedUseOfFunds: '',
     hasRaisedBefore: '',
-    amountRaised: '',
-    raisedFrom: '',
+    user_id: 1,
   });
+
+  const { submitStartup, loading, error, success } = useStartup();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
     if (files && files[0]) {
-      setFormData({ ...formData, [name]: URL.createObjectURL(files[0]) });
+      setFormData({ ...formData, [name]: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
+
+  const handleSubmit = async () => {
+    const formDataToSubmit = new FormData();
+
+    // Append form data, handling both files and other inputs
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value instanceof File) {
+        formDataToSubmit.append(key, value);
+      } else {
+        formDataToSubmit.append(key, String(value));
+      }
+    });
+
+    try {
+      const response =  submitStartup(formDataToSubmit);
+      alert('Form submitted successfully!');
+    
+              toast.success("Profile created successfully!"); // Show success toast
+        
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Submission failed. Please try again.');
+    }
+  };
+
+
+
+  
 
   const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
@@ -87,17 +119,17 @@ const MultiStepForm: React.FC = () => {
             {currentStep === 0 && (
               <>
                 <label>Startup/Company Name</label>
-                <input name="startupName" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="startup_name" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_name} />
                 <label>Website or Landing Page URL</label>
-                <input name="webUrl" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="startup_website" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_website} />
                 <label>Company Logo</label>
-                <input type="file" name="companyLogo" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input type="file" name="profile_image" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.profile_image} />
                 <label>Country of Operation</label>
-                <input name="country" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="startup_location" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_location} />
                 <label>Business Stage</label>
-                <input name="businessStage" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="nin" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.nin} />
                 <label>Industry/Sector</label>
-                <input name="industry" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="startup_industry" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_industry} />
               </>
             )}
 
@@ -105,19 +137,19 @@ const MultiStepForm: React.FC = () => {
             {currentStep === 1 && (
               <>
                 <label>Full Name</label>
-                <input name="fullName" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="full_name" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.full_name} />
                 <label>Email</label>
-                <input name="email" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="email_address" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.email_address} />
                 <label>Phone Number</label>
-                <input name="phoneNumber" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="phone_no" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.phone_no} />
                 <label>Profile Image</label>
-                <input type="file" name="profileImage" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input type="file" name="founder_profile_img" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.founder_profile_img} />
                 <label>NIN</label>
-                <input name="nin" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="founder_nin" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.founder_nin} />
                 <label>LinkedIn Profile</label>
-                <input name="linkedin" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="founder_linkedin_profile" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.founder_linkedin_profile} />
                 <label>Role in Company</label>
-                <input name="role" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="role" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.role} />
               </>
             )}
 
@@ -137,13 +169,13 @@ const MultiStepForm: React.FC = () => {
             {currentStep === 3 && (
               <>
                 <label>Number of Founders</label>
-                <input name="numberOfFounders" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="numberOfFounders" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
                 <label>Total Team Size</label>
-                <input name="totalTeamSize" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="no_of_teams" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.no_of_teams} />
                 <label>Co-founder Name</label>
-                <input name="coFounderName" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="coFounde" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.cofounder} />
                 <label>Co-founder LinkedIn Profile</label>
-                <input name="coFounderLinkedIn" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="coFounderLinkedIn" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
                 <label>Co-founder NIN</label>
                 <input name="coFounderNIN" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
               </>
@@ -164,7 +196,7 @@ const MultiStepForm: React.FC = () => {
                 {formData.hasLaunched === 'yes' && (
                   <>
                     <label>Number of Users</label>
-                    <input name="numberOfUsers" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                    <input name="no_of_customers" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.no_of_customers} />
                   </>
                 )}
               </>
@@ -174,9 +206,9 @@ const MultiStepForm: React.FC = () => {
             {currentStep === 5 && (
               <>
                 <label>How much funds are you seeking?</label>
-                <input name="fundsSeeking" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="amount_of_funds" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.amount_of_funds} />
                 <label>Planned use of funds</label>
-                <input name="plannedUseOfFunds" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="useage_of_funds" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.usage_of_funds} />
 
                 <label className="block mb-2">Have you raised money before?</label>
                 <div className="mb-2">

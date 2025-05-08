@@ -8,6 +8,7 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import FaQs from "@/components/FaQs";
 import Testimonials from "@/components/Testimonials";
+import GranttyAdvantage from "@/components/Business";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
         <HowItWorksSection />
         <WhyGranttySection />
         <EligibilitySection />
+        <GranttyAdvantage />
         <Testimonials />
         <CTASection />
         <FaQs />

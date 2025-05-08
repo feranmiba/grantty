@@ -21,7 +21,7 @@ const Navbar = () => {
   }, []);
 
   const signUp = () => {
-    navigate('/auth/signup');
+    navigate('/founder');
     console.log('Sign Up button clicked');
   }
 
