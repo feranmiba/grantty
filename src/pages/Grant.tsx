@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const GrantPage: React.FC = () => {
-    const { userId } = useParams<{ userId: string }>(); // Retrieve userId from URL params
+    const { startup_id } = useParams<{ startup_id: string }>(); // Retrieve startup_id from URL params
 
     const [amount, setAmount] = useState<number | "">("");
     const [supportAs, setSupportAs] = useState<string>("Individual");
@@ -14,16 +14,18 @@ const GrantPage: React.FC = () => {
     const [raisedAmount, setRaisedAmount] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [startup, setStartup] = useState<any>(null);
 
     // Fetch the goal amount and raised amount data from an API
     useEffect(() => {
         const fetchGrantData = async () => {
             try {
-                const response = await fetch(`https://api.example.com/grant-info/${userId}`); // API using userId
+                const response = await fetch(`https://grantty-backend.onrender.com/startup/startup/${startup_id}`);
                 const data = await response.json();
-                if (response.ok) {
-                    setGoalAmount(data.goalAmount);
-                    setRaisedAmount(data.raisedAmount);
+                if (response.ok && data.data) {
+                    setStartup(data.data);
+                    setGoalAmount(parseFloat(data.data.amount_of_funds));
+                    setRaisedAmount(0); // Set to 0 initially or update with actual raised amount
                 } else {
                     setError('Failed to load grant data.');
                 }
@@ -33,17 +35,18 @@ const GrantPage: React.FC = () => {
                 setLoading(false);
             }
         };
-
-        fetchGrantData();
-    }, [userId]);
-
+    
+        if (startup_id) {
+            fetchGrantData();
+        }
+    }, [startup_id]);
+    
     const progress = goalAmount && raisedAmount ? (raisedAmount / goalAmount) * 100 : 0;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const formData = { amount, supportAs, name, email, anonymous, subscribe };
 
-        // API call to submit form data
         try {
             const response = await fetch('https://api.example.com/submit-grant', {
                 method: 'POST',
@@ -75,17 +78,28 @@ const GrantPage: React.FC = () => {
         <div className="min-h-screen p-8 bg-gray-100">
             <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md">
                 <h1 className="text-2xl font-bold mb-4">Grant Pitch</h1>
-                <div className="mb-6">
-                    <h2 className="text-lg font-semibold">About Frontlett:</h2>
-                    <p className="text-gray-600">A startup aiming to revolutionize the way businesses raise funds. Frontlett focuses on helping startups secure the capital needed to scale through community grants.</p>
-                    <div className="flex items-center justify-between mt-4">
-                        <span>₦{goalAmount.toLocaleString()} Goal</span>
-                        <span>₦{raisedAmount.toLocaleString()} Raised</span>
+                {startup && (
+                    <div className="mb-6">
+                        <h2 className="text-lg font-semibold">{startup.startup_name}</h2>
+                        <p className="text-gray-600">{startup.startup_description}</p>
+                        <p className="text-gray-500">{startup.startup_location}</p>
+                        <p className="text-blue-600">
+                            <a href={startup.startup_website} target="_blank" rel="noopener noreferrer">
+                                Visit Website
+                            </a>
+                        </p>
+                        <div className="flex items-center justify-between mt-4">
+                            <span>₦{goalAmount.toLocaleString()} Goal</span>
+                            <span>₦{raisedAmount.toLocaleString()} Raised</span>
+                        </div>
+                        <div className="w-full bg-gray-300 h-2 rounded-full">
+                            <div
+                                style={{ width: `${progress}%` }}
+                                className="h-full bg-green-500 rounded-full"
+                            ></div>
+                        </div>
                     </div>
-                    <div className="w-full bg-gray-300 h-2 rounded-full">
-                        <div style={{ width: `${progress}%` }} className="h-full bg-green-500 rounded-full"></div>
-                    </div>
-                </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <label className="block">
@@ -158,4 +172,5 @@ const GrantPage: React.FC = () => {
 };
 
 export default GrantPage;
+
 

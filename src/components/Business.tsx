@@ -71,11 +71,7 @@ const Card: React.FC<{ businessInfo: any }> = ({ businessInfo }) => {
       >
         Grant Startup
       </button>
-      <button
-        className="mt-2 bg-gray-200 py-2 px-4 rounded-md hover:bg-gray-300 transition duration-300"
-      >
-        View Value Proposition
-      </button>
+     
     </div>
   );
 };
