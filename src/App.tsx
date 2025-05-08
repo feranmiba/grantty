@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SignIn from "./pages/auth/signIn";
 import SignUp from "./pages/auth/signup";
+import GrantPage from "./pages/Grant";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Toast } from "./components/ui/toast";
@@ -30,6 +31,8 @@ const App = () => {
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="/auth/signin" element={<SignIn />} />
               <Route path="/auth/signup" element={<SignUp />} />
+              <Route path="/grant" element={<GrantPage />} />
+              
               
               <Route path="*" element={<NotFound />} />
             </Routes>
