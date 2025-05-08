@@ -12,6 +12,7 @@ import SignUp from "./pages/auth/signup";
 import GrantPage from "./pages/Grant";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FounderForm from "./pages/FounderForm";
 import { Toast } from "./components/ui/toast";
 
 // Create a client
@@ -32,6 +33,7 @@ const App = () => {
               <Route path="/auth/signin" element={<SignIn />} />
               <Route path="/auth/signup" element={<SignUp />} />
               <Route path="/grant" element={<GrantPage />} />
+              <Route path="/founder" element={<FounderForm />} />
               
               
               <Route path="*" element={<NotFound />} />
