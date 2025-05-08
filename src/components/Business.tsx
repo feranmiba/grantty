@@ -49,7 +49,7 @@ const Card: React.FC<{ businessInfo: any }> = ({ businessInfo }) => {
   };
 
   return (
-    <div className="border border-gray-300 p-6 w-[30%] mt-5 shadow-lg rounded-lg">
+    <div className="border border-gray-300 p-6 w-full md:w-[40%] lg:w-[30%] mt-5 shadow-lg rounded-lg">
       <div className="h-32 bg-gray-200 mb-4"></div>
       <h2 className="text-2xl font-semibold">{businessInfo.startup_name}</h2>
       <p className="text-gray-600 mt-2">{businessInfo.startup_description}</p>

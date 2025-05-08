@@ -1,12 +1,14 @@
 import { useCallback } from "react";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { useToastStore } from "../../../store/useToastStore";
+import { useUserStore } from "@/store/useUserStore";
 
 const link = "https://grantty-backend.onrender.com";
 
 const useAuth = () => {
   const setToken = useAuthStore((state) => state.setToken);
   const showToast = useToastStore((state) => state.showToast);
+  const { setUser } = useUserStore();
 
   const signIn = useCallback(async (email: string, password: string) => {
     try {
@@ -25,6 +27,7 @@ const useAuth = () => {
       const data = await response.json();
       console.log("Login response data:", data.accessToken); 
       setToken(data.accessToken);
+      setUser(data.user);
 
       showToast("Login Successful", "You have logged in successfully.");
       return data;

@@ -1,11 +1,18 @@
-
+"use client"
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '@/store/useUserStore';
+import { useAuthStore} from "../store/useAuthStore"; 
+import { FaUser } from 'react-icons/fa'; // This imports the FaUser icon from the FontAwesome icons collection
+
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
+  const { user } = useUserStore();
+    const { token } = useAuthStore(); 
+  
   
   useEffect(() => {
     const handleScroll = () => {
@@ -54,10 +61,17 @@ const Navbar = () => {
         </nav>
         
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" className="hidden md:inline-flex hover:bg-primary/10 hover:text-primary" onClick={signIn}>
+        {user? (
+          <div className='border rounded-full px-4 py-2 bg-primary/10 text-primary font-semibold'>
+            <FaUser className='inline-block mr-2' />
+            {user.full_name}
+          </div>
+
+        ) : ( <Button variant="ghost" className="hidden md:inline-flex hover:bg-primary/10 hover:text-primary" onClick={signIn}>
           
-            Log In
-          </Button>
+       Log In
+       
+          </Button>)}
           <Button className="btn-primary" onClick={signUp}>
             Apply Now
           </Button>

@@ -12,7 +12,7 @@ import GrantPage from "./pages/Grant";
 import FounderForm from "./pages/FounderForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAuthStore} from "./store/useAuthStore";  // Import Zustand store
+import { useAuthStore} from "./store/useAuthStore";  
 
 // Create a client
 const queryClient = new QueryClient();
