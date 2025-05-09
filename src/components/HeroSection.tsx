@@ -1,7 +1,43 @@
 
 import { Button } from '@/components/ui/button';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const HeroSection = () => {
+    const [businessInfoList, setBusinessInfoList] = useState<any[]>([]);
+    const navigate = useNavigate();
+
+
+    const signUp = () => {
+      navigate('/founder');
+      console.log('Sign Up button clicked');
+    }
+    
+  
+     useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('https://grantty-backend.onrender.com/startup', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+    
+            if (!response.ok) {
+              throw new Error(`Error: ${response.statusText}`);
+            }
+    
+            const data = await response.json();
+            setBusinessInfoList(data.data);
+          } catch (error) {
+            console.error('Error fetching business data:', error);
+          }
+        };
+    
+        fetchData();
+      }, []);
   return (
     <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-b from-grantty-lightBlue/30 to-white">
       <div className="container-custom">
@@ -18,7 +54,7 @@ const HeroSection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="btn-primary" size="lg">
+              <Button className="btn-primary" size="lg" onClick={signUp}>
                 Apply Now
               </Button>
               <Button variant="outline" className="btn-secondary" size="lg" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
@@ -42,7 +78,7 @@ const HeroSection = () => {
                 </div>
               </div>
               <p className="text-sm text-secondary/70">
-                Joined by <span className="font-semibold">45+ funders</span> this month
+                Joined by <span className="font-semibold">42 funders</span> this month
               </p>
             </div>
           </div>
@@ -90,7 +126,7 @@ const HeroSection = () => {
             
             <div className="absolute -bottom-8 -right-8 md:bottom-12 md:-right-12 bg-white rounded-xl shadow-lg p-3 max-w-[150px] animate-float" style={{animationDelay: '2s'}}>
               <div className="text-center">
-                <div className="text-2xl font-bold text-grantty-navy">42</div>
+                <div className="text-2xl font-bold text-grantty-navy">{businessInfoList.length}</div>
                 <p className="text-xs text-secondary/70">Startups Funded</p>
               </div>
             </div>

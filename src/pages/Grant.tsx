@@ -21,12 +21,22 @@ const GrantPage: React.FC = () => {
     useEffect(() => {
         const fetchGrantData = async () => {
             try {
+                // Fetch grant data
                 const response = await fetch(`https://grantty-backend.onrender.com/startup/startup/${startup_id}`);
                 const data = await response.json();
-                if (response.ok && data.data) {
+    
+                // Fetch raised amount data
+                const responseSec = await fetch(`https://grantty-backend.onrender.com/payment/amount-raised/${startup_id}`);
+                const raisedData = await responseSec.json();
+    
+                if (response.ok && data.data && responseSec.ok && raisedData) {
+                    // Set the grant data
                     setStartup(data.data);
                     setGoalAmount(parseFloat(data.data.amount_of_funds));
-                    setRaisedAmount(0); // Set to 0 initially or update with actual raised amount
+    
+                    // Set the raised amount from the second response
+                    setRaisedAmount(raisedData.total_amount_raised || 0); // Default to 0 if no data
+    
                 } else {
                     setError('Failed to load grant data.');
                 }
@@ -42,13 +52,14 @@ const GrantPage: React.FC = () => {
         }
     }, [startup_id]);
     
-    const progress = goalAmount && raisedAmount ? (raisedAmount / goalAmount) * 100 : 0;
+    
+    const progress = goalAmount && raisedAmount ? Math.min((raisedAmount / goalAmount) * 100, 100) : 0;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(startup_id)
-        const formData = { amount, email, startup_id  };
-
+        console.log(startup_id);
+        const formData = { amount, email, startup_id };
+    
         try {
             const response = await fetch(`https://grantty-backend.onrender.com/payment/paystack/initialize`, {
                 method: 'POST',
@@ -57,18 +68,26 @@ const GrantPage: React.FC = () => {
                 },
                 body: JSON.stringify(formData),
             });
-
+    
             if (response.ok) {
-                alert('Form submitted successfully');
-                toast.success('Form submitted successfully, Redirection in progress...');
-                
+                const data = await response.json();
+                const authorizationUrl = data.data.authorization_url;
+    
+                // If the URL is provided, redirect to it
+                if (authorizationUrl) {
+                    toast.success('Form submitted successfully, Redirection in progress...');
+                    window.location.href = authorizationUrl;
+                } else {
+                    alert('Authorization URL not found.');
+                }
             } else {
-                alert('Failed to submit form.');
+                toast.error('Failed to submit form.');
             }
         } catch (error) {
             alert('Error submitting form.');
         }
     };
+    
 
     if (loading) {
         return <div>Loading...</div>;

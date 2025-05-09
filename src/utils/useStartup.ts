@@ -40,23 +40,16 @@ const useStartup = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
-    const formData = new FormData();
-    Object.keys(data).forEach((key) => {
-      const value = data[key as keyof StartupData];
-      if (value instanceof File) {
-        formData.append(key, value);
-      } else {
-        formData.append(key, String(value));
-      }
-    });
-
+  
     try {
-      const response = await fetch(`${Link}/api/startup`, {
+      const response = await fetch(`${link}/startup/create-startup`, {
         method: 'POST',
-        headers: { },
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json', // Ensure the server knows to expect JSON
+        },
+        body: JSON.stringify(data), // Send data as JSON
       });
-
+  
       if (response.ok) {
         setSuccess(true);
       } else {
@@ -69,6 +62,7 @@ const useStartup = () => {
       setLoading(false);
     }
   }, []);
+  
 
   return { submitStartup, loading, error, success };
 };

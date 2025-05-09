@@ -46,6 +46,32 @@ const benefits = [
 
 const WhyGranttySection = () => {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
+    const [businessInfoList, setBusinessInfoList] = useState<any[]>([]);
+  
+
+   useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch('https://grantty-backend.onrender.com/startup', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+  
+          if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+          }
+  
+          const data = await response.json();
+          setBusinessInfoList(data.data);
+        } catch (error) {
+          console.error('Error fetching business data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -108,12 +134,12 @@ const WhyGranttySection = () => {
             </div>
             
             <div className="text-center p-6 border-b lg:border-b-0 lg:border-r border-gray-100">
-              <div className="text-4xl font-bold text-primary mb-2">$3,000</div>
+              <div className="text-4xl font-bold text-primary mb-2">₦5M</div>
               <p className="text-secondary/80">Maximum Grant Size</p>
             </div>
             
             <div className="text-center p-6">
-              <div className="text-4xl font-bold text-primary mb-2">42+</div>
+              <div className="text-4xl font-bold text-primary mb-2">{businessInfoList.length - 1}+</div>
               <p className="text-secondary/80">Startups Funded</p>
             </div>
           </div>

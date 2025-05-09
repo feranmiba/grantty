@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useStartup from '@/utils/useStartup';
 import { toast } from "react-toastify"; 
+import { FaWindows } from 'react-icons/fa';
 
 
 interface Step {
@@ -27,23 +28,23 @@ const MultiStepForm: React.FC = () => {
     startup_website: '',
     startup_email: '',
     picture: null ,
-    team_size: '',
-    no_of_teams: '',
+    team_size: 0,
+    no_of_teams: 0,
     cofounder: '',
     profile_image: null ,
     linkedin_profile: '',
-    nin: '',
-    amount_of_funds: '',
+    nin: 0,
+    amount_of_funds: 0,
     usage_of_funds: '',
-    no_of_customers: '',
+    no_of_customers: 0,
     video: null ,
     startup_industry: '',
     full_name: '',
     founder_linkedin_profile: '',
     email_address: '',
-    phone_no: '',
+    phone_no: 0,
     founder_profile_img: null ,
-    founder_nin: '',
+    founder_nin: 0,
     role: '',
     hasLaunched: '',
     hasRaisedBefore: '',
@@ -54,54 +55,75 @@ const MultiStepForm: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
-    
+  
     if (files && files.length > 0) {
       // Handle file input
+      const file = e.target.files[0];
+  
+      // Instead of converting to base64, directly store the file object
       setFormData((prevData) => ({
         ...prevData,
-        [name]: files[0], // Store the first file from the input
+        [name]: file, 
       }));
     } else {
-      // Handle text input
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+      // Handle other inputs (e.g., numeric input validation)
+      if (name === 'amount_of_funds') {
+        const validAmount = /^[0-9]+(\.[0-9]{0,2})?$/;
+        if (validAmount.test(value)) {
+          setFormData((prevData) => ({
+            ...prevData,
+            [name]: parseFloat(value), // Parse value as a number
+          }));
+        } else {
+          console.log('Invalid amount format');
+        }
+      } else {
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      }
     }
   };
+  
   
   
 
   const handleSubmit = async () => {
     try {
-      const formDataToSubmit = new FormData();
+      // Log formData before processing
+      console.log("Form Data before processing:", formData);
+      
+      // Create a plain object instead of FormData
+      const formDataToSubmit = {};
   
-      // Append form data, handling both files and other inputs
+      // Process each field in formData and append it to formDataToSubmit
       Object.entries(formData).forEach(([key, value]) => {
-        if (value instanceof File) {
-          formDataToSubmit.append(key, value, value.name); // Include the file name
-        } else {
-          formDataToSubmit.append(key, String(value));
+        if (value != null) { // Handle null/undefined values
+          formDataToSubmit[key] = value instanceof File ? value : String(value); // Convert value to string if not a file
         }
       });
   
-      console.log("Form Data before submission:");
-      for (let pair of formDataToSubmit.entries()) {
-        console.log(`${pair[0]}: ${pair[1]}`);
-      }
+      // Log the data before submission
+      console.log("Form Data before submission:", formDataToSubmit);
   
       // Call the API with the form data
       await submitStartup(formDataToSubmit);
   
       // Success feedback
       toast.success("Profile created successfully!");
-      alert("Form submitted successfully!");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+      
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Submission failed. Please try again.");
       alert("Submission failed. Please try again.");
     }
   };
+  
+  
   
   
   
@@ -147,7 +169,7 @@ const MultiStepForm: React.FC = () => {
                 <input type="file" name="profile_image" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
                 <label>Country of Operation</label>
                 <input name="startup_location" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_location} />
-                <label>Business Stage</label>
+                <label>NiN</label>
                 <input name="nin" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.nin} />
                 <label>Industry/Sector</label>
                 <input name="startup_industry" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_industry} />
@@ -180,7 +202,7 @@ const MultiStepForm: React.FC = () => {
                 <label>Short Summary</label>
                 <input name="shortSummary" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
                 <label>Detailed Description</label>
-                <input name="detailedDescription" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <input name="startup_decription" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_description} />
                 <label>Industry and Sector</label>
                 <input name="industrySector" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
               </>
