@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import {toast} from 'react-toastify'
 
 const GrantPage: React.FC = () => {
     const { startup_id } = useParams<{ startup_id: string }>(); // Retrieve startup_id from URL params
@@ -45,10 +46,11 @@ const GrantPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const formData = { amount, supportAs, name, email, anonymous, subscribe };
+        console.log(startup_id)
+        const formData = { amount, email, startup_id  };
 
         try {
-            const response = await fetch('https://api.example.com/submit-grant', {
+            const response = await fetch(`https://grantty-backend.onrender.com/payment/paystack/initialize`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,6 +60,8 @@ const GrantPage: React.FC = () => {
 
             if (response.ok) {
                 alert('Form submitted successfully');
+                toast.success('Form submitted successfully, Redirection in progress...');
+                
             } else {
                 alert('Failed to submit form.');
             }

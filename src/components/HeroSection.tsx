@@ -8,7 +8,7 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary leading-tight mb-6">
-              Launch Your Startup With a <span className="text-primary">N5M Grant</span> – No Equity Taken
+              Launch Your Startup With a <span className="text-primary">₦5M Grant</span> – No Equity Taken
             </h1>
             
             <p className="text-lg text-secondary/80 mb-8 leading-relaxed">
