@@ -5,6 +5,7 @@ import useAuth from "./utils/useAuth";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners"; // Import the spinner
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const { signIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,6 +24,9 @@ function SignIn() {
       [name]: value,
     });
   };
+  const handleSignUp = () => {
+    navigate("/auth/signup");
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true); // Set loading to true when starting the sign-in process
@@ -58,14 +63,14 @@ function SignIn() {
         transition={{ duration: 1 }}
         className="hidden md:flex w-1/2 bg-gradient-to-br from-blue-800 via-blue-900 to-black items-center justify-center p-10 text-white"
       >
-        <div className="max-w-sm space-y-6">
+        <div className="max-w-3xl space-y-6">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-4xl font-bold leading-snug"
+            className="text-3xl font-bold leading-snug"
           >
-            Welcome Back to Grantty
+         Welcome to Grantty 👋🏼
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -75,6 +80,32 @@ function SignIn() {
           >
             We missed you! Log in to continue your journey.
           </motion.p>
+              <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8 }}
+                      className="flex items-center justify-center flex-col bg-white rounded-2xl border-2  py-8 p-4 shadow-lg text-black"
+                    >
+                      <p>Kindly select an option</p>
+                      <div className="flex items-center justify-center rounded-lg p-4 gap-5  ml-2 border-2 mt-5 hover:bg-[#F4F5F7] cursor-pointer" onClick={handleSignUp}>
+                        <p className="w-7 h-7 border-[#B4B4B4] border-2  rounded-full"></p>
+                        <div className="space-y-3">
+                          <h1 className="font-semibold text-xl">Sign Up</h1>
+                          <p>You don’t have an account with us</p>
+                        </div>
+          
+                      </div>
+          
+                      <div className="flex items-center justify-center rounded-lg p-4 gap-5  ml-2 border-2 mt-5 hover:bg-[#F4F5F7] cursor-pointer" >
+                        <p className="w-7 h-7 border-[#B4B4B4] border-2  rounded-full"></p>
+                        <div className="space-y-3">
+                          <h1 className="font-semibold text-xl">Log In</h1>
+                          <p>You have an existing account with us</p>
+                        </div>
+          
+                      </div>
+          
+                    </motion.div>
         </div>
       </motion.div>
 
@@ -143,7 +174,7 @@ function SignIn() {
             whileHover={{ scale: 1.05, boxShadow: "0 0 10px rgba(59,130,246,0.6)" }}
             transition={{ type: "spring", stiffness: 300 }}
             type="submit"
-            className="w-full bg-black text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition-all mt-5"
+            className="w-full bg-[#163078] text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition-all mt-5"
           >
             {isLoading ? (
               <ClipLoader size={24} color="#ffffff" /> // Show spinner while loading
