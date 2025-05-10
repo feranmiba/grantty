@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import SignIn from "./pages/auth/signIn";
 import SignUp from "./pages/auth/signup";
 import GrantPage from "./pages/Grant";
+import Frontlett from "./pages/Frontlett";
 import FounderForm from "./pages/FounderForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,6 +34,9 @@ const App = () => {
               <Route path="/auth/signin" element={<SignIn />} />
               <Route path="/auth/signup" element={<SignUp />} />
               <Route path="/grant/:startup_id" element={<GrantPage />} />
+              <Route path="/frontlett" element={<Frontlett />} />
+
+              
 
               {/* Conditional route for Founder page */}
               <Route 

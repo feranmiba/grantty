@@ -13,6 +13,10 @@ const HeroSection = () => {
       navigate('/founder');
       console.log('Sign Up button clicked');
     }
+
+    const Frontlett = () => {
+      navigate('/frontlett');
+    }
     
   
      useEffect(() => {
@@ -89,7 +93,7 @@ const HeroSection = () => {
               <div className="relative bg-white rounded-3xl p-6 shadow-lg border border-grantty-lightBlue">
                 <div className="flex justify-between items-center mb-4">
                   <div>
-                    <h3 className="font-bold text-secondary text-xl">TechVenture</h3>
+                    <h3 className="font-bold text-secondary text-xl">FrontLett</h3>
                     <p className="text-sm text-secondary/70">Lagos, Nigeria</p>
                   </div>
                   <div className="bg-grantty-green/10 text-grantty-green font-medium px-3 py-1 rounded-full text-sm">
@@ -119,7 +123,7 @@ const HeroSection = () => {
                 </div>
                 
                 <div className="text-center">
-                  <Button className="w-full btn-primary">Support This Startup</Button>
+                  <Button className="w-full btn-primary" onClick={Frontlett}>Support This Startup</Button>
                 </div>
               </div>
             </div>

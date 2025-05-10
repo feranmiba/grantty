@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '@/store/useUserStore';
 import { useAuthStore} from "../store/useAuthStore"; 
 import { FaUser } from 'react-icons/fa'; // This imports the FaUser icon from the FontAwesome icons collection
-
+import Logo from '../assests/Main Logo.png'
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -44,8 +44,8 @@ const Navbar = () => {
       }`}
     >
       <div className="container-custom flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold text-secondary">
-          Grant<span className="text-primary">ty</span>
+        <a href="/" className="text-2xl font-bold text-secondary">
+          <img src={Logo} alt="Grantty Logo" className="h-10" />
         </a>
         
         <nav className="hidden md:flex space-x-8">
