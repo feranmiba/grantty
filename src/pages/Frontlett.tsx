@@ -8,6 +8,7 @@ import ProductOverviewSection from '@/components/Frontlett/ProductOverview'
 import WhyWeDifferSection from '@/components/Frontlett/Whywediffer'
 import ProblemSolutionSection from '@/components/Frontlett/ProblemandSOlution'
 import FrontlettInfo from '@/components/Frontlett/FrotelettHero'
+import StrategicPartners from '@/components/Frontlett/StrategicPartners'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
@@ -20,6 +21,7 @@ function Frontlett() {
     <ProblemSolutionSection />
     <ProductOverviewSection />
     <WhyWeDifferSection />
+    <StrategicPartners />
     <RevenueModel />
     <GoToMarketSection />
     <FundingSection />

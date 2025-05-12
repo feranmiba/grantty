@@ -26,8 +26,8 @@ const AnimatedCard = ({ title, subtitle, content, badgeText }) => {
 const FrontlettInfo = () => {
   return (
     <section className="px-5 lg:px-0">
-           <div className="flex justify-center mb-10">
-            <img src={Frontlett} alt="Frontlett" className="w-[10%]" />
+           <div className="flex justify-center mb-10 mt-20 md:mt-0">
+            <img src={Frontlett} alt="Frontlett" className=" w-[30%] md:w-[10%]" />
             </div>
             <div className="flex flex-col lg:flex-row gap-8 justify-center items-center max-w-7xl mx-auto">
       <div className="p-6  rounded-lg shadow-lg backdrop-blur-lg lg:w-[50%] lg:h-[50vh]">

@@ -39,13 +39,10 @@ const WhyWeDifferSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-start mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800">Why We Differ</h2>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-            Our unique staff sharing model offers advantages to both companies and resources
-            that traditional hiring models can't match.
-          </p>
+     
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -7,8 +7,8 @@ import FrontLett from '../../assests/FrontlettHero.png'
 const HeroSection = () => {
   return (
 <section className="md:py-20 relative overflow-hidden">
-  <div className="flex justify-center py-10 px-10">
-    <Badge  variant="outline" className="mb-2 bg-[#5D9CEC1A] text-[#163078] text-sm p-3 md:p-2 text-center md:text-base font-extralight lg:text-lg">Future of Work {">>"} We’re raising a ₦5m or $3k Grantt to build a new work model for the world. For as low as ₦1,000 or $1 you can help make this happen </Badge>
+  <div className="flex justify-center py-10 px-10 mt-14 md:mt-0">
+    <Badge  variant="outline" className="mb-2 bg-[#5D9CEC1A] text-[#163078] text-[12px] p-3 md:p-2 text-center md:text-base font-extralight lg:text-lg">Future of Work {">>"} We’re raising a ₦5m or $3k Grantt to build a new work model for the world. For as low as ₦1,000 or $1 you can help make this happen </Badge>
   </div>
   <div className="">
     <div className="flex flex-col-reverse lg:flex-row  justify-between lg:gap-10">

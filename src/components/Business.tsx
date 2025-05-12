@@ -68,8 +68,8 @@ const GranttyAdvantage: React.FC = () => {
   };
 
   return (
-    <div className="text-center py-8">
-      <h1 className="text-3xl font-bold mb-8">Businesses Empowered by the Grantty Advantage</h1>
+    <div className="text-start py-8 md:px-20">
+      <h1 className="text-3xl font-bold mb-8 text-center">Businesses Empowered by the Grantty Advantage</h1>
       <div className="flex justify-around flex-wrap space-x-8">
         {currentCards.map((business) => (
           <Card key={business.startup_id} businessInfo={business} />
@@ -83,17 +83,17 @@ const GranttyAdvantage: React.FC = () => {
           className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2 disabled:bg-gray-400"
           disabled={currentPage === 1}
         >
-          Previous
+          {"<"}
         </button>
         <span className="text-lg font-medium">
-          Page {currentPage} of {totalPages}
+           {currentPage} of {totalPages}
         </span>
         <button
           onClick={handleNextPage}
           className="px-4 py-2 bg-blue-500 text-white rounded-md ml-2 disabled:bg-gray-400"
           disabled={currentPage === totalPages}
         >
-          Next
+          {">"}
         </button>
       </div>
     </div>
@@ -110,21 +110,26 @@ const Card: React.FC<{ businessInfo: any }> = ({ businessInfo }) => {
 
   return (
     <div className="border border-gray-300 p-6 w-[90%] md:w-[40%] lg:w-[30%] mt-5 shadow-lg rounded-lg">
-      <div className="h-32 bg-gray-200 mb-4"></div>
+      <div className="h-48 bg-gray-200 mb-4 ">
+        {/* <img src={businessInfo.startup_picture} alt={businessInfo.startup_name} /> */}
+      </div>
       <h2 className="text-2xl font-semibold">{businessInfo.startup_name}</h2>
       <p className="text-gray-600 mt-2">{businessInfo.startup_description}</p>
       <p className="font-medium mt-4">
-        <strong>Founded By:</strong> {businessInfo.founder_full_name}
+        <span  className='text-lg'>Founded By:</span> {businessInfo.founder_full_name}
       </p>
-      <p className="font-medium">
-        <strong>Grant Goal:</strong> {businessInfo.amount_of_funds}
+      <div className='flex justify-between my-5'>
+      <p className="font-medium flex flex-col gap-3 text-sm">
+        <span  className='text-lg'>Grant Goal:</span> ₦{businessInfo.amount_of_funds}
       </p>
-      <p className="font-medium">
-        <strong>Raised:</strong> {businessInfo.raisedAmount || 'N/A'} {/* Handle missing data */}
+      <p className="font-medium flex flex-col gap-3 text-sm">
+        <span  className='text-lg'>Raised:</span> ₦{businessInfo.raisedAmount || '0.00'} 
       </p>
-      <p className="font-medium mb-4">
-        <strong>To-go:</strong> {businessInfo.toGo || 'N/A'} {/* Handle missing data */}
+      <p className="font-medium flex flex-col gap-3 text-sm">
+        <span className='text-lg'>To-go:</span> ₦{businessInfo.toGo || businessInfo.amount_of_funds} 
       </p>
+      </div>
+  
       <button
         onClick={handleGrantStartup}
         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"

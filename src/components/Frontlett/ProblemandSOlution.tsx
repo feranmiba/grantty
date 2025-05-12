@@ -1,6 +1,7 @@
 
 import { motion } from "framer-motion";
 import { AlertTriangle, Check } from "lucide-react";
+import { FaUser } from "react-icons/fa";
 
 const problems = {
   companies: [
@@ -52,9 +53,7 @@ const ProblemSolutionSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800">Problem & Solution</h2>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-            Addressing key challenges for both companies and resources
-          </p>
+         
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -64,7 +63,7 @@ const ProblemSolutionSection = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="bg-blue-50 rounded-xl p-6"
           >
-            <h3 className="text-xl font-bold text-blue-800 mb-6">For Companies</h3>
+            <h3 className="text-3xl font-bold text-blue-800 mb-6">For Companies</h3>
             
             <div className="space-y-6">
               {problems.companies.map((item, index) => (
@@ -73,13 +72,17 @@ const ProblemSolutionSection = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.1 * (index + 1) }}
+                  className="bg-white py-5 px-5 rounded-2xl"
                 >
-                  <div className="flex mb-2">
-                    <AlertTriangle className="text-amber-500 mr-2 h-5 w-5 mt-0.5 flex-shrink-0" />
+                  <div className="flex mb-2 gap-5">
+                  <p className="bg-gray-50 flex justify-center items-center w-[30px] h-[30px] rounded-full">
+
+                    <AlertTriangle className="text-blue-950  h-3 w-4 mt-0.5 flex-shrink-0" />
+                    </p>
                     <p className="font-medium text-slate-700">{item.problem}</p>
                   </div>
                   <div className="pl-7 border-l-2 border-blue-200 ml-2">
-                    <div className="flex items-center text-blue-700 text-sm">
+                    <div className="flex items-center text-blue-700 bg-blue-50 py-5 px-5 rounded-xl text-sm">
                       <Check className="mr-2 h-4 w-4 text-blue-600" />
                       <span>{item.solution}</span>
                     </div>
@@ -95,7 +98,7 @@ const ProblemSolutionSection = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="bg-rose-50 rounded-xl p-6"
           >
-            <h3 className="text-xl font-bold text-rose-800 mb-6">For Resources</h3>
+            <h3 className="text-3xl font-bold text-[#FF7A50] mb-6">For Resources</h3>
             
             <div className="space-y-6">
               {problems.resources.map((item, index) => (
@@ -104,13 +107,18 @@ const ProblemSolutionSection = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.1 * (index + 1) }}
+                  className="bg-white py-5 px-5 rounded-2xl"
+
                 >
-                  <div className="flex mb-2">
-                    <AlertTriangle className="text-amber-500 mr-2 h-5 w-5 mt-0.5 flex-shrink-0" />
+                  <div className="flex mb-2 gap-5">
+                    <p className="bg-gray-50 flex justify-center items-center w-[30px] h-[30px] rounded-full">
+                    <FaUser className="text-amber-500 h-3 w-4 mt-0.5 flex-shrink-0" />
+
+                    </p>
                     <p className="font-medium text-slate-700">{item.problem}</p>
                   </div>
                   <div className="pl-7 border-l-2 border-rose-200 ml-2">
-                    <div className="flex items-center text-rose-700 text-sm">
+                    <div className="flex items-center text-rose-700 text-sm bg-blue-50 py-5 px-5 rounded-xl">
                       <Check className="mr-2 h-4 w-4 text-rose-600" />
                       <span>{item.solution}</span>
                     </div>
