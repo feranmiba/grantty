@@ -106,7 +106,7 @@ const GrantPage: React.FC = () => {
 
     return (
         <div className="">
-            <div className='bg-[#163078] p-3 md:p-8 text-white flex justify-between '>
+            <div className='bg-[#163078] px-2 py-5 md:p-8 text-white flex justify-between '>
                 <h1 className='text-lg md:text-3xl md:font-bold'>Grant {startup.startup_name}</h1>
                 <div className='flex gap-8 items-center text-white text-base md:text-2xl font-semibold'>
                     {user?.full_name || 'Guest'}

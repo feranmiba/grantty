@@ -38,7 +38,7 @@ const Navbar = () => {
 
   const handleButtonClick = () => {
     if (isFrontlettRoute) {
-      navigate('/grant-frontlett'); // Navigate to the 'grant-frontlett' route
+      navigate('/grant/grant-frontlett'); // Navigate to the 'grant-frontlett' route
     } else {
       signUp(); // Call sign up function
     }
@@ -85,10 +85,10 @@ const Navbar = () => {
        
           </Button>)}
           <Button
-  className={`btn-primary ${isFrontlettRoute ? 'bg-[#549421]' : ''} text-white`}
+  className={`btn-primary ${isFrontlettRoute ? 'bg-[#549421] hover:bg-[#477d1b]' : ''} text-white`}
   onClick={handleButtonClick}
 >
-  {isFrontlettRoute ? 'Grant This Business' : 'Sign Up'}
+  {isFrontlettRoute ? 'Grantt This Business' : 'Sign Up'}
 </Button>
         </div>
       </div>

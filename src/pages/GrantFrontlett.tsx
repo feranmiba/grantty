@@ -42,7 +42,7 @@ const GrantFrontlettPage: React.FC = () => {
 
     return (
         <div className="">
-            <div className='bg-[#163078] p-3 md:p-8 text-white flex justify-between'>
+            <div className='bg-[#163078] py-5 px-2 md:p-8 text-white flex justify-between'>
                 <h1 className='text-lg md:text-3xl md:font-bold'>Grant Frontlett</h1>
                 <div className='flex gap-8 items-center text-white text-base md:text-2xl font-semibold'>
                     {user ? (
@@ -64,14 +64,17 @@ const GrantFrontlettPage: React.FC = () => {
             </div>
             <div className="max-w-7xl mx-auto mt-8 px-3 lg:px-0">
                 <div className="mb-6">
-                    <div className='flex gap-10 items-center flex-wrap md:flex-nowrap px-5 md:px-0'>
-                        <div className='w-full md:w-[70%]'>
+                    <div className='flex gap-10 items-center flex-wrap md:flex-nowrap px-5 md:px-10'>
+                        <div className='w-full md:w-[50%]'>
                             <img src={Grant} alt="grant" className="w-full h-72 object-cover rounded-lg mb-4" />
                         </div>
-                        <div>
+                        <div className='md:w-[60%]'>
                             <h2 className="text-lg font-semibold">Frontlett</h2>
-                            <p className="text-gray-600 leading-8 mb-4">          Frontlett Virtualting is a staff share and resource share model that allows companies to share a staff with other companies while they split the cost of hiring the employee or resource. The model allows employees and resources to work for as much as 4 companies in slot times of 2hrs.
+                            <p className=" leading-8 mb-1 text-[#0F1729]">          Frontlett Virtualting is a staff share and resource share model that allows companies to share a staff with other companies while they split the cost of hiring the employee or resource. The model allows employees and resources to work for as much as 4 companies in slot times of 2hrs.
                             </p>
+                            <p className="mt-1 text-[#0F1729] leading-8 mb-4">
+          The objective of the model is to allow companies to hire the right people they need irrespective of the cost, as they will need to take a slot portion they can afford as well as an opportunity to hire a full team needed for the company to succeed.
+        </p>
                             <p className="text-gray-500 mb-4">Nigeria</p>
                             <p className="text-blue-600">
                                 <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
