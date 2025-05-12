@@ -45,7 +45,7 @@ const Navbar = () => {
     >
       <div className="container-custom flex justify-between items-center">
         <a href="/" className="text-2xl font-bold text-secondary">
-          <img src={Logo} alt="Grantty Logo" className="h-10" />
+          <img src={Logo} alt="Grantty Logo" className="h-5 md:h-10" />
         </a>
         
         <nav className="hidden md:flex space-x-8">
@@ -60,9 +60,9 @@ const Navbar = () => {
           </a>
         </nav>
         
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 text-[10px] md:text-base">
         {user? (
-          <div className='border rounded-full px-4 py-2 bg-primary/10 text-primary font-semibold'>
+          <div className='border rounded-full px-2 md:px-4 py-2 bg-primary/10 text-primary font-semibold'>
             <FaUser className='inline-block mr-2' />
             {user.full_name}
           </div>

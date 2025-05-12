@@ -6,9 +6,9 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { DollarSign, PieChart as PieChartIcon } from "lucide-react";
 
 const data = [
-  { name: "HR Fee (25%)", value: 25, color: "#4285f4" },
-  { name: "Platform Fees (45%)", value: 45, color: "#ff7043" },
-  { name: "Commission (30%)", value: 30, color: "#4db6ac" }
+  { name: "HR Fee", value: 25, color: "#4285f4" },
+  { name: "Platform Fees ", value: 45, color: "#ff7043" },
+  { name: "Commission", value: 30, color: "#4db6ac" }
 ];
 
 const RevenueModel = () => {

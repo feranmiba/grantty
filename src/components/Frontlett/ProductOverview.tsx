@@ -170,9 +170,9 @@ const ProductOverviewSection = () => {
           <p className="text-slate-600 text-center mb-8">Our progress and milestones</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white shadow-xl p-6 rounded-lg">
+            <div className="bg-white shadow-xl p-6 rounded-lg mb-6">
               <h4 className="font-bold text-slate-800 mb-4 text-2xl">Milestones</h4>
-              <div className="space-y-6">
+              <div className="space-y-10 mt-4">
                 {milestones.map((milestone, index) => (
                   <div key={index} className="flex">
                     <div className="mr-3 mt-1">

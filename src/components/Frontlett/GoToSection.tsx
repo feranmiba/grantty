@@ -60,7 +60,7 @@ const GoToMarketSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className={`h-full ${index === 2 ? "border-red-400 border-2" : ""}`}>
+              <Card className={`h-full `}>
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-3">
                     <div className="h-12 w-12 flex items-center justify-center rounded-full bg-blue-50">
