@@ -33,7 +33,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/auth/signin" element={<SignIn />} />
               <Route path="/auth/signup" element={<SignUp />} />
-              <Route path="/grant/:startup_id" element={<GrantPage />} />
+              <Route path="/grant/:startup_id" element={token ? <GrantPage /> : <Navigate to="/auth/signin" />} />
               <Route path="/frontlett" element={<Frontlett />} />
 
               

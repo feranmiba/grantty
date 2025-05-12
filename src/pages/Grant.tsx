@@ -106,13 +106,13 @@ const GrantPage: React.FC = () => {
 
     return (
         <div className="">
-            <div className='bg-[#163078] p-8 text-white flex justify-between '>
-                <h1 className='text-3xl font-bold'>Grant {startup.startup_name}</h1>
+            <div className='bg-[#163078] p-3 md:p-8 text-white flex justify-between '>
+                <h1 className='text-lg md:text-3xl md:font-bold'>Grant {startup.startup_name}</h1>
                 {user? (
-          <div className=' flex gap-8 items-center  text-white text-2xl font-semibold'>
+          <div className=' flex gap-8 items-center  text-white text-base md:text-2xl font-semibold'>
             {user.full_name}
-            <p className='w-[50px] h-[50px] bg-white flex justify-center items-center rounded-full'>
-            <FaUser className=' text-black' />
+            <p className='w-[50px] h-[50px] bg-white  justify-center items-center rounded-full md:flex hidden'>
+            <FaUser className=' text-black ' />
             </p>
           </div>
 
@@ -120,11 +120,11 @@ const GrantPage: React.FC = () => {
 
 
                 </div>
-            <div className="max-w-7xl mx-auto mt-8">
+            <div className="max-w-7xl mx-auto mt-8 px-3 lg:px-0">
                 {startup && (
                     <div className="mb-6">
 
-                        <div className='flex gap-10 items-center'>
+                        <div className='flex gap-10 items-center flex-wrap md:flex-nowrap px-5 md:px-0'>
                             <div>
                             <img
                                 src={startup.startup_image || Grant}
@@ -148,7 +148,7 @@ const GrantPage: React.FC = () => {
                     </div>
                 )}
 
-<div className='max-w-2xl mx-auto'>
+<div className='px-5 md:max-w-2xl mx-auto'>
 
 
 <div className="flex items-center justify-between mt-4">
