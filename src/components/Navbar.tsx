@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useUserStore } from '@/store/useUserStore';
 import { useAuthStore} from "../store/useAuthStore"; 
 import { FaUser } from 'react-icons/fa'; // This imports the FaUser icon from the FontAwesome icons collection
@@ -27,10 +27,22 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const location = useLocation();
+  const isFrontlettRoute = location.pathname === '/frontlett';
+
   const signUp = () => {
     navigate('/founder');
     console.log('Sign Up button clicked');
   }
+
+
+  const handleButtonClick = () => {
+    if (isFrontlettRoute) {
+      navigate('/grant-frontlett'); // Navigate to the 'grant-frontlett' route
+    } else {
+      signUp(); // Call sign up function
+    }
+  };
 
   const signIn = () => {
     navigate('/auth/signin');
@@ -72,9 +84,12 @@ const Navbar = () => {
        Log In
        
           </Button>)}
-          <Button className="btn-primary" onClick={signUp}>
-            Apply Now
-          </Button>
+          <Button
+  className={`btn-primary ${isFrontlettRoute ? 'bg-[#549421]' : ''} text-white`}
+  onClick={handleButtonClick}
+>
+  {isFrontlettRoute ? 'Grant This Business' : 'Sign Up'}
+</Button>
         </div>
       </div>
     </header>

@@ -81,7 +81,7 @@ const ProblemSolutionSection = () => {
                     </p>
                     <p className="font-medium text-slate-700">{item.problem}</p>
                   </div>
-                  <div className="pl-7 border-l-2 border-blue-200 ml-2">
+                  <div className="pl-7 ">
                     <div className="flex items-center text-blue-700 bg-blue-50 py-5 px-5 rounded-xl text-sm">
                       <Check className="mr-2 h-4 w-4 text-blue-600" />
                       <span>{item.solution}</span>
@@ -117,7 +117,7 @@ const ProblemSolutionSection = () => {
                     </p>
                     <p className="font-medium text-slate-700">{item.problem}</p>
                   </div>
-                  <div className="pl-7 border-l-2 border-rose-200 ml-2">
+                  <div className="pl-7 ">
                     <div className="flex items-center text-rose-700 text-sm bg-blue-50 py-5 px-5 rounded-xl">
                       <Check className="mr-2 h-4 w-4 text-rose-600" />
                       <span>{item.solution}</span>

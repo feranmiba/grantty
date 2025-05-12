@@ -108,15 +108,12 @@ const GrantPage: React.FC = () => {
         <div className="">
             <div className='bg-[#163078] p-3 md:p-8 text-white flex justify-between '>
                 <h1 className='text-lg md:text-3xl md:font-bold'>Grant {startup.startup_name}</h1>
-                {user? (
-          <div className=' flex gap-8 items-center  text-white text-base md:text-2xl font-semibold'>
-            {user.full_name}
-            <p className='w-[50px] h-[50px] bg-white  justify-center items-center rounded-full md:flex hidden'>
-            <FaUser className=' text-black ' />
-            </p>
-          </div>
-
-        ) : ( "")}
+                <div className='flex gap-8 items-center text-white text-base md:text-2xl font-semibold'>
+                    {user?.full_name || 'Guest'}
+                    <div className='w-[50px] h-[50px] bg-white justify-center items-center rounded-full md:flex hidden'>
+                        <FaUser className='text-black' />
+                    </div>
+                    </div>
 
 
                 </div>
@@ -193,7 +190,7 @@ const GrantPage: React.FC = () => {
                         <input
                             type="text"
                             className="w-full p-2 border rounded"
-                            value={name || user.full_name}
+                            value={name || (user ? user.full_name : '')}
                             onChange={(e) => setName(e.target.value)}
                             required
                         />
@@ -203,7 +200,7 @@ const GrantPage: React.FC = () => {
                         <input
                             type="email"
                             className="w-full p-2 border rounded"
-                            value={email || user.email}
+                            value={email || (user ? user.email : '')}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />

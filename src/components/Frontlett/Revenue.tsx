@@ -8,7 +8,8 @@ import { DollarSign, PieChart as PieChartIcon } from "lucide-react";
 const data = [
   { name: "HR Fee", value: 25, color: "#4285f4" },
   { name: "Platform Fees ", value: 45, color: "#ff7043" },
-  { name: "Commission", value: 30, color: "#4db6ac" }
+  { name: "Commission", value: 30, color: "#4db6ac" },
+  { name: "Interest On Deposit", value: 10, color: "#9F7AEA" }
 ];
 
 const RevenueModel = () => {

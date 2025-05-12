@@ -3,8 +3,14 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
 import FrontLett from '../../assests/FrontlettHero.png'
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
+  const grants = () => {
+    navigate("/grant/grant-frontlett");
+  } 
   return (
 <section className="md:py-20 relative overflow-hidden">
   <div className="flex justify-center py-10 md:px-10 mt-14 md:mt-0">
@@ -26,7 +32,7 @@ const HeroSection = () => {
            Staff Sharing Platform
           </h1>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Button size="lg" className="bg-[#6CBB2D] shadow-xl hover:bg-blue-700">
+            <Button size="lg" className="bg-[#6CBB2D] shadow-xl hover:bg-[#62a62a] " onClick={grants}>
               Grantt Us <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button size="lg" variant="outline" className="border-[#6CBB2D] text-[#6CBB2D]">

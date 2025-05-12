@@ -10,6 +10,7 @@ import SignIn from "./pages/auth/signIn";
 import SignUp from "./pages/auth/signup";
 import GrantPage from "./pages/Grant";
 import Frontlett from "./pages/Frontlett";
+import GrantFrontlettPage from "./pages/GrantFrontlett";
 import FounderForm from "./pages/FounderForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,8 +34,11 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/auth/signin" element={<SignIn />} />
               <Route path="/auth/signup" element={<SignUp />} />
-              <Route path="/grant/:startup_id" element={token ? <GrantPage /> : <Navigate to="/auth/signin" />} />
+              <Route path="/grant/:startup_id" element={<GrantPage />} />
               <Route path="/frontlett" element={<Frontlett />} />
+              <Route path="/grant/grant-frontlett" element={<GrantFrontlettPage />} />
+
+              
 
               
 

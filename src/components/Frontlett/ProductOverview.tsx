@@ -93,7 +93,7 @@ const nextSteps = [
 const ProductOverviewSection = () => {
   return (
     <section className="py-20   bg-white">
-      <div className="max-w-7xl mx-auto px-5 lg:px-0">
+     <div className="md:max-5xl lg:max-w-7xl mx-auto px-5 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -160,7 +160,7 @@ const ProductOverviewSection = () => {
 
         </section>
     
-    <section className="max-w-7xl mx-auto px-5 lg:px-0">
+    <section className="max-w-7xl mx-auto px-5 md:px-10 lg:px-10">
     <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
