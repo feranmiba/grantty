@@ -8,23 +8,31 @@ const GrantFrontlettPage: React.FC = () => {
     const { user } = useUserStore();
     const [amount, setAmount] = useState<number | "">("");
     const [supportAs, setSupportAs] = useState<string>("Individual");
-    const [name, setName] = useState<string>("");
+    const [full_name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [anonymous, setAnonymous] = useState<boolean>(false);
     const [subscribe, setSubscribe] = useState<boolean>(false);
     const progress = 0;
+    const startup_id = 150
+    const callback_url = "https://grantty.netlify.app/"
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const formData = { amount, email, startup_id, callback_url, full_name,};
+
         try {
-            const response = await fetch('https://grantty-backend.onrender.com/payment/paystack/initialize', {
+            const response = await fetch(`https://grantty-backend.onrender.com/payment/paystack/initialize`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
             });
 
             if (response.ok) {
                 const data = await response.json();
-                const authorizationUrl = data.data.authorization_url;
+                const authorizationUrl = data.data;
 
                 if (authorizationUrl) {
                     toast.success('Form submitted successfully, Redirection in progress...');
@@ -104,7 +112,7 @@ const GrantFrontlettPage: React.FC = () => {
                             </select>
                         </label>
                         <label>Name
-                            <input type="text" className="w-full p-2 border rounded" value={name || user?.full_name || ''} onChange={(e) => setName(e.target.value)} required />
+                            <input type="text" className="w-full p-2 border rounded" name='full_name' value={full_name || user?.full_name || ''} onChange={(e) => setName(e.target.value)} required />
                         </label>
                         <label>Email Address
                             <input type="email" className="w-full p-2 border rounded" value={email || user?.email || ''} onChange={(e) => setEmail(e.target.value)} required />

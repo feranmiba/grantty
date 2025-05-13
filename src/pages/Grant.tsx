@@ -5,16 +5,18 @@ import Grant from '../assests/grant.jpg'
 import { useUserStore } from '@/store/useUserStore';
 import { Button } from '@/components/ui/button';
 import { FaUser } from 'react-icons/fa';
+import usePaymentStore from '@/store/usePaymentstore';
 
 
 const GrantPage: React.FC = () => {
     const { startup_id } = useParams<{ startup_id: string }>(); // Retrieve startup_id from URL params
       const { user } = useUserStore();
+      const { setPayment } = usePaymentStore();
     
 
     const [amount, setAmount] = useState<number | "">("");
     const [supportAs, setSupportAs] = useState<string>("Individual");
-    const [name, setName] = useState<string>("");
+    const [full_name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [anonymous, setAnonymous] = useState<boolean>(false);
     const [subscribe, setSubscribe] = useState<boolean>(false);
@@ -61,11 +63,17 @@ const GrantPage: React.FC = () => {
     
     
     const progress = goalAmount && raisedAmount ? Math.min((raisedAmount / goalAmount) * 100, 100) : 0;
+    const callback_url = "https://grantty.netlify.app/"
+    const generateReference = () => `ref_${Math.random().toString(36).slice(2, 11)}`;
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log(startup_id);
-        const formData = { amount, email, startup_id };
+        const reference = generateReference();
+        const startup_name = startup.startup_name;
+        const formData = { amount, email, startup_id, callback_url, full_name, reference, startup_name,  };
+        // setPayment(formData);
     
         try {
             const response = await fetch(`https://grantty-backend.onrender.com/payment/paystack/initialize`, {
@@ -78,9 +86,8 @@ const GrantPage: React.FC = () => {
     
             if (response.ok) {
                 const data = await response.json();
-                const authorizationUrl = data.data.authorization_url;
+                const authorizationUrl = data.data;
     
-                // If the URL is provided, redirect to it
                 if (authorizationUrl) {
                     toast.success('Form submitted successfully, Redirection in progress...');
                     window.location.href = authorizationUrl;
@@ -189,8 +196,9 @@ const GrantPage: React.FC = () => {
                         Name
                         <input
                             type="text"
+                            name="full_name"
                             className="w-full p-2 border rounded"
-                            value={name || (user ? user.full_name : '')}
+                            value={full_name || (user ? user.full_name : '')}
                             onChange={(e) => setName(e.target.value)}
                             required
                         />
