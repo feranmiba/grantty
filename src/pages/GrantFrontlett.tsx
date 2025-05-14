@@ -100,7 +100,7 @@ const GrantFrontlettPage = () => {
   return (
     <section className="min-h-screen">
         <Navbar />
-        <section className='bg-[#000000BF] py-10 min-h-screen mt-20'>
+        <section className='bg-[#000000BF] py-10 min-h-screen mt-20 px-5 md:px-0'>
         <div className="w-full max-w-5xl mx-auto bg-white rounded-xl shadow-sm p-6 mt-8">
       <h1 className="text-2xl font-bold mb-6">Grant Frontlett</h1>
       

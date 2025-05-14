@@ -135,7 +135,7 @@ const GrantPage: React.FC = () => {
     return (
         <section className="min-h-screen">
         <Navbar />
-        <section className='bg-[#000000BF] py-10 min-h-screen mt-20'>
+        <section className='bg-[#000000BF] py-10 min-h-screen mt-20 px-5 md:px-0'>
         <div className="">
         
         <div className="w-full max-w-3xl mx-auto bg-white rounded-xl shadow-sm p-6 mt-8">
