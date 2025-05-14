@@ -1,0 +1,68 @@
+import React from 'react'
+import { Button } from './ui/button'
+import Frontlettt from '@/assests/Frontlett.png'
+
+function Frontlett() {
+  return (
+    <section  className="section-padding bg-[#E9EEFB]">
+        <section className='max-w-7xl mx-auto'>
+        <div className=" relative animate-float">
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>
+              <div className="relative bg-white rounded-3xl p-6 shadow-lg  border-2 border-[#6CBB2D]">
+                <section className='flex gap-40 items-center'>
+                <div className="w-[40%]">
+                <p className="space-y-5">
+                    <img src={Frontlettt} alt="Frontlett" className=" inline-block mr-2" />
+                    </p>
+                <div className='flex items-stretch gap-4 flex-col justify-center mt-10'>    
+                    <h4>The World 1st</h4>
+                    <p className="text-2xl text-[#1D1D1D]">Staff Sharing Platform</p>
+                </div>
+                </div>
+
+                <div className='w-full'>
+
+                    <div className="flex justify-between items-center mb-4">
+                    <div>
+                        <h3 className="font-bold text-secondary text-2xl">FrontLett</h3>
+                        <p className="text-xl text-[#1D1D1D] mt-3 mb-3">Abuja, Nigeria</p>
+                    </div>
+                    <div className="bg-grantty-green/10 text-grantty-green font-medium px-3 py-1 rounded-full text-sm">
+                        85% Funded
+                    </div>
+                    </div>
+
+                    <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
+                    <div className="bg-grantty-green h-2 rounded-full" style={{ width: '85%' }}></div>
+                    </div>
+
+                    <div className="flex justify-between text-sm mb-5 mt-2">
+                    <span className="font-medium">₦2,550,000 Raised</span>
+                    <span className="text-[#1D1D1D]">Goal ₦5,000,000</span>
+                    </div>
+
+                <div className="text-center mt-5">
+                  <Button className="w-full btn-primary bg-[#6CBB2D] hover:bg-[#5d9d28]" onClick={Frontlett}>Grantt this Startup</Button>
+                </div>      
+
+                </div>
+
+                </section>
+              
+              
+                
+           
+              </div>
+            </div>
+          </div>
+        </section>
+       
+        </section>
+  )
+}
+
+export default Frontlett
+
+
+  

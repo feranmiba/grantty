@@ -9,6 +9,8 @@ import Footer from "@/components/Footer";
 import FaQs from "@/components/FaQs";
 import Testimonials from "@/components/Testimonials";
 import GranttyAdvantage from "@/components/Business";
+import Frontlett from "@/components/Frontlett";
+import NewsLetter from "@/components/NewsLetter";
 
 const Index = () => {
   return (
@@ -19,10 +21,13 @@ const Index = () => {
         <HowItWorksSection />
         <WhyGranttySection />
         <EligibilitySection />
-        <GranttyAdvantage />
-        <Testimonials />
-        <CTASection />
         <FaQs />
+        {/* <GranttyAdvantage /> */}
+        <Testimonials />
+        <Frontlett />
+        <CTASection />
+
+        <NewsLetter />
       </main>
       <Footer />
     </div>

@@ -6,6 +6,13 @@ import { useUserStore } from '@/store/useUserStore';
 import { Button } from '@/components/ui/button';
 import { FaUser } from 'react-icons/fa';
 import usePaymentStore from '@/store/usePaymentstore';
+import Navbar from '@/components/Navbar';
+import { Input } from '@/components/ui/input';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+
+
+
 
 
 const GrantPage: React.FC = () => {
@@ -26,6 +33,16 @@ const GrantPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [startup, setStartup] = useState<any>(null);
 
+    const amountOptions = [
+        { value: 1000, label: "₦1,000 ($1)" },
+        { value: 2000, label: "₦2,000 ($2)" },
+        { value: 5000, label: "₦5,000 ($5)" },
+        { value: 10000, label: "₦10,000 ($10)" },
+        { value: 20000, label: "₦20,000 ($20)" },
+        { value: 50000, label: "₦50,000 ($50)" },
+        { value: 100000, label: "₦100,000 ($100)" },
+        { value: 250000, label: "₦250,000 ($250)" },
+      ];
   
     useEffect(() => {
         const fetchGrantData = async () => {
@@ -61,6 +78,10 @@ const GrantPage: React.FC = () => {
         }
     }, [startup_id]);
     
+
+    const handleAmountSelect = (value: number) => {
+        setAmount(value);
+      };
     
     const progress = goalAmount && raisedAmount ? Math.min((raisedAmount / goalAmount) * 100, 100) : 0;
     const callback_url = "https://grantty.netlify.app/"
@@ -112,86 +133,72 @@ const GrantPage: React.FC = () => {
     }
 
     return (
+        <section className="min-h-screen">
+        <Navbar />
+        <section className='bg-[#000000BF] py-10 min-h-screen mt-20'>
         <div className="">
-            <div className='bg-[#163078] px-2 py-5 md:p-8 text-white flex justify-between '>
-                <h1 className='text-lg md:text-3xl md:font-bold'>Grant {startup.startup_name}</h1>
-                <div className='flex gap-8 items-center text-white text-base md:text-2xl font-semibold'>
-                    {user?.full_name || 'Guest'}
-                    <div className='w-[50px] h-[50px] bg-white justify-center items-center rounded-full md:flex hidden'>
-                        <FaUser className='text-black' />
-                    </div>
-                    </div>
-
-
-                </div>
-            <div className="max-w-7xl mx-auto mt-8 px-3 lg:px-0">
+        
+        <div className="w-full max-w-3xl mx-auto bg-white rounded-xl shadow-sm p-6 mt-8">
                 {startup && (
                     <div className="mb-6">
 
                         <div className='flex gap-10 items-center flex-wrap md:flex-nowrap px-5 md:px-0'>
-                            <div>
-                            <img
-                                src={startup.startup_image || Grant}
-                                alt={startup.startup_name}
-                                className="w-full h-72 object-cover rounded-lg mb-4"
-                            />
-                            </div>
-                           <div>
-                            <h2 className="text-lg font-semibold">{startup.startup_name}</h2>
-                            <p className="text-gray-600">{startup.startup_description}</p>
-                            <p className="text-gray-500">{startup.startup_location}</p>
-                        <p className="text-blue-600">
-                            <a href={startup.startup_website} target="_blank" rel="noopener noreferrer">
-                                Visit Website
-                            </a>
-                        </p>
-                            </div>
+                      
+                        <h1 className="text-2xl font-bold mb-6">Grant {startup.startup_name}</h1>
                         </div>
                   
                   
                     </div>
                 )}
 
-<div className='px-5 md:max-w-2xl mx-auto'>
 
-
-<div className="flex items-center justify-between mt-4">
-    <span>₦{goalAmount.toLocaleString()} Goal</span>
-    <span>₦{raisedAmount.toLocaleString()} Raised</span>
-</div>
-<div className="w-full bg-gray-300 h-2 rounded-full">
-    <div
-        style={{ width: `${progress}%` }}
-        className="h-full bg-green-500 rounded-full"
-    ></div>
-</div>
-</div>
-
-                <div className='bg-[#5D9CEC0D] px-10 py-5 rounded-2xl max-w-3xl  mx-auto mt-10'>
-
-                    <h1 className='text-3xl font-semibold'>Grant {startup.startup_name}</h1>
                 <form onSubmit={handleSubmit} className="space-y-5 mt-10 text-[#686868]">
                     <label className="block">
                         Enter Amount
-                        <input
-                            type="number"
-                            className="w-full p-2 border rounded"
-                            value={amount}
-                            onChange={(e) => setAmount(parseFloat(e.target.value))}
-                            required
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+            {amountOptions.slice(0).map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => handleAmountSelect(option.value)}
+                className={`py-2 px-3 rounded-md text-sm border ${
+                  amount === option.value 
+                    ? "border-primary bg-primary/10 text-primary" 
+                    : option.value === 100000 
+                      ? "border-green-500 bg-green-50 hover:bg-green-100" 
+                      : option.value === 250000 
+                        ? "border-green-200 bg-green-50 hover:bg-green-100" 
+                        : "border-gray-200 bg-gray-50 hover:bg-gray-100"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+          
+                    <div className="mt-3">
+                        <Input
+                        type="number"
+                        placeholder="Enter the amount"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value ? Number(e.target.value) : "")}
+                        className="w-full"
                         />
+                    </div>
                     </label>
-                    <label className="block">
-                        Support as
-                        <select
-                            className="w-full p-2 border rounded"
-                            value={supportAs}
-                            onChange={(e) => setSupportAs(e.target.value)}
-                        >
-                            <option>Individual</option>
-                            <option>Organization</option>
-                        </select>
-                    </label>
+                        <div className="space-y-2">
+            <h2 className="text-sm font-medium text-gray-600">Support as</h2>
+            <RadioGroup defaultValue="Individual" value={supportAs} onValueChange={setSupportAs} className="flex gap-8">
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="Individual" id="individual" />
+                <Label htmlFor="individual">Individual</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="Organization" id="organization" />
+                <Label htmlFor="organization">Organization</Label>
+              </div>
+            </RadioGroup>
+          </div>
                     <label className="block">
                         Name
                         <input
@@ -238,8 +245,9 @@ const GrantPage: React.FC = () => {
                 </form>
                 </div>
                
-            </div>
         </div>
+        </section>
+        </section>
     );
 };
 

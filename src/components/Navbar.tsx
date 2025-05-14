@@ -85,10 +85,10 @@ const Navbar = () => {
        
           </Button>)}
           <Button
-  className={`btn-primary ${isFrontlettRoute ? 'bg-[#549421] hover:bg-[#477d1b]' : ''} text-white`}
+  className={`btn-primary  bg-[#549421] hover:bg-[#477d1b] text-white`}
   onClick={handleButtonClick}
 >
-  {isFrontlettRoute ? 'Grantt This Business' : 'Sign Up'}
+  {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}
 </Button>
         </div>
       </div>

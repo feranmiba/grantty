@@ -26,18 +26,22 @@ const faqData = [
 
 function FaQs() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeIndexs, setActiveIndexs] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
+  const toggleFaqs = (index: number) => {
+    setActiveIndexs(activeIndexs === index ? null : index);
+  };
 
   return (
-    <div className="p-6 md:p-12 max-w-4xl mx-auto">
+    <section className='section-padding bg-[#E9EEFB]'>
+    <div className="p-6 md:p-12 max-w-4xl mx-auto ">
       <h2 className="text-4xl font-semibold mb-6 text-center">Frequently Asked Questions</h2>
-      <p className="text-center mb-6 font-medium text-xl">
-        Everything you need to know about Grantty
-      </p>
+    
       <div className="space-y-2">
+      <h1 className='text-center my-5 mt-10 mb-14 text-lg'>FAQs for Granttees (Entrepreneurs)</h1>
         {faqData.map((faq, index) => (
           <div key={index} className="border-b border-gray-300 pb-3">
             <button
@@ -63,7 +67,37 @@ function FaQs() {
           </div>
         ))}
       </div>
+
+
+      <div className="space-y-2">
+        <h1 className='text-center my-5 mt-10 mb-14 text-lg'>FAQs for Granttors (Funders)</h1>
+        {faqData.map((faq, index) => (
+          <div key={index} className="border-b border-gray-300 pb-3">
+            <button
+              onClick={() => toggleFaqs(index)}
+              className="w-full flex justify-between items-center py-3 text-left focus:outline-none"
+            >
+              <span className="font-medium text-lg">{faq.question}</span>
+              <span className="text-gray-500">{activeIndex === index ? "-" : "+"}</span>
+            </button>
+            <AnimatePresence>
+              {activeIndexs === index && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="pl-4 pr-2 text-gray-700 overflow-hidden"
+                >
+                  {faq.answer}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </div>
     </div>
+    </section>
   );
 }
 

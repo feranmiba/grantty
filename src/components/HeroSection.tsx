@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Frontlettt from '@/assests/Frontlett.png';
 
 
 const HeroSection = () => {
@@ -47,21 +48,19 @@ const HeroSection = () => {
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-secondary leading-tight mb-6">
-              Launch Your Startup With a <span className="text-primary">₦5M Grant</span> – No Equity Taken
-            </h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary leading-tight mb-6">
+            Support the next great startup - from as low as ₦1,000 or $1
+              </h1>
             
             <p className="text-lg text-secondary/80 mb-8 leading-relaxed">
-              Grantty is a one-time, co-founder-backed grant opportunity for Nigerian startups, 
-              funded by everyday people who believe in your vision. Get the financial boost you 
-              need without giving up ownership.
+            Be part of real impact. Through Grantty, you can back Nigerian startups with micro grants-not loans, not equity-just meaningful support.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="btn-primary" size="lg" onClick={signUp}>
-                Apply Now
+              <Button className="btn-primary bg-[#6CBB2D] hover:bg-[#5d9d28]" size="lg" onClick={signUp}>
+              Grantt Now
               </Button>
-              <Button variant="outline" className="btn-secondary" size="lg" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button variant="outline" className="btn-secondary text-[#6CBB2D]" size="lg" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
                 Learn How It Works
               </Button>
             </div>
@@ -87,14 +86,14 @@ const HeroSection = () => {
             </div>
           </div>
           
-          <div className="order-1 md:order-2 relative animate-float">
+          <div className="order-1  md:order-2 relative animate-float">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>
-              <div className="relative bg-white rounded-3xl p-6 shadow-lg border border-grantty-lightBlue">
+              <div className="relative bg-white rounded-3xl p-6 shadow-lg  border-2 border-[#6CBB2D]">
                 <div className="flex justify-between items-center mb-4">
                   <div>
-                    <h3 className="font-bold text-secondary text-xl">FrontLett</h3>
-                    <p className="text-sm text-secondary/70">Lagos, Nigeria</p>
+                    <h3 className="font-bold text-secondary text-2xl">FrontLett</h3>
+                    <p className="text-xl text-[#1D1D1D] mt-3 mb-3">Abuja, Nigeria</p>
                   </div>
                   <div className="bg-grantty-green/10 text-grantty-green font-medium px-3 py-1 rounded-full text-sm">
                     85% Funded
@@ -105,33 +104,24 @@ const HeroSection = () => {
                   <div className="bg-grantty-green h-2 rounded-full" style={{ width: '85%' }}></div>
                 </div>
                 
-                <div className="flex justify-between text-sm mb-4">
-                  <span className="font-medium">$2,550 raised</span>
-                  <span className="text-secondary/70">Goal: $3,000</span>
+                <div className="flex justify-between text-sm mb-5 mt-2">
+                  <span className="font-medium">₦2,550,000 Raised</span>
+                  <span className="text-[#1D1D1D]">Goal ₦5,000,000</span>
                 </div>
                 
-                <div className="flex items-center space-x-2 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-grantty-blue/10 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-grantty-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="font-medium">Co-founders</p>
-                    <p className="text-xs text-secondary/70">Ade & Nneka</p>
+                <div className="flex items-center space-x-2 mt-8 mb-4">
+                <p className="w-[25%]">
+                      <img src={Frontlettt} alt="Frontlett" className=" inline-block mr-2" />
+                    </p>
+                  <div className='flex items-stretch gap-4 flex-col justify-center'>    
+                    <h4>The World 1st</h4>
+                    <p className="text-2xl text-secondary/70">Staff Sharing Platform</p>
                   </div>
                 </div>
                 
-                <div className="text-center">
-                  <Button className="w-full btn-primary" onClick={Frontlett}>Support This Startup</Button>
+                <div className="text-center mt-5">
+                  <Button className="w-full btn-primary bg-[#6CBB2D] hover:bg-[#5d9d28]" onClick={Frontlett}>Grantt this Startup</Button>
                 </div>
-              </div>
-            </div>
-            
-            <div className="absolute -bottom-8 -right-8 md:bottom-12 md:-right-12 bg-white rounded-xl shadow-lg p-3 max-w-[150px] animate-float" style={{animationDelay: '2s'}}>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-grantty-navy">{businessInfoList.length}</div>
-                <p className="text-xs text-secondary/70">Startups Funded</p>
               </div>
             </div>
           </div>
