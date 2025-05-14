@@ -87,7 +87,7 @@ const CTASection = () => {
               }`}
               style={{ transitionDelay: `${(option.id - 1) * 150}ms` }}
             >
-              <div className={`${option.bgColor} p-6 flex justify-center`}>
+              <div className={`${option.bgColor} p-16cl flex justify-center`}>
                 <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
                   {option.icon}
                 </div>
@@ -99,7 +99,7 @@ const CTASection = () => {
                 
                 <Button 
                   variant={option.buttonVariant === "default" ? "default" : "outline"} 
-                  className={`w-full ${option.buttonVariant === "default" ? "" : "border-2 border-secondary hover:bg-secondary hover:text-white"}`}
+                  className={`w-full  ${option.buttonVariant === "default" ? "" : "border-2 border-secondary hover:bg-secondary hover:text-white"}`}
                 >
                   {option.buttonText}
                 </Button>

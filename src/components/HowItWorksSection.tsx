@@ -182,7 +182,7 @@ const HowItWorksSection = () => {
         </div>
 
         <section className='flex  flex-wrap md:flex-nowrap'>
-        <div className="bg-[#1A1F2C] py-10 px-10 rounded-t-3xl md:rounded-t-none md:rounded-l-3xl md:w-[50%]">
+        <div className="bg-[#1A1F2C] py-10 px-5 md:px-10 rounded-t-3xl md:rounded-t-none md:rounded-l-3xl md:w-[50%]">
           <h1 className='text-3xl text-white font-semibold mb-4'>For Granttees</h1>
           {steps.map((step) => (
             <div 
@@ -212,7 +212,7 @@ const HowItWorksSection = () => {
             </div>
           ))}
         </div>
-        <div className="bg-[#5D9CEC1A] py-10 px-10 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl md:w-[50%]">
+        <div className="bg-[#5D9CEC1A] py-10 px-5 md:px-10 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl md:w-[50%]">
           <h1 className='text-[#1D1D1D] text-3xl font-semibold mb-4'>For Granttors</h1>
           {step.map((step) => (
             <div 

@@ -59,7 +59,7 @@ export default {
 				grantty: {
 					blue: '#1EAEDB',
 					navy: '#1A1F2C',
-					green: '#33D17E',
+					green: '#6CBB2D',
 					lightBlue: '#D3E4FD',
 					lightGreen: '#F2FCE2',
 					gray: '#F5F7FA'

@@ -1,8 +1,14 @@
 import React from 'react'
 import { Button } from './ui/button'
 import Frontlettt from '@/assests/Frontlett.png'
+import { useNavigate } from 'react-router-dom'
 
 function Frontlett() {
+  const navigate = useNavigate();
+
+  const Frontlett = () => {
+    navigate('/grant/grant-frontlett');
+  }
   return (
     <section  className="section-padding bg-[#E9EEFB]">
         <section className='max-w-7xl mx-auto px-20'>
@@ -42,7 +48,7 @@ function Frontlett() {
                     <span className="text-[#1D1D1D]">Goal ₦5,000,000</span>
                     </div>
 
-                <div className="text-center mt-5">
+                <div className="text-center mt-5" >
                   <Button className="w-full btn-primary bg-[#6CBB2D] hover:bg-[#5d9d28]" onClick={Frontlett}>Grantt this Startup</Button>
                 </div>      
 
