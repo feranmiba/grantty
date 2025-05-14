@@ -55,6 +55,9 @@ const HeroSection = () => {
             <p className="text-lg text-secondary/80 mb-8 leading-relaxed">
             Be part of real impact. Through Grantty, you can back Nigerian startups with micro grants-not loans, not equity-just meaningful support.
             </p>
+            <p className='mt-4 text-xl text-[#1D1D1D] font-semibold mb-10'>
+            Help visionary founders take their first step.
+            </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button className="btn-primary bg-[#6CBB2D] hover:bg-[#5d9d28]" size="lg" onClick={signUp}>

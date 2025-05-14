@@ -70,6 +70,9 @@ const Navbar = () => {
           <a href="#eligibility" className="text-secondary/80 hover:text-primary transition-colors">
             Who Can Apply
           </a>
+          <a href="#faq" className="text-secondary/80 hover:text-primary transition-colors">
+            Faqs
+          </a>
         </nav>
         
         <div className="flex items-center space-x-4 text-[10px] md:text-base">

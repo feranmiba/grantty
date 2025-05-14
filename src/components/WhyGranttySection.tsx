@@ -196,9 +196,9 @@ const WhyGranttySection = () => {
           </p>
         </div>
 
-        <section className='flex gap-1 flex-wrap md:flex-nowrap'>
+        <section className='flex  flex-wrap md:flex-nowrap'>
 
-        <div className="bg-[#1A1F2C] py-10 px-10 rounded-t-3xl md:rounded-l-3xl">
+        <div className="bg-[#1A1F2C] py-10 px-10 rounded-t-3xl md:rounded-t-none md:rounded-l-3xl">
         <h1 className='text-3xl text-white font-semibold mb-4'>For Granttees</h1>
 
           {benefits.map((benefit) => (
@@ -224,7 +224,7 @@ const WhyGranttySection = () => {
         </div>
 
 
-        <div className="bg-[#FFFFFF] py-10 px-10 rounded-b-3xl md:rounded-r-3xl">
+        <div className="bg-[#FFFFFF] py-10 px-10 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl">
         <h1 className='text-[#1D1D1D] text-3xl font-semibold mb-4'>For Granttors</h1>
 
           {benefit.map((benefit) => (

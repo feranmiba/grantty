@@ -36,7 +36,7 @@ function FaQs() {
   };
 
   return (
-    <section className='section-padding bg-[#E9EEFB]'>
+    <section id='faq' className='section-padding bg-[#E9EEFB]'>
     <div className="p-6 md:p-12 max-w-4xl mx-auto ">
       <h2 className="text-4xl font-semibold mb-6 text-center">Frequently Asked Questions</h2>
     

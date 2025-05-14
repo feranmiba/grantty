@@ -110,8 +110,8 @@ const EligibilitySection = () => {
                     </svg>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">{item.title}</h4>
-                      <p className="text-white/80 text-sm">{item.description}</p>
+                      <h4 className="font-semibold text-xl mb-1">{item.title}</h4>
+                      <p className="text-white/80 text-lg">{item.description}</p>
                     </div>
                   </li>
                 ))}
@@ -123,14 +123,14 @@ const EligibilitySection = () => {
               <ul className="space-y-6">
                 {whatWeLookFor.map((item, index) => (
                   <li key={index} className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-grantty-green/20 flex items-center justify-center mt-0.5">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#6CBB2D] flex items-center justify-center mt-0.5">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     </div>
                     <div>
-                      <h4 className="font-medium text-secondary mb-1">{item.title}</h4>
-                      <p className="text-secondary/70 text-sm">{item.description}</p>
+                      <h4 className="font-semibold text-[#1D1D1D] text-xl mb-1">{item.title}</h4>
+                      <p className="text-[#1D1D1D] text-lg">{item.description}</p>
                     </div>
                   </li>
                 ))}
