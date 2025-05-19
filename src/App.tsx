@@ -12,6 +12,7 @@ import GrantPage from "./pages/Grant";
 import Frontlett from "./pages/Frontlett";
 import GrantFrontlettPage from "./pages/GrantFrontlett";
 import FounderForm from "./pages/FounderForm";
+import GrantorDashboard from "./pages/GrantorDashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuthStore} from "./store/useAuthStore";  
@@ -46,6 +47,11 @@ const App = () => {
               <Route 
                 path="/founder" 
                 element={token ? <FounderForm /> : <Navigate to="/auth/signin" />} 
+              />
+
+              <Route 
+                path="/grantor-dashboard" 
+                element={token ? <GrantorDashboard /> : <Navigate to="/auth/signin" />} 
               />
 
               <Route path="*" element={<NotFound />} />
