@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import useStartup from '@/utils/useStartup';
 import { toast } from "react-toastify"; 
 import { FaWindows } from 'react-icons/fa';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import CircularProgress from '@/components/CircularProgress';
 
 
 interface Step {
@@ -53,12 +56,12 @@ const MultiStepForm: React.FC = () => {
 
   const { submitStartup, loading, error, success } = useStartup();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, files } = e.target as HTMLInputElement;
   
     if (files && files.length > 0) {
       // Handle file input
-      const file = e.target.files[0];
+      const file = (e.target as HTMLInputElement).files?.[0];
   
       // Instead of converting to base64, directly store the file object
       setFormData((prevData) => ({
@@ -136,17 +139,29 @@ const MultiStepForm: React.FC = () => {
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
 
   return (
-    <div className="flex p-4 w-full max-w-4xl mx-auto">
-      <div className="w-1/4 pr-4">
+    <>
+    <Navbar />
+    <div className="flex py-4 w-full max-w-7xl mx-auto mt-24">
+      <div className="w-1/3 pr-4 space-y-10 hidden md:block">
         {steps.map((step, index) => (
           <div key={index} className="flex items-center mb-4">
-            <div className={`w-8 h-8 rounded-full ${index <= currentStep ? 'bg-black' : 'bg-gray-300'} mr-2`}></div>
-            <span className={`text-sm ${index === currentStep ? 'text-black font-semibold' : 'text-gray-500'}`}>{step.label}</span>
+            <div className={`w-10 h-10 rounded-full flex justify-center items-center ${index <= currentStep ? 'bg-[#6CBB2D] text-white' : 'bg-[#D9D9D9]'} mr-2 `}> 0{index + 1}</div>
+            <span className={`text-2xl ${index === currentStep ? 'text-black font-normal' : 'text-gray-500'}`}>{step.label}</span>
           </div>
         ))}
       </div>
-      <div className="w-3/4">
-        <div className="mb-4 text-gray-600">Step {currentStep + 1} of {steps.length}</div>
+      <div className=" w-full px-10 md:px-0 md:w-2/3">
+
+      <div className="mb-4 text-gray-600 md:hidden flex justify-between items-center">
+  <div className="">
+    <p>{steps[currentStep].label}</p>
+  </div>
+
+  {/* Progress Bar */}
+  <CircularProgress currentStep={currentStep + 1} totalSteps={steps.length} />
+
+</div>
+
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
@@ -154,74 +169,139 @@ const MultiStepForm: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.4 }}
-            className="border p-6 rounded-lg shadow-md"
+            className="border-[#D2D2D2] border-2 p-6  rounded-lg shadow-md"
           >
-            <h2 className="text-2xl font-semibold mb-4">{steps[currentStep].label}</h2>
+            <h2 className="text-2xl font-semibold mb-8 text-center">{steps[currentStep].label}</h2>
 
             {/* STEP 0 */}
             {currentStep === 0 && (
               <>
-                <label>Startup/Company Name</label>
-                <input name="startup_name" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_name} />
-                <label>Website or Landing Page URL</label>
-                <input name="startup_website" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_website} />
-                <label>Company Logo</label>
-                <input type="file" name="profile_image" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
-                <label>Country of Operation</label>
-                <input name="startup_location" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_location} />
-                <label>NiN</label>
-                <input name="nin" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.nin} />
-                <label>Industry/Sector</label>
-                <input name="startup_industry" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_industry} />
+                <label className='text-sm text-[#686868]'>Startup/Company Name</label>
+                <input name="startup_name" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_name} placeholder='Enter the company name ' />
+                <label className='text-sm text-[#686868]' >Website URL</label>
+                <input name="startup_website" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Enter the website URL' value={formData.startup_website} />
+                <label className='text-sm text-[#686868]' >Company Logo</label>
+                <div className="border p-4 w-full h-32 mb-8 mt-2 bg-[#F7F7F9] rounded-xl flex flex-col items-center justify-center text-center cursor-pointer">
+                              <input
+                                type="file"
+                                name="profile_image"
+                                onChange={handleChange}
+                                accept=".png, .jpg, .jpeg"
+                                className="hidden"
+                                id="fileUpload"
+                              />
+                              
+                              <label htmlFor="fileUpload" className="cursor-pointer">
+                                <p className="text-sm text-gray-500 font-medium">
+                                  Click to upload or drag and drop
+                                </p>
+                                <p className="text-xs text-gray-400 mt-1">
+                                  PNG, JPG. Max file size: 6MB
+                                </p>
+                              </label>
+                            </div>
+
+                <label className='text-sm text-[#686868]' >Country of Operation</label>
+                <input name="startup_location" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_location} placeholder='Nigeria' />
+                <label className='text-sm text-[#686868]' >NiN</label>
+                <input name="nin" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.nin} placeholder='NIN'  />
+                <label className='text-sm text-[#686868]' >Industry/Sector</label>
+                <input name="startup_industry" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_industry} placeholder='Select industry/sector' />
               </>
             )}
 
             {/* STEP 1 */}
             {currentStep === 1 && (
               <>
-                <label>Full Name</label>
-                <input name="full_name" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.full_name} />
-                <label>Email</label>
-                <input name="email_address" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.email_address} />
-                <label>Phone Number</label>
-                <input name="phone_no" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.phone_no} />
-                <label>Profile Image</label>
-                <input type="file" name="founder_profile_img" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
-                <label>NIN</label>
-                <input name="founder_nin" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.founder_nin} />
-                <label>LinkedIn Profile</label>
-                <input name="founder_linkedin_profile" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.founder_linkedin_profile} />
-                <label>Role in Company</label>
-                <input name="role" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.role} />
+                <label className='text-sm text-[#686868]' >Full Name</label>
+                <input name="full_name" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.full_name} placeholder='Enter the full name ' />
+                <label className='text-sm text-[#686868]' >Email</label>
+                <input name="email_address" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.email_address} placeholder='Enter email address' />
+                <label className='text-sm text-[#686868]' >Phone Number</label>
+                <input name="phone_no" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.phone_no} placeholder='Enter phone no' />
+                <label className='text-sm text-[#686868]' >Profile Image</label>
+                <div className="border p-4 w-full h-32 mb-8 mt-2 bg-[#F7F7F9] rounded-xl flex flex-col items-center justify-center text-center cursor-pointer">
+
+                <input type="file" name="founder_profile_img"     onChange={handleChange}
+                                accept=".png, .jpg, .jpeg"
+                                className="hidden"
+                                id="fileUpload" />
+                                  <label htmlFor="fileUpload" className="cursor-pointer">
+                                <p className="text-sm text-gray-500 font-medium">
+                                  Click to upload or drag and drop
+                                </p>
+                                <p className="text-xs text-gray-400 mt-1">
+                                  PNG, JPG. Max file size: 6MB
+                                </p>
+                              </label>
+                                </div>
+                <label className='text-sm text-[#686868]' >NIN</label>
+                <input name="founder_nin" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.founder_nin} placeholder='Enter NIN' />
+                <label className='text-sm text-[#686868]' >LinkedIn Profile</label>
+                <input name="founder_linkedin_profile" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.founder_linkedin_profile} placeholder='Enter linkedIn URL' />
+                <label className='text-sm text-[#686868]' >Role in Company</label>
+                <input name="role" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.role} placeholder='Enter role' />
               </>
             )}
 
             {/* STEP 2 */}
             {currentStep === 2 && (
               <>
-                <label>Short Summary</label>
-                <input name="shortSummary" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
-                <label>Detailed Description</label>
-                <input name="startup_decription" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.startup_description} />
-                <label>Industry and Sector</label>
-                <input name="industrySector" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                <label className='text-sm text-[#686868]' >Short Summary</label>
+                <input name="shortSummary" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Enter short summary ' />
+                <label className='text-sm text-[#686868]' >Detailed Description</label>
+                <textarea name="startup_decription" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_description} placeholder='Enter detailed description'></textarea>
+                <label className='text-sm text-[#686868]' >Industry and Sector</label>
+                <input name="industrySector" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Select industry/sector'/>
               </>
             )}
 
             {/* STEP 3 */}
             {currentStep === 3 && (
-              <>
-                <label>Number of Founders</label>
-                <input name="numberOfFounders" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
-                <label>Total Team Size</label>
-                <input name="no_of_teams" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.no_of_teams} />
-                <label>Co-founder Name</label>
-                <input name="cofounder" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.cofounder} />
-                <label>Co-founder LinkedIn Profile</label>
-                <input name="coFounderLinkedIn" onChange={handleChange} className="border p-2 w-full rounded mb-2"  />
-                <label>Co-founder NIN</label>
-                <input name="coFounderNIN" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
-              </>
+            <>
+            <label className='text-sm text-[#686868]'>Number of Founders</label>
+            <input
+              name="numberOfFounders"
+              onChange={handleChange}
+              className="border p-3 w-full mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none"
+              placeholder="How many founders?"
+            />
+          
+            <label className='text-sm text-[#686868]'>Total Team Size</label>
+            <input
+              name="no_of_teams"
+              onChange={handleChange}
+              className="border p-3 w-full mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none"
+              placeholder="Enter your total team size"
+              value={formData.no_of_teams}
+            />
+          
+            <label className='text-sm text-[#686868]'>Co-founder Name</label>
+            <input
+              name="cofounder"
+              onChange={handleChange}
+              className="border p-3 w-full mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none"
+              placeholder="Enter co-founder’s full name"
+              value={formData.cofounder}
+            />
+          
+            <label className='text-sm text-[#686868]'>Co-founder LinkedIn Profile</label>
+            <input
+              name="coFounderLinkedIn"
+              onChange={handleChange}
+              className="border p-3 w-full mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none"
+              placeholder="Paste LinkedIn profile URL"
+            />
+          
+            <label className='text-sm text-[#686868]'>Co-founder NIN</label>
+            <input
+              name="coFounderNIN"
+              onChange={handleChange}
+              className="border p-3 w-full mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none"
+              placeholder="Enter NIN of co-founder"
+            />
+          </>
+          
             )}
 
             {/* STEP 4 */}
@@ -232,14 +312,14 @@ const MultiStepForm: React.FC = () => {
                   <label className="mr-4">
                     <input type="radio" name="hasLaunched" value="yes" onChange={handleChange} /> Yes
                   </label>
-                  <label>
+                  <label className='text-sm text-[#686868]' >
                     <input type="radio" name="hasLaunched" value="no" onChange={handleChange} /> No
                   </label>
                 </div>
                 {formData.hasLaunched === 'yes' && (
                   <>
-                    <label>Number of Users</label>
-                    <input name="no_of_customers" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.no_of_customers} />
+                    <label className='text-sm text-[#686868]' >Number of Users</label>
+                    <input name="no_of_customers" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.no_of_customers} placeholder='Current number of Users/Customers' />
                   </>
                 )}
               </>
@@ -248,26 +328,27 @@ const MultiStepForm: React.FC = () => {
             {/* STEP 5 */}
             {currentStep === 5 && (
               <>
-                <label>How much funds are you seeking?</label>
-                <input name="amount_of_funds" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.amount_of_funds} />
-                <label>Planned use of funds</label>
-                <input name="usage_of_funds" onChange={handleChange} className="border p-2 w-full rounded mb-2" value={formData.usage_of_funds} />
+                <label className='text-sm text-[#686868]' >How much funds are you seeking?</label>
+                <input name="amount_of_funds" onChange={handleChange} className="border p-3 w-full  mb-2 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.amount_of_funds} placeholder='Enter amount ' />
+                <p className='mb-8 text-[#475467]'>Maximum amount ₦5,000,000 / $3,000</p>
+                <label className='text-sm text-[#686868]' >Planned use of funds</label>
+                <input name="usage_of_funds" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.usage_of_funds} placeholder='Enter amount ' />
 
                 <label className="block mb-2">Have you raised money before?</label>
                 <div className="mb-2">
                   <label className="mr-4">
-                    <input type="radio" name="hasRaisedBefore" value="yes" onChange={handleChange} /> Yes
+                    <input type="radio" name="hasRaisedBefore" value="yes" className='p-4' onChange={handleChange} /> Yes
                   </label>
-                  <label>
+                  <label className='text-sm text-[#686868]' >
                     <input type="radio" name="hasRaisedBefore" value="no" onChange={handleChange} /> No
                   </label>
                 </div>
                 {formData.hasRaisedBefore === 'yes' && (
                   <>
-                    <label>How much?</label>
-                    <input name="amountRaised" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
-                    <label>From whom?</label>
-                    <input name="raisedFrom" onChange={handleChange} className="border p-2 w-full rounded mb-2" />
+                    <label className='text-sm text-[#686868]' >How much?</label>
+                    <input name="amountRaised" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='How much?' />
+                    <label className='text-sm text-[#686868]' >From whom?</label>
+                    <input name="raisedFrom" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='From who?' />
                   </>
                 )}
               </>
@@ -275,7 +356,7 @@ const MultiStepForm: React.FC = () => {
 
             <div className="flex justify-between mt-4">
               <button onClick={prevStep} className="bg-gray-200 px-4 py-2 rounded" disabled={currentStep === 0}>Back</button>
-              <button   onClick={currentStep === steps.length - 1 ? handleSubmit : nextStep}  className="bg-black text-white px-4 py-2 rounded">
+              <button   onClick={currentStep === steps.length - 1 ? handleSubmit : nextStep}  className="bg-[#6CBB2D] text-white px-4 py-2 rounded">
                 {currentStep === steps.length - 1 ? 'Submit' : 'Next'}
               </button>
             </div>
@@ -283,6 +364,9 @@ const MultiStepForm: React.FC = () => {
         </AnimatePresence>
       </div>
     </div>
+    <Footer />
+    </>
+ 
   );
 };
 
