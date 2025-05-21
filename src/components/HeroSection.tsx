@@ -47,7 +47,7 @@ const HeroSection = () => {
     <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-b from-grantty-lightBlue/30 to-white">
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="order-2 md:order-1 animate-fade-in">
+          <div className="order-1 md:order-1 animate-fade-in">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary leading-tight mb-6">
             Support the next great startup - from as low as ₦1,000 or $1
               </h1>
@@ -89,36 +89,36 @@ const HeroSection = () => {
             </div>
           </div>
           
-          <div className="order-1  md:order-2 relative animate-float">
+          <div className="order-2  md:order-2 relative animate-float">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>
               <div className="relative bg-white rounded-3xl p-6 shadow-lg  border-2 border-[#6CBB2D]">
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex justify-between items-center mb-8 md:mb-4">
                   <div>
                     <h3 className="font-bold text-secondary text-2xl">FrontLett</h3>
-                    <p className="text-xl text-[#1D1D1D] mt-3 mb-3">Abuja, Nigeria</p>
+                    <p className="text-xl text-[#1D1D1D] mt-5 md:mt-3 mb-3">Abuja, Nigeria</p>
                   </div>
                   <div className="bg-grantty-green/10 text-grantty-green font-medium px-3 py-1 rounded-full text-sm">
                     85% Funded
                   </div>
                 </div>
                 
-                <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
+                <div className="w-full bg-gray-100 rounded-full h-2 mb-3 md:mb-4">
                   <div className="bg-grantty-green h-2 rounded-full" style={{ width: '85%' }}></div>
                 </div>
                 
-                <div className="flex justify-between text-sm mb-5 mt-2">
+                <div className="flex justify-between text-sm mb-5 mt-4 md:mt-2">
                   <span className="font-medium">₦2,550,000 Raised</span>
                   <span className="text-[#1D1D1D]">Goal ₦5,000,000</span>
                 </div>
                 
-                <div className="flex items-center space-x-2 mt-8 mb-4">
-                <p className="w-[25%]">
+                <div className="flex items-center space-x-2 mt-14 md:mt-8 mb-4 text-[#1D1D1D]">
+                <p className="md:w-[25%]">
                       <img src={Frontlettt} alt="Frontlett" className=" inline-block mr-2" />
                     </p>
                   <div className='flex items-stretch gap-4 flex-col justify-center'>    
                     <h4>The World 1st</h4>
-                    <p className="text-2xl text-secondary/70">Staff Sharing Platform</p>
+                    <p className="text-xl md:text-2xl ">Staff Sharing Platform</p>
                   </div>
                 </div>
                 

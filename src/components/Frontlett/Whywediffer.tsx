@@ -41,7 +41,7 @@ const WhyWeDifferSection = () => {
           transition={{ duration: 0.5 }}
           className="text-start mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800">Why We Differ</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800 text-center">Why We Differ</h2>
      
         </motion.div>
 

@@ -99,7 +99,7 @@ const CTASection = () => {
                 
                 <Button 
                   variant={option.buttonVariant === "default" ? "default" : "outline"} 
-                  className={`w-full  ${option.buttonVariant === "default" ? "" : "border-2 border-secondary hover:bg-secondary hover:text-white"}`}
+                  className={`w-full h-12  ${option.buttonVariant === "default" ? "bg-[#163078]" : "border-2 border-secondary hover:bg-secondary hover:text-white"}`}
                 >
                   {option.buttonText}
                 </Button>

@@ -1,39 +1,46 @@
 
-type Grant = {
-    type: string;
-    start: string;
-    end: string;
-    milestone: number; // percent
-  };
-  
-  const grants: Grant[] = [
-    { type: "Monthly", start: "16-05-2025", end: "1-10-2025", milestone: 90 },
-    { type: "Monthly", start: "16-05-2025", end: "1-10-2025", milestone: 60 },
-    { type: "Monthly", start: "16-05-2025", end: "1-10-2025", milestone: 40 },
-    { type: "Quarterly", start: "16-05-2025", end: "1-10-2025", milestone: 70 },
-    { type: "Quarterly", start: "16-05-2025", end: "1-10-2025", milestone: 30 },
-  ];
-  
-  const GrantActivity = () => (
-    <div className="bg-white rounded-xl p-5 border border-gray-100 h-full flex-1">
-      <div className="font-semibold text-gray-700 mb-4">Grant Activity</div>
-      <div className="space-y-3">
-        {grants.map((g, i) => (
-          <div className="flex items-center gap-3" key={i}>
-            <div className="w-20 text-gray-500 text-xs">{g.type}</div>
-            <div className="w-24 text-xs text-gray-400">{g.start}</div>
-            <div className="w-24 text-xs text-gray-400">{g.end}</div>
-            <div className="flex-1 h-2 bg-gray-100 rounded-full mx-2 relative">
-              <div
-                className="h-2 rounded-full bg-green-400 transition-all"
-                style={{ width: `${g.milestone}%` }}
-              ></div>
-            </div>
-            <div className="text-xs text-green-600 font-semibold">{g.milestone}%</div>
-          </div>
-        ))}
-      </div>
+import React from "react";
+
+const grantData = [
+  { name: "Yakubu David", project: "Agrivest", raised: "₦50,000", needed: "₦150,000" },
+  { name: "Yakubu David", project: "Agrivest", raised: "₦50,000", needed: "₦150,000" },
+  { name: "Yakubu David", project: "Agrivest", raised: "₦50,000", needed: "₦150,000" },
+  { name: "Yakubu David", project: "Agrivest", raised: "₦50,000", needed: "₦150,000" },
+];
+
+const GrantActivity = () => (
+  <div className="overflow-x-auto w-[50%] bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
+
+    <div className="flex justify-between">
+      <p className="font-semibold text-xl">Grant Activity</p>
+
+
+      <p>See all</p>
     </div>
-  );
-  
-  export default GrantActivity;
+        <table className="min-w-full text-left text-sm  border-spacing-y-10 border-[#F0EBFB] border-2 rounded-2xl">
+        <thead>
+                <tr className="bg-gray-50">
+                  <th className="px-4 py-4 font-medium text-gray-500">NAME</th>
+                  <th className="px-4 py-4 font-medium text-gray-500">PROJECT</th>
+                  <th className="px-4 py-4 font-medium text-gray-500">AMOUNT RAISED</th>
+                  <th className="px-4 py-4 font-medium text-gray-500">AMOUNT NEEDED</th>
+                </tr>
+              </thead>
+      <tbody>
+        {grantData.map((row, i) => (
+          <tr
+            key={i}
+            className="border-b last:border-b-0 hover:bg-gray-50 transition text-[#21283B] text-base"
+          >
+            <td className="px-4 py-5">{row.name}</td>
+            <td className="px-4 py-5">{row.project}</td>
+            <td className="px-4 py-5 ">{row.raised}</td>
+            <td className="px-4 py-5 ">{row.needed}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+export default GrantActivity;

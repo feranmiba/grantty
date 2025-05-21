@@ -93,11 +93,13 @@ const GrantPage: React.FC = () => {
         console.log(startup_id);
         const reference = generateReference();
         const startup_name = startup.startup_name;
+     const   full_name = user.full_name || ""
+      const  email = user.email || ""
         const formData = { amount, email, startup_id, callback_url, full_name, reference, startup_name,  };
         // setPayment(formData);
     
         try {
-            const response = await fetch(`https://grantty-backend.onrender.com/payment/paystack/initialize`, {
+            const response = await fetch(`https://grantty-backend-fltj.onrender.com/payments/initialize`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

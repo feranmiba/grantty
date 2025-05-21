@@ -50,7 +50,7 @@ const TeamSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-slate-800">Team</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-slate-800 border-b-4 border-[#163078] w-[30%] mx-auto py-3">Team</h2>
           <p className="text-slate-600 max-w-3xl mx-auto">The experts behind Frontlett Virtualizing</p>
         </motion.div>
 
@@ -63,7 +63,7 @@ const TeamSection = () => {
           <h3 className="text-2xl font-bold mb-10 text-slate-700">Key Teams & Advisors</h3>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.id}
@@ -72,7 +72,7 @@ const TeamSection = () => {
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
               className="flex flex-col items-center"
             >
-              <div className={`relative w-40 h-40 mb-4 ${member.highlighted ? "border-4 border-blue-500 rounded-full p-1" : ""}`}>
+              <div className={`relative w-20 h-20 md:w-40 md:h-40 mb-4 ${member.highlighted ? "border-4 border-blue-500 rounded-full p-1" : ""}`}>
                 <img
                   src={member.image}
                   alt={member.name}

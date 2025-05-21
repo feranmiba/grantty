@@ -26,11 +26,11 @@ const AnimatedCard = ({ title, subtitle, content, badgeText }) => {
 const FrontlettInfo = () => {
   return (
     <section className="px-5 lg:px-5">
-           <div className="flex justify-center mb-10 mt-20 md:mt-0">
-            <img src={Frontlett} alt="Frontlett" className=" w-[30%] md:w-[10%]" />
+           <div className="flex justify-center mb-10 mt-5 md:mt-0">
+            <img src={Frontlett} alt="Frontlett" className=" w-[80%] md:w-[10%]" />
             </div>
-            <div className="flex flex-col lg:flex-row gap-8 justify-center items-center max-w-7xl mx-auto">
-      <div className="p-6  rounded-lg shadow-lg backdrop-blur-lg lg:w-[50%] lg:h-full py-10">
+            <div className="flex flex-col lg:flex-row gap-8 justify-center items-center md:max-w-7xl mx-auto">
+      <div className="p-5 md:p-6  rounded-lg shadow-lg backdrop-blur-lg lg:w-[50%] lg:h-full md:py-10">
         <p className="text-[#0F1729] leading-8">
           Frontlett Virtualting is a staff share and resource share model that allows companies to share a staff with other companies while they split the cost of hiring the employee or resource. The model allows employees and resources to work for as much as 4 companies in slot times of 2hrs.
         </p>

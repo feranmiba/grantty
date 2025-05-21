@@ -13,19 +13,19 @@ const HeroSection = () => {
   } 
   return (
 <section className="md:py-20 relative overflow-hidden">
-  <div className="flex justify-center py-10 md:px-10 mt-14 md:mt-0">
-    <Badge  variant="outline" className=" bg-[#5D9CEC1A] text-[#163078] text-[10px] p-3 md:p-2 text-center md:text-base font-extralight lg:text-lg  ">Future of Work {">>"} We’re raising a ₦5m or $3k Grantt to build a new work model for the world. For as low as ₦1,000 or $1 you can help make this happen </Badge>
+  <div className="flex justify-center py-10 px-5 md:px-10 mt-14 md:mt-0">
+    <Badge  variant="outline" className=" bg-[#FF7A500D] text-[#FF7A50] text-[12px] p-3 md:p-2 text-center md:text-base font-extralight lg:text-lg  rounded-xl md:rounded-full">Future of Work {">>"} We’re raising a ₦5m or $3k Grantt to build a new work model for the world. For as low as ₦1,000 or $1 you can help make this happen </Badge>
   </div>
-  <div className="mt-10">
-    <div className="flex flex-col-reverse lg:flex-row  justify-between lg:gap-10">
+  <div className="md:mt-10">
+    <div className="flex flex-col lg:flex-row gap-14 justify-between lg:gap-10">
       
       {/* Text Section with Static Background */}
-      <section className="lg:bg-[#5D9CEC]/10 px-10 md:pl-28 lg:py-14 rounded-tr-[90px] lg:h-[65vh] w-full lg:w-[70%]">
+      <section className="lg:bg-[#5D9CEC]/10 px-5 md:pl-28 lg:py-14 rounded-tr-[90px] lg:h-[65vh] w-full lg:w-[70%]">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center lg:text-left"
+          className="text-start lg:text-left"
         >
           <h2 className="text-lg text-[#333333] mb-2 font-bold">The World 1st </h2>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-6">
@@ -52,7 +52,7 @@ const HeroSection = () => {
         <img
           src={FrontLett}
           alt="Frontlett"
-          className="w-full max-w-5xl h-auto rounded-lg"
+          className="w-full  md:max-w-5xl md:h-auto rounded-lg"
         />
       </motion.div>
       

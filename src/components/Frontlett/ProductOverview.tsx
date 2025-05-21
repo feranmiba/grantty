@@ -92,7 +92,7 @@ const nextSteps = [
 
 const ProductOverviewSection = () => {
   return (
-    <section className="py-20   bg-white">
+    <section className="py-5 md:py-20   bg-white">
      <div className="md:max-5xl lg:max-w-7xl mx-auto px-5 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -100,7 +100,7 @@ const ProductOverviewSection = () => {
           transition={{ duration: 0.5 }}
           className="text-start mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800">Product Overview</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800 text-center">Product Overview</h2>
         
         </motion.div>
 
@@ -123,7 +123,7 @@ const ProductOverviewSection = () => {
         </div>
       </div>
 
-      <section className="bg-[#333333] p-8  mb-16">
+      <section className="bg-[#333333] md:p-8  mb-16">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -166,7 +166,9 @@ const ProductOverviewSection = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <h3 className="text-2xl font-bold text-slate-800 mb-8 text-center">Traction</h3>
+<h3 className="text-2xl font-bold text-slate-800 mb-8 text-center border-b-4 pb-5 w-[50%] mx-auto border-[#163078]">
+  Traction
+</h3>
           <p className="text-slate-600 text-center mb-8">Our progress and milestones</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -181,7 +183,7 @@ const ProductOverviewSection = () => {
                         </div>
                     </div>
                     <div>
-                      <h5 className="font-medium text-slate-800 text-xl">{milestone.title}</h5>
+                      <h5 className="md:font-medium text-slate-800 text-lg md:text-xl">{milestone.title}</h5>
                       <p className="text-base text-[#333333B2]">{milestone.description}</p>
                     </div>
                   </div>

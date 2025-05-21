@@ -57,7 +57,7 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				grantty: {
-					blue: '#1EAEDB',
+					blue: '#163078',
 					navy: '#1A1F2C',
 					green: '#6CBB2D',
 					lightBlue: '#D3E4FD',

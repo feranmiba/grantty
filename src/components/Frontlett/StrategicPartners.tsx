@@ -59,10 +59,10 @@ function StrategicPartners() {
     ]
   return (
     <>
-    <section className='bg-slate-50 py-10 px-10 lg:px-5'>
-    <section className='max-w-7xl mx-auto '>
+    <section className='bg-slate-50 py-10 px-5 lg:px-5'>
+    <section className='md:max-w-7xl mx-auto '>
 
-    <div className='mt-10 text-3xl font-bold'>
+    <div className='mt-10 text-2xl md:text-3xl font-bold text-center'>
         <h1>Proposed Strategic Partners</h1>
     </div>
 
@@ -78,19 +78,19 @@ function StrategicPartners() {
     </div>
 
 
-    <div className='mt-10 text-3xl font-bold'>
+    <div className='mt-10 text-2xl md:text-3xl font-bold text-center'>
         <h1>Other Strategic Partners</h1>
     </div>
 
     <div className='flex lg:justify-between  gap-5 mt-10 lg:flex-nowrap flex-wrap'>
         {Partners.map((propose, index) => (
-            <div key={index} className='border-2 space-y-5 bg-white flex flex-col items-start justify-center px-5 py-5 w-full md:w-[30%]'>
+            <div key={index} className='border-2 space-y-5 bg-white flex flex-col items-start justify-center px-5 py-5 w-[45%] rounded-lg md:rounded-none md:w-[30%]'>
                <div className="h-8 w-8 rounded-full flex items-center justify-center bg-[#5D9CEC1A]">
                         <img src={propose.icon} alt="" />
                         </div>
 
-                <p className='text-xl font-semibold'>{propose.text}</p>
-                <p>{propose.small}</p>
+                <p className='text-base md:text-xl font-semibold'>{propose.text}</p>
+                <p className='text-sm md:text-base'>{propose.small}</p>
 
             </div>
         ))}

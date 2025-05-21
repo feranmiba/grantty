@@ -56,8 +56,8 @@ const FundingSection = () => {
           transition={{ duration: 0.5 }}
           className="mb-12 mt-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-slate-800">Use of Funds</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-slate-800 text-center">Use of Funds</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
             {fundAllocation.map((item, index) => (
               <motion.div
                 key={index}
@@ -68,12 +68,12 @@ const FundingSection = () => {
                 <Card className="h-full">
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2">
-                      <div className="p-2 rounded-md bg-blue-50">{item.icon}</div>
-                      <CardTitle className="text-lg">{item.title}</CardTitle>
+                      <div className="p-2 rounded-md bg-blue-50 hidden md:inline-block">{item.icon}</div>
+                      <CardTitle className="text-base md:text-lg">{item.title}</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-blue-600 font-medium">{item.amount}</p>
+                    <p className="text-blue-600 font-medium text-sm md:text-base">{item.amount}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -86,7 +86,7 @@ const FundingSection = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-slate-800">Why Now</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-slate-800 text-center">Why Now</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {whyNowReasons.map((reason, index) => (
               <motion.div

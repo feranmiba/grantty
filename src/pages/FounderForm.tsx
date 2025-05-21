@@ -250,7 +250,7 @@ const MultiStepForm: React.FC = () => {
                 <label className='text-sm text-[#686868]' >Short Summary</label>
                 <input name="shortSummary" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Enter short summary ' />
                 <label className='text-sm text-[#686868]' >Detailed Description</label>
-                <textarea name="startup_decription" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_description} placeholder='Enter detailed description'></textarea>
+                <textarea name="startup_description" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_description} placeholder='Enter detailed description'></textarea>
                 <label className='text-sm text-[#686868]' >Industry and Sector</label>
                 <input name="industrySector" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Select industry/sector'/>
               </>

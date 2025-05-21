@@ -11,7 +11,7 @@ function Frontlett() {
   }
   return (
     <section  className="section-padding bg-[#E9EEFB]">
-        <section className='max-w-7xl mx-auto px-20'>
+        <section className='max-w-7xl mx-auto px-5 md:px-20'>
         <div className=" relative animate-float">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>

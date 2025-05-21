@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    fullname: "",
+    full_name: "",
     email: "",
     password: "",
   });
@@ -138,12 +138,12 @@ function SignUp() {
 
         <form onSubmit={handleSubmit} className="space-y-7">
           <div className="flex flex-col gap-1">
-            <label htmlFor="fullname" className="text-sm font-medium text-gray-700">FullName</label>
+            <label htmlFor="full_name" className="text-sm font-medium text-gray-700">FullName</label>
             <input
               type="text"
-              id="fullname"
-              name="fullname"
-              value={formData.fullname}
+              id="full_name"
+              name="full_name"
+              value={formData.full_name}
               onChange={handleChange}
               className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               required

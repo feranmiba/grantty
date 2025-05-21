@@ -190,15 +190,15 @@ const WhyGranttySection = () => {
     <section id="why-grantty" className="section-padding bg-[#E9EEFB]">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6">Why Choose Grantty?</h2>
-          <p className="text-lg text-secondary/70 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6">Why Choose  <span className='text-[#6CBB2D]'>Grantty?</span></h2>
+          <p className="text-lg text-[#1D1D1D] max-w-2xl mx-auto">
             Our unique approach to startup funding provides multiple advantages to early-stage founders.
           </p>
         </div>
 
-        <section className='flex  flex-wrap md:flex-nowrap'>
+        <section className='flex  flex-wrap md:flex-nowrap md:gap-0 gap-10'>
 
-        <div className="bg-[#1A1F2C] py-10 px-5 md:px-10 rounded-t-3xl md:rounded-t-none md:rounded-l-3xl">
+        <div className="bg-[#1A1F2C] py-10 px-5 md:px-10 rounded-2xl md:rounded-none md:rounded-l-3xl">
         <h1 className='text-3xl text-white font-semibold mb-4'>For Granttees</h1>
 
           {benefits.map((benefit) => (
@@ -216,7 +216,7 @@ const WhyGranttySection = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-secondary mb-2">{benefit.title}</h3>
-                  <p className="text-secondary/70">{benefit.description}</p>
+                  <p className="text-[#1D1D1D]">{benefit.description}</p>
                 </div>
               </div>
             </div>
@@ -224,7 +224,7 @@ const WhyGranttySection = () => {
         </div>
 
 
-        <div className="bg-[#FFFFFF] py-10 px-5 md:px-10 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl">
+        <div className="bg-[#FFFFFF] py-10 px-5 md:px-10 rounded-2xl md:rounded-none md:rounded-r-3xl">
         <h1 className='text-[#1D1D1D] text-3xl font-semibold mb-4'>For Granttors</h1>
 
           {benefit.map((benefit) => (
@@ -242,7 +242,7 @@ const WhyGranttySection = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-secondary mb-2">{benefit.title}</h3>
-                  <p className="text-secondary/70">{benefit.description}</p>
+                  <p className="text-[#1D1D1D]">{benefit.description}</p>
                 </div>
               </div>
             </div>
@@ -257,12 +257,12 @@ const WhyGranttySection = () => {
         
         <div className="mt-16 bg-white rounded-2xl shadow-md p-8 lg:p-10 border border-grantty-blue/10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <div className="text-center p-6 border-b lg:border-b-0 lg:border-r border-gray-100">
+            <div className="text-center p-6  lg:border-b-0 lg:border-r border-b-4 border-[#D2D2D2]">
               <div className="text-4xl font-bold text-[#6CBB2D] mb-2">100%</div>
               <p className="text-secondary/80">Ownership Retained</p>
             </div>
             
-            <div className="text-center p-6 border-b lg:border-b-0 lg:border-r border-gray-100">
+            <div className="text-center p-6 border-b-4 border-[#D2D2D2] lg:border-b-0 lg:border-r ">
               <div className="text-4xl font-bold text-[#6CBB2D] mb-2">₦5M/$3,000</div>
               <p className="text-secondary/80">Maximum Grant Size</p>
             </div>

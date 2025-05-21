@@ -33,7 +33,7 @@ const useStartup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const link = "https://grantty-backend.onrender.com";
+  const link = "https://grantty-backend-fltj.onrender.com";
 
 
   const submitStartup = useCallback(async (data: any) => {
