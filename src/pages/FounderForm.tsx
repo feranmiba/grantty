@@ -147,7 +147,7 @@ const MultiStepForm: React.FC = () => {
   
       toast.success("Profile created successfully!");
       setTimeout(() => {
-        window.location.href = "/";
+        window.location.href = "/grantee-dashboard";
       }, 2000);
   
     } catch (error) {

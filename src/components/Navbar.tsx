@@ -27,7 +27,7 @@ const Navbar = () => {
   const isFrontlettRoute = location.pathname === '/frontlett';
 
   const signUp = () => {
-    navigate('/founder');
+    navigate('/grantee-dashboard');
     console.log('Sign Up button clicked');
   };
 
