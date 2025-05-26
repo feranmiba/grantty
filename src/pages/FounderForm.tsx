@@ -6,6 +6,10 @@ import { FaWindows } from 'react-icons/fa';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CircularProgress from '@/components/CircularProgress';
+import { uploadToCloudinary } from '@/utils/CloudinaryUpload';
+import { File, VideoIcon } from 'lucide-react';
+import { ImageIcon } from 'lucide-react';
+import { FileBadgeIcon } from 'lucide-react';
 
 
 interface Step {
@@ -30,10 +34,12 @@ const MultiStepForm: React.FC = () => {
     startup_location: '',
     startup_website: '',
     startup_email: '',
+    business_stage: '',
     picture: null ,
     team_size: 0,
     no_of_teams: 0,
     cofounder: '',
+    cofounder_img: null,
     profile_image: null ,
     linkedin_profile: '',
     nin: 0,
@@ -53,6 +59,16 @@ const MultiStepForm: React.FC = () => {
     hasRaisedBefore: '',
     user_id: 1,
   });
+  const [mediaPreviews, setMediaPreviews] = useState<{
+    [key: string]: string | null;
+  }>({
+    profile_image: null,
+    cofounder_img: null,
+    founder_profile_img: null,
+    video: null,
+  });
+  
+  
 
   const { submitStartup, loading, error, success } = useStartup();
 
@@ -60,27 +76,35 @@ const MultiStepForm: React.FC = () => {
     const { name, value, files } = e.target as HTMLInputElement;
   
     if (files && files.length > 0) {
-      // Handle file input
-      const file = (e.target as HTMLInputElement).files?.[0];
+      const file = files[0];
   
-      // Instead of converting to base64, directly store the file object
+      // Update form data
       setFormData((prevData) => ({
         ...prevData,
-        [name]: file, 
+        [name]: file,
       }));
+  
+      // Set image/video preview
+      if (["profile_image", "cofounder_img", "founder_profile_img", "video"].includes(name)) {
+        const previewUrl = URL.createObjectURL(file);
+        setMediaPreviews((prev) => ({
+          ...prev,
+          [name]: previewUrl,
+        }));
+      }
+  
     } else {
-      // Handle other inputs (e.g., numeric input validation)
-      if (name === 'amount_of_funds') {
-        const validAmount = /^[0-9]+(\.[0-9]{0,2})?$/;
-        if (validAmount.test(value)) {
+      // Handle number fields
+      if (["amount_of_funds", "team_size", "no_of_teams", "no_of_customers", "founder_nin", "nin", "phone_no"].includes(name)) {
+        const parsed = parseFloat(value);
+        if (!isNaN(parsed)) {
           setFormData((prevData) => ({
             ...prevData,
-            [name]: parseFloat(value), // Parse value as a number
+            [name]: parsed,
           }));
-        } else {
-          console.log('Invalid amount format');
         }
       } else {
+        // Handle text fields
         setFormData((prevData) => ({
           ...prevData,
           [name]: value,
@@ -91,40 +115,48 @@ const MultiStepForm: React.FC = () => {
   
   
   
+  
+
 
   const handleSubmit = async () => {
     try {
-      // Log formData before processing
+      // Log raw formData
       console.log("Form Data before processing:", formData);
+  
+      // Upload files to Cloudinary if they exist
+      const profileImgUrl = formData.profile_image ? await uploadToCloudinary(formData.profile_image) : null;
+      const cofounderImgUrl = formData.cofounder_img ? await uploadToCloudinary(formData.cofounder_img) : null;
+      const founderImgUrl = formData.founder_profile_img ? await uploadToCloudinary(formData.founder_profile_img) : null;
+      const videoUrl = formData.video ? await uploadToCloudinary(formData.video) : null;
+  
       
-      // Create a plain object instead of FormData
-      const formDataToSubmit = {};
+
+      const formDataToSubmit: Record<string, string | number | null> = formData;
+
+     
+      
+      formDataToSubmit.profile_image = profileImgUrl;
+      formDataToSubmit.cofounder_img = cofounderImgUrl;
+      formDataToSubmit.founder_profile_img = founderImgUrl;
+      formDataToSubmit.video = videoUrl;
+      
+      console.log("Final formData to submit:", formDataToSubmit);
   
-      // Process each field in formData and append it to formDataToSubmit
-      Object.entries(formData).forEach(([key, value]) => {
-        if (value != null) { // Handle null/undefined values
-          formDataToSubmit[key] = value instanceof File ? value : String(value); // Convert value to string if not a file
-        }
-      });
-  
-      // Log the data before submission
-      console.log("Form Data before submission:", formDataToSubmit);
-  
-      // Call the API with the form data
+      // Submit the processed form data
       await submitStartup(formDataToSubmit);
   
-      // Success feedback
       toast.success("Profile created successfully!");
       setTimeout(() => {
         window.location.href = "/";
       }, 2000);
-      
+  
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Submission failed. Please try again.");
       alert("Submission failed. Please try again.");
     }
   };
+  
   
   
   
@@ -192,6 +224,9 @@ const MultiStepForm: React.FC = () => {
                               />
                               
                               <label htmlFor="fileUpload" className="cursor-pointer">
+                                <p className='flex justify-center mb-3'>
+                                  <ImageIcon />
+                                </p>
                                 <p className="text-sm text-gray-500 font-medium">
                                   Click to upload or drag and drop
                                 </p>
@@ -200,11 +235,20 @@ const MultiStepForm: React.FC = () => {
                                 </p>
                               </label>
                             </div>
+                            {mediaPreviews.profile_image && (
+                                    <img
+                                      src={mediaPreviews.profile_image}
+                                      alt="Founder Profile Preview"
+                                      className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
+                                    />
+                                  )}
 
                 <label className='text-sm text-[#686868]' >Country of Operation</label>
                 <input name="startup_location" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_location} placeholder='Nigeria' />
                 <label className='text-sm text-[#686868]' >NiN</label>
                 <input name="nin" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.nin} placeholder='NIN'  />
+                <label className='text-sm text-[#686868]' >Business Stage</label>
+                <input name="business_stage" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.business_stage} placeholder='Select business stage' />
                 <label className='text-sm text-[#686868]' >Industry/Sector</label>
                 <input name="startup_industry" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_industry} placeholder='Select industry/sector' />
               </>
@@ -227,6 +271,9 @@ const MultiStepForm: React.FC = () => {
                                 className="hidden"
                                 id="fileUpload" />
                                   <label htmlFor="fileUpload" className="cursor-pointer">
+                                  <p className='flex justify-center mb-3'>
+                                  <ImageIcon />
+                                </p>
                                 <p className="text-sm text-gray-500 font-medium">
                                   Click to upload or drag and drop
                                 </p>
@@ -235,7 +282,14 @@ const MultiStepForm: React.FC = () => {
                                 </p>
                               </label>
                                 </div>
-                <label className='text-sm text-[#686868]' >NIN</label>
+                                {mediaPreviews.founder_profile_img && (
+                                    <img
+                                      src={mediaPreviews.founder_profile_img}
+                                      alt="Founder Profile Preview"
+                                      className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
+                                    />
+                                  )}
+                <label className='text-sm text-[#686868]' >National Identification Number</label>
                 <input name="founder_nin" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.founder_nin} placeholder='Enter NIN' />
                 <label className='text-sm text-[#686868]' >LinkedIn Profile</label>
                 <input name="founder_linkedin_profile" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.founder_linkedin_profile} placeholder='Enter linkedIn URL' />
@@ -259,7 +313,7 @@ const MultiStepForm: React.FC = () => {
             {/* STEP 3 */}
             {currentStep === 3 && (
             <>
-            <label className='text-sm text-[#686868]'>Number of Founders</label>
+            <label className='text-sm text-[#686868]'>No. of Founders</label>
             <input
               name="numberOfFounders"
               onChange={handleChange}
@@ -284,8 +338,35 @@ const MultiStepForm: React.FC = () => {
               placeholder="Enter co-founder’s full name"
               value={formData.cofounder}
             />
+
+            <label className='text-sm text-[#686868]'>Co-founder Profile Image</label>
+                <div className="border p-4 w-full h-32 mb-8 mt-2 bg-[#F7F7F9] rounded-xl flex flex-col items-center justify-center text-center cursor-pointer">
+
+                <input type="file" name="cofounder_img"     onChange={handleChange}
+                                accept=".png, .jpg, .jpeg"
+                                className="hidden"
+                                id="fileUpload" />
+                                  <label htmlFor="fileUpload" className="cursor-pointer">
+                                  <p className='flex justify-center mb-3'>
+                                  <ImageIcon />
+                                </p>
+                                <p className="text-sm text-gray-500 font-medium">
+                                  Click to upload or drag and drop
+                                </p>
+                                <p className="text-xs text-gray-400 mt-1">
+                                  PNG, JPG. Max file size: 6MB
+                                </p>
+                              </label>
+                                </div>
+                                {mediaPreviews.cofounder_img && (
+                                    <img
+                                      src={mediaPreviews.cofounder_img}
+                                      alt="Founder Profile Preview"
+                                      className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
+                                    />
+                                  )}
           
-            <label className='text-sm text-[#686868]'>Co-founder LinkedIn Profile</label>
+            <label className='text-sm text-[#686868]'> LinkedIn Profile</label>
             <input
               name="coFounderLinkedIn"
               onChange={handleChange}
@@ -293,7 +374,7 @@ const MultiStepForm: React.FC = () => {
               placeholder="Paste LinkedIn profile URL"
             />
           
-            <label className='text-sm text-[#686868]'>Co-founder NIN</label>
+            <label className='text-sm text-[#686868]'>Co-founder National identification Number</label>
             <input
               name="coFounderNIN"
               onChange={handleChange}
@@ -307,6 +388,34 @@ const MultiStepForm: React.FC = () => {
             {/* STEP 4 */}
             {currentStep === 4 && (
               <>
+                <label className='text-sm text-[#686868]'>Video Pitch</label>
+                <div className="border p-4 w-full h-32 mb-8 mt-2 bg-[#F7F7F9] rounded-xl flex flex-col items-center justify-center text-center cursor-pointer">
+
+                <input type="file" name="video"     onChange={handleChange}
+                                accept=".png, .jpg, .jpeg"
+                                className="hidden"
+                                id="fileUpload" />
+                                  <label htmlFor="fileUpload" className="cursor-pointer">
+                                  <p className='flex justify-center mb-3'>
+                                  <VideoIcon />
+                                </p>
+                                <p className="text-sm text-gray-500 font-medium">
+                                  Click to upload or drag and drop
+                                </p>
+                                <p className="text-xs text-gray-400 mt-1">
+                                  PNG, JPG. Max file size: 6MB
+                                </p>
+                              </label>
+                                </div>
+
+                                {mediaPreviews.video && (
+                                    <img
+                                      src={mediaPreviews.video}
+                                      alt="Founder Profile Preview"
+                                      className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
+                                    />
+                                  )}
+                              
                 <label className="block mb-2">Have you launched?</label>
                 <div className="mb-2">
                   <label className="mr-4">
