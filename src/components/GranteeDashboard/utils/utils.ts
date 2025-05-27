@@ -10,7 +10,7 @@ export const useGranteeDashboardUtils = () => {
 
   const getUserCompanyStatus = useCallback( async ()  => {
     try {
-     const response = await fetch(`${link}/startups`, {
+     const response = await fetch(`${link}/user/startups`, {
        method: "GET",
        headers: {
          "Content-Type": "application/json",
