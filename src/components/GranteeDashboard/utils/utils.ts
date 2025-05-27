@@ -16,7 +16,6 @@ export const useGranteeDashboardUtils = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-        body: JSON.stringify({ userId: user?.id }), // Assuming user.id is available
     });
 
     if (!response.ok) {

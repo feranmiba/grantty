@@ -6,7 +6,7 @@ const activities = [
 ];
 
 const RecentActivity = () => (
-  <div className="overflow-x-auto w-[50%] bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
+  <div className="overflow-x-auto w-full md:w-[50%] bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
     <div className="flex justify-between border-[#F0EBFB] border-b-2">
       <p className="font-semibold text-xl">Recent Activity</p>
       <p>See all</p>

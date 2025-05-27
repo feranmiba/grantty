@@ -17,7 +17,7 @@ export default function ProfileSettingsCard() {
 
 
   return (
-    <div className="overflow-x-auto w-[48%] bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
+    <div className="overflow-x-auto md:w-[48%] w-full bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
       <div className="text-xl font-semibold  mb-2">Profile Settings</div>
       <div className="flex flex-wrap gap-6 mt-5 text-xl">
         <div className="flex-[1_1_220px] flex flex-col gap-2 min-w-[300px]">

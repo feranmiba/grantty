@@ -32,7 +32,7 @@ function MainDash() {
         <p className='text-[#060E22] font-bold'>Dashboard</p>
         <section>
 
-            <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mt-8">
+            <section className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 mt-8">
                 <div className='flex justify-between border py-5 px-5 rounded-2xl ' >
                     <div className='space-y-10'>
                         <p className='text-[#1A1F2C] font-medium text-2xl'>Application Status</p>

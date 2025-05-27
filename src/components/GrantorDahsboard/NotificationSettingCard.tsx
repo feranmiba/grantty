@@ -22,7 +22,7 @@ export default function NotificationSettingsCard() {
   };
 
   return (
-    <div className="overflow-x-auto w-[50%] bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
+    <div className="overflow-x-auto md:w-[50%] w-full bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
       <div className="text-xl font-semibold text-gray-800 mb-2">Notification</div>
       <div className="flex flex-col gap-4">
         {notifications.map((notif, idx) => (

@@ -10,7 +10,7 @@ function GranteeDashboard() {
   return (
     <>
     <DashboardHeader />
-    <div className='px-24 mt-10 space-y-10'>
+    <div className='px-5 sm:px-10 md:px-24 mt-10 space-y-10'>
     <MainDash />
     <ApplicationProgressTable />
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

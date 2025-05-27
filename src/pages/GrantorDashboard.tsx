@@ -11,33 +11,61 @@ import NotificationSettingsCard from "@/components/GrantorDahsboard/Notification
 import ProfileSettingsCard from "@/components/GrantorDahsboard/ProfileSettingCard";
 import { ArrowDown, ArrowUp, ArrowRight, ChevronDown } from "lucide-react";
 import { usePaymentUtils } from "@/utils/usePayment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Index = () => {
   const { getUserPayment } = usePaymentUtils();
   // Summary stats
-  const grantsDown = "₦1,000,000";
-  const amountDisbursed = "₦0";
-  const activeGrantees = "1";
+  const [payment, setPayment] = useState<any[]>([]);
+  const [amountDisbursed, setAmountDisbursed] = useState("₦0");
+  const [startupGrants, setStartupGrants] = useState<{ [key: number]: number }>({});
+  const [activeGrantees, setActiveGrantees] = useState(0);
+  
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        await getUserPayment();
+        const response = await getUserPayment();
+        if (response && response.data) {
+          const payments = response.data;
+          setPayment(payments);
+  
+          // ✅ Calculate total amount
+          const totalAmount = payments.reduce((sum: number, payment: any) => sum + payment.amount, 0);
+          setAmountDisbursed(`₦${totalAmount.toLocaleString()}`);
+  
+          // ✅ Calculate amount per startup_id
+          const grants: { [key: number]: number } = {};
+          payments.forEach((payment: any) => {
+            if (!grants[payment.startup_id]) {
+              grants[payment.startup_id] = 0;
+            }
+            grants[payment.startup_id] += payment.amount;
+          });
+          setStartupGrants(grants);
+
+  
+          // ✅ Count unique startup_ids (active grantees)
+          const uniqueStartups = new Set(payments.map((p: any) => p.startup_id));
+          setActiveGrantees(uniqueStartups.size);
+        } else {
+          console.log("No payments found for the user.");
+        }
       } catch (error) {
         console.error("Error fetching user payments:", error);
       }
     };
-
+  
     fetchPayments();
-  }
-  , [getUserPayment]);
+  }, [getUserPayment]);
+  console.log(startupGrants)
+  
 
   return (
     <div className="min-h-screen w-full bg-gray-50 flex flex-col items-center justify-start mb-10">
       <div className="w-full ">
         <DashboardHeader />
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8 px-24 mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8 px-5 sm:px-10 md:px-12 lg:px-24 mx-auto">
           <SummaryCard
             icon={<svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M8.07321 3.86255C8.07321 3.01355 8.66121 2.32355 9.38321 2.32355H11.7832C12.5052 2.32355 13.0932 3.01355 13.0932 3.86255V3.88655C12.3272 3.80955 11.4932 3.77155 10.5832 3.77155C9.67221 3.77155 8.83821 3.80955 8.07321 3.88655V3.86255ZM1.08921 9.78155C3.69821 11.3895 7.07821 12.2765 10.6032 12.2795C14.1212 12.2765 17.4922 11.3925 20.0992 9.79155C19.5712 6.52855 17.9062 4.79255 14.5932 4.11755V3.86255C14.5932 2.18655 13.3322 0.823547 11.7832 0.823547H9.38321C7.83421 0.823547 6.57321 2.18655 6.57321 3.86255V4.11755C3.26521 4.79155 1.60121 6.52255 1.06921 9.77355C1.07621 9.77755 1.08321 9.77755 1.08921 9.78155Z" fill="#6CBB2D"/>
@@ -45,7 +73,7 @@ const Index = () => {
               </svg>
               }
             label="Total Grants Given"
-            value={grantsDown}
+            value={amountDisbursed}
           />
           <SummaryCard
             icon={<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,28 +97,28 @@ const Index = () => {
               </g>
               </svg>}
             label="Total Number of Active Grantees"
-            value={activeGrantees}
+            value={activeGrantees.toString()}
           />
       
         </div>
 
         {/* Main section */}
-        <div className="flex justify-between gap-10 mt-8 px-24 mx-auto">
+        <div className="flex justify-between flex-wrap md:flex-nowrap  gap-10 mt-8 px-5 sm:px-10 md:px-12 lg:px-24 mx-auto">
           <GrantActivity />
           <RecentActivity />
           {/* blank on small, holds chart on large */}
           <div className="hidden xl:block"></div>
         </div>
-        <div className="flex justify-between gap-10 mt-8 px-24 mx-auto">
+        <div className="flex justify-between flex-wrap md:flex-nowrap gap-10 mt-8 px-5 sm:px-10 md:px-12 lg:px-24 mx-auto">
           <AvailableProjectTable />
           <GranteeManagementTable />
         </div>
-        <div className="flex justify-between gap-10 mt-8 px-24 mx-auto">
+        <div className="flex justify-between flex-wrap md:flex-nowrap gap-10 mt-8 px-5 sm:px-10 md:px-12 lg:px-24 mx-auto">
           <DisbursementTrendChart />
           <FundingBySectorChart />
         </div>
 
-        <div className="flex justify-between gap-10 mt-8 px-24 mx-auto">
+        <div className="flex justify-between flex-wrap md:flex-nowrap gap-10 mt-8 px-5 sm:px-10 md:px-12 lg:px-24 mx-auto">
           <ProfileSettingsCard />
           <NotificationSettingsCard />
         </div>

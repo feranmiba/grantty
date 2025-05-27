@@ -54,7 +54,7 @@ export const usePaymentUtils = () => {
   
   const getUserPayment = useCallback(async() => {
     try {
-      const res = await fetch(`${link}/payments/user`, {
+      const res = await fetch(`${link}/payment`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

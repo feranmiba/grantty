@@ -59,7 +59,7 @@ const AvailableProjectsTable = () => {
     }, [getCompany, getPaymentById]);
 
   return (
-    <div className="overflow-x-auto w-[50%] bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
+    <div className="overflow-x-auto w-full md:w-[50%] bg-[#FFFFFF] rounded-xl px-5 py-5 space-y-5 border-[#F0EBFB] border-2 text-[#21283B]">
       <div className="flex justify-between">
         <p className="font-semibold text-xl">Available Projects</p>
       </div>
@@ -79,7 +79,9 @@ const AvailableProjectsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {projectData.map((row, i) => (
+            {projectData.map((row, i) => {
+              const totalAmountRaised = totalRaised + row.amount_raised
+              return(
               <tr
                 key={i}
                 className="border-b last:border-b-0 hover:bg-gray-50 transition text-[#21283B] text-base"
@@ -88,16 +90,16 @@ const AvailableProjectsTable = () => {
                 <td className="px-4 py-5">{row.startup_name}</td>
                 <td className="px-4 py-5">
                   {row.payment?.amount
-                    ? `₦${totalRaised.toLocaleString()}`
+                    ? `₦${totalAmountRaised.toLocaleString()}`
                     : "₦0"}
                 </td>
                 <td className="px-4 py-5">
                   {row.amount_of_funds
-                    ? `₦${(row.amount_of_funds - totalRaised).toLocaleString()}`
+                    ? `₦${(row.amount_of_funds - totalAmountRaised).toLocaleString()}`
                     : "-"}
                 </td>
               </tr>
-            ))}
+            )})}
           </tbody>
         </table>
       )}

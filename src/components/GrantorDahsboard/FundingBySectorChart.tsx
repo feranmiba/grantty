@@ -65,7 +65,7 @@ export default function FundingBySectorCard() {
         </ResponsiveContainer>
         <div className="flex gap-5 justify-between text-xl items-center w-full mt-2 border rounded-xl px-10 py-5">
           {data.map((item, i) => (
-            <div key={i} className="flex items-center gap-2 border-r-2 pr-5">
+            <div key={i} className="md:flex items-center gap-2 border-r-2 pr-5 hidden">
               <span className="inline-block w-3 h-3 rounded-full" style={{ background: item.color }} />
               <span className=" font-medium text-gray-700">{item.name}</span>
               <span className=" text-gray-400">{item.value}%</span>
