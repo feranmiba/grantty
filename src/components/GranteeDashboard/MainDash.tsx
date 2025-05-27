@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SummaryCard from '../GrantorDahsboard/SummaryCard'
+import { useGranteeDashboardUtils } from './utils/utils';
 
 function MainDash() {
     const grantsDown = "₦1,000,000";
@@ -10,6 +11,21 @@ function MainDash() {
         "May 25, Deadline for document uploads.",
         "June 1, Next review meeting.",
     ]
+
+    const { getUserCompanyStatus } = useGranteeDashboardUtils();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getUserCompanyStatus();
+                console.log("User company status:", data);
+            } catch (error) {
+                console.error("Error fetching user company status:", error);
+            }
+        };
+
+        fetchData();
+    }
+    , [getUserCompanyStatus]);
 
   return (
     <div>

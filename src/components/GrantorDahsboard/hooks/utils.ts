@@ -1,22 +1,22 @@
 import { useCallback } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useUserStore } from "@/store/useUserStore";
+import { usePaymentUtils } from "@/utils/usePayment";
 
 const link = "https://grantty-backend-fltj.onrender.com";
 
-export const useGranteeDashboardUtils = () => {
+export const useGrantorDashboardUtils = () => {
   const { user } = useUserStore();
   const { token } = useAuthStore();
 
-  const getUserCompanyStatus = useCallback( async ()  => {
+  const getCompany = useCallback( async ()  => {
    try {
-    const response = await fetch(`${link}/startups/getByUserId`, {
+    const response = await fetch(`${link}/startups`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-        body: JSON.stringify({ userId: user?.id }), // Assuming user.id is available
     });
 
     if (!response.ok) {
@@ -34,7 +34,5 @@ export const useGranteeDashboardUtils = () => {
   }
     , [user]);
 
-  return { getUserCompanyStatus, }
+  return { getCompany }
 }
-
-

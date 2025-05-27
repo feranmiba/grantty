@@ -19,23 +19,26 @@ const useAuth = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
+  
+      const data = await response.json(); // parse response first
+  
       if (!response.ok) {
-        throw new Error("Login failed");
+        // throw the full error response
+        throw new Error(data.message || data.error || "Login failed");
       }
-
-      const data = await response.json();
-      console.log("Login response data:", data.data.token); 
+  
+      console.log("Login response data:", data.data.token);
       setToken(data.data.token);
       setUser(data.data.user);
-
+  
       showToast("Login Successful", "You have logged in successfully.");
       return data;
-    } catch (error) {
-      showToast("Login Failed", "Invalid credentials.", "destructive");
+    } catch (error: any) {
+      showToast("Login Failed", error.message || "Invalid credentials.", "destructive");
       throw error;
     }
   }, [setToken, showToast]);
+  
 
   const signUp = useCallback(async (formData: { email: string; password: string; full_name: string }) => {
     try {

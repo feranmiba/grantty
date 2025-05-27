@@ -46,12 +46,11 @@ function SignIn() {
         window.location.href = "/";
       }, 2000);
     } catch (error: any) {
-      setIsLoading(false); // Reset loading after the request finishes
-  
-      const errorMessage = error?.response?.data?.message || "Error signing in, please try again.";
-      toast.error(errorMessage);  // Toast on error
+      setIsLoading(false);
+      const errorMessage = error.message || "Error signing in, please try again.";
+      toast.error(errorMessage);
       console.error("Error signing in:", errorMessage);
-    }
+    }    
   };
   
   

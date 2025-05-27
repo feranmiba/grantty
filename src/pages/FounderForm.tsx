@@ -117,45 +117,34 @@ const MultiStepForm: React.FC = () => {
   
   
 
-
   const handleSubmit = async () => {
     try {
-      // Log raw formData
       console.log("Form Data before processing:", formData);
   
-      // Upload files to Cloudinary if they exist
       const profileImgUrl = formData.profile_image ? await uploadToCloudinary(formData.profile_image) : null;
       const cofounderImgUrl = formData.cofounder_img ? await uploadToCloudinary(formData.cofounder_img) : null;
       const founderImgUrl = formData.founder_profile_img ? await uploadToCloudinary(formData.founder_profile_img) : null;
       const videoUrl = formData.video ? await uploadToCloudinary(formData.video) : null;
   
-      
-
-      const formDataToSubmit: Record<string, string | number | null> = formData;
-
-     
-      
-      formDataToSubmit.profile_image = profileImgUrl;
-      formDataToSubmit.cofounder_img = cofounderImgUrl;
-      formDataToSubmit.founder_profile_img = founderImgUrl;
-      formDataToSubmit.video = videoUrl;
-      
+      const formDataToSubmit = {
+        ...formData,
+        profile_image: profileImgUrl,
+        cofounder_img: cofounderImgUrl,
+        founder_profile_img: founderImgUrl,
+        video: videoUrl,
+      };
+  
       console.log("Final formData to submit:", formDataToSubmit);
   
-      // Submit the processed form data
       await submitStartup(formDataToSubmit);
   
       toast.success("Profile created successfully!");
-      setTimeout(() => {
-        window.location.href = "/grantee-dashboard";
-      }, 2000);
-  
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Submission failed. Please try again.");
-      alert("Submission failed. Please try again.");
     }
   };
+  
   
   
   
@@ -209,9 +198,9 @@ const MultiStepForm: React.FC = () => {
             {currentStep === 0 && (
               <>
                 <label className='text-sm text-[#686868]'>Startup/Company Name</label>
-                <input name="startup_name" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_name} placeholder='Enter the company name ' />
+                <input name="startup_name" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_name} placeholder='Enter the company name ' required />
                 <label className='text-sm text-[#686868]' >Website URL</label>
-                <input name="startup_website" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Enter the website URL' value={formData.startup_website} />
+                <input name="startup_website" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Enter the website URL' value={formData.startup_website}  required />
                 <label className='text-sm text-[#686868]' >Company Logo</label>
                 <div className="border p-4 w-full h-32 mb-8 mt-2 bg-[#F7F7F9] rounded-xl flex flex-col items-center justify-center text-center cursor-pointer">
                               <input
@@ -221,6 +210,7 @@ const MultiStepForm: React.FC = () => {
                                 accept=".png, .jpg, .jpeg"
                                 className="hidden"
                                 id="fileUpload"
+                                required
                               />
                               
                               <label htmlFor="fileUpload" className="cursor-pointer">
@@ -244,13 +234,16 @@ const MultiStepForm: React.FC = () => {
                                   )}
 
                 <label className='text-sm text-[#686868]' >Country of Operation</label>
-                <input name="startup_location" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_location} placeholder='Nigeria' />
+                <input name="startup_location" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_location} placeholder='Nigeria' required />
+                <label className='text-sm text-[#686868]' >Startup Email</label>
+                <input name="startup_email" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_email} placeholder='Starup email' required />
+               
                 <label className='text-sm text-[#686868]' >NiN</label>
                 <input name="nin" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.nin} placeholder='NIN'  />
                 <label className='text-sm text-[#686868]' >Business Stage</label>
-                <input name="business_stage" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.business_stage} placeholder='Select business stage' />
+                <input name="business_stage" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.business_stage} placeholder='Select business stage' required />
                 <label className='text-sm text-[#686868]' >Industry/Sector</label>
-                <input name="startup_industry" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_industry} placeholder='Select industry/sector' />
+                <input name="startup_industry" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_industry} placeholder='Select industry/sector' required />
               </>
             )}
 
@@ -258,11 +251,11 @@ const MultiStepForm: React.FC = () => {
             {currentStep === 1 && (
               <>
                 <label className='text-sm text-[#686868]' >Full Name</label>
-                <input name="full_name" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.full_name} placeholder='Enter the full name ' />
+                <input name="full_name" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.full_name} placeholder='Enter the full name ' required />
                 <label className='text-sm text-[#686868]' >Email</label>
-                <input name="email_address" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.email_address} placeholder='Enter email address' />
+                <input name="email_address" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.email_address} placeholder='Enter email address' required />
                 <label className='text-sm text-[#686868]' >Phone Number</label>
-                <input name="phone_no" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.phone_no} placeholder='Enter phone no' />
+                <input name="phone_no" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.phone_no} placeholder='Enter phone no' required />
                 <label className='text-sm text-[#686868]' >Profile Image</label>
                 <div className="border p-4 w-full h-32 mb-8 mt-2 bg-[#F7F7F9] rounded-xl flex flex-col items-center justify-center text-center cursor-pointer">
 
@@ -290,11 +283,11 @@ const MultiStepForm: React.FC = () => {
                                     />
                                   )}
                 <label className='text-sm text-[#686868]' >National Identification Number</label>
-                <input name="founder_nin" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.founder_nin} placeholder='Enter NIN' />
+                <input name="founder_nin" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.founder_nin} placeholder='Enter NIN' required />
                 <label className='text-sm text-[#686868]' >LinkedIn Profile</label>
-                <input name="founder_linkedin_profile" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.founder_linkedin_profile} placeholder='Enter linkedIn URL' />
+                <input name="founder_linkedin_profile" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.founder_linkedin_profile} placeholder='Enter linkedIn URL' required />
                 <label className='text-sm text-[#686868]' >Role in Company</label>
-                <input name="role" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.role} placeholder='Enter role' />
+                <input name="role" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.role} placeholder='Enter role' required />
               </>
             )}
 
@@ -302,11 +295,11 @@ const MultiStepForm: React.FC = () => {
             {currentStep === 2 && (
               <>
                 <label className='text-sm text-[#686868]' >Short Summary</label>
-                <input name="shortSummary" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Enter short summary ' />
+                <input name="shortSummary" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Enter short summary ' required />
                 <label className='text-sm text-[#686868]' >Detailed Description</label>
-                <textarea name="startup_description" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_description} placeholder='Enter detailed description'></textarea>
+                <textarea name="startup_description" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_description} placeholder='Enter detailed description' required></textarea>
                 <label className='text-sm text-[#686868]' >Industry and Sector</label>
-                <input name="industrySector" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Select industry/sector'/>
+                <input name="industrySector" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Select industry/sector' required />
               </>
             )}
 

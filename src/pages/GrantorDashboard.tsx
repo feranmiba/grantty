@@ -10,13 +10,27 @@ import FundingBySectorChart from "@/components/GrantorDahsboard/FundingBySectorC
 import NotificationSettingsCard from "@/components/GrantorDahsboard/NotificationSettingCard";
 import ProfileSettingsCard from "@/components/GrantorDahsboard/ProfileSettingCard";
 import { ArrowDown, ArrowUp, ArrowRight, ChevronDown } from "lucide-react";
+import { usePaymentUtils } from "@/utils/usePayment";
+import { useEffect } from "react";
 
 const Index = () => {
+  const { getUserPayment } = usePaymentUtils();
   // Summary stats
   const grantsDown = "₦1,000,000";
-  const amountDisbursed = "₦500,000";
-  const activeGrantees = "5";
-  const pendingApplications = "2";
+  const amountDisbursed = "₦0";
+  const activeGrantees = "1";
+  useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        await getUserPayment();
+      } catch (error) {
+        console.error("Error fetching user payments:", error);
+      }
+    };
+
+    fetchPayments();
+  }
+  , [getUserPayment]);
 
   return (
     <div className="min-h-screen w-full bg-gray-50 flex flex-col items-center justify-start mb-10">

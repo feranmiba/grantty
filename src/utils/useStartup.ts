@@ -1,5 +1,7 @@
 import { Link } from 'lucide-react';
 import { useState, useCallback } from 'react';
+import { useAuthStore } from "@/store/useAuthStore";
+
 
 interface StartupData {
   startup_name: string;
@@ -33,6 +35,7 @@ const useStartup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const token = useAuthStore((state) => state.token);
   const link = "https://grantty-backend-fltj.onrender.com";
 
 
@@ -42,26 +45,28 @@ const useStartup = () => {
     setSuccess(false);
   
     try {
-      const response = await fetch(`${link}/startup/create-startup`, {
+      const response = await fetch(`${link}/startups`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Ensure the server knows to expect JSON
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data), // Send data as JSON
+        body: JSON.stringify(data),
       });
+  
+      const result = await response.json();
   
       if (response.ok) {
         setSuccess(true);
       } else {
-        const errorText = await response.text();
-        setError(`Error: ${errorText}`);
+        setError(result.message || "An unknown error occurred.");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [token]);
   
 
   return { submitStartup, loading, error, success };
