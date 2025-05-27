@@ -57,7 +57,6 @@ const MultiStepForm: React.FC = () => {
     role: '',
     hasLaunched: '',
     hasRaisedBefore: '',
-    user_id: 1,
   });
   const [mediaPreviews, setMediaPreviews] = useState<{
     [key: string]: string | null;

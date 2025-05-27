@@ -1,7 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Eye } from "lucide-react";
 import { useUserStore } from '@/store/useUserStore';
+import { useGranteeDashboardUtils } from "./utils/utils";
 
 
 export default function ProfileSettings() {
@@ -11,6 +12,8 @@ export default function ProfileSettings() {
         setShowPassword(prev => !prev);
       };
       const { user } = useUserStore();
+
+   
   return (
     <div className="bg-white rounded-2xl border border-[#F2F5F2] p-5 w-full">
       <div className="text-base font-semibold mb-4">Profile Settings</div>

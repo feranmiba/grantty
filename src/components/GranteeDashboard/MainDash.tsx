@@ -1,6 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SummaryCard from '../GrantorDahsboard/SummaryCard'
 import { useGranteeDashboardUtils } from './utils/utils';
+
+const expectedFields = [
+  "startup_name",
+  "startup_description",
+  "startup_location",
+  "startup_website",
+  "startup_email",
+  "startup_picture",
+  "team_size",
+  "no_of_teams",
+  "cofounder",
+  "profile_image",
+  "linkedin_profile",
+  "nin",
+  "amount_of_funds",
+  "usage_of_funds",
+  "no_of_customers",
+  "video",
+  "startup_industry",
+  "amount_raised",
+  "verification_status",
+  "status",
+  "founder_full_name",
+  "founder_linkedin_profile",
+  "founder_email",
+  "founder_phone_no",
+  "founder_profile_img",
+  "founder_nin",
+  "founder_role"
+];
 
 function MainDash() {
     const grantsDown = "₦1,000,000";
@@ -8,24 +38,36 @@ function MainDash() {
     const activeGrantees = "5";
     const pendingApplications = "2";
     const priority = [
-        "May 25, Deadline for document uploads.",
-        "June 1, Next review meeting.",
+      
     ]
 
     const { getUserCompanyStatus } = useGranteeDashboardUtils();
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getUserCompanyStatus();
-                console.log("User company status:", data);
-            } catch (error) {
-                console.error("Error fetching user company status:", error);
-            }
-        };
+    const [status, setStatus] = useState<"Completed" | "Not Completed">("Not Completed");
 
-        fetchData();
-    }
-    , [getUserCompanyStatus]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await getUserCompanyStatus();
+          const data = response?.data?.[0];
+  
+          if (!data) {
+            setStatus("Not Completed");
+            return;
+          }
+  
+          const allFieldsExist = expectedFields.every(
+            (field) => data[field] !== null && data[field] !== undefined && data[field] !== ""
+          );
+  
+          setStatus(allFieldsExist ? "Completed" : "Not Completed");
+        } catch (error) {
+          console.error("Error fetching user company status:", error);
+          setStatus("Not Completed");
+        }
+      };
+  
+      fetchData();
+    }, [getUserCompanyStatus]);
 
   return (
     <div>
@@ -37,7 +79,8 @@ function MainDash() {
                     <div className='space-y-10'>
                         <p className='text-[#1A1F2C] font-medium text-2xl'>Application Status</p>
 
-                        <p className='px-2 bg-[#5D9CEC0D] border-[#297FFF] py-4 rounded-2xl border text-center text-[#297FFF]'>Not Completed</p>
+                        <p className='px-2 bg-[#5D9CEC0D] border-[#297FFF] py-4 rounded-2xl border text-center text-[#297FFF]'>           {status}
+                        </p>
                     </div>
 
                     <div>
@@ -62,17 +105,44 @@ function MainDash() {
                     <div>
                   
 
-                   <ul className='w-full mt-10'>
-                         {priority.map((pri) => (   <li className='border-t border-[#F0F2F5] text-[16px] py-2 flex gap-3'>
-                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M12 3.08789C4.802 3.08789 2.25 5.63989 2.25 12.8379C2.25 20.0359 4.802 22.5879 12 22.5879C19.198 22.5879 21.75 20.0359 21.75 12.8379C21.75 5.63989 19.198 3.08789 12 3.08789Z" fill="#6CBB2D"/>
-        <path d="M11.249 16.3379C11.249 16.7519 11.59 17.0879 12.004 17.0879C12.418 17.0879 12.754 16.7519 12.754 16.3379C12.754 15.9239 12.418 15.5879 12.004 15.5879H11.995C11.581 15.5879 11.249 15.9239 11.249 16.3379Z" fill="#6CBB2D"/>
-        <path d="M12 8.19287C11.586 8.19287 11.25 8.52887 11.25 8.94287V12.8379C11.25 13.2519 11.586 13.5879 12 13.5879C12.414 13.5879 12.75 13.2519 12.75 12.8379V8.94287C12.75 8.52887 12.414 8.19287 12 8.19287Z" fill="#6CBB2D"/>
+                    {priority.length > 0 ? (
+  <ul className='w-full mt-10'>
+    {priority.map((pri, index) => (
+      <li
+        key={index}
+        className='border-t border-[#F0F2F5] text-[16px] py-2 flex gap-3'
+      >
+        <svg
+          width="24"
+          height="25"
+          viewBox="0 0 24 25"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            opacity="0.4"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12 3.08789C4.802 3.08789 2.25 5.63989 2.25 12.8379C2.25 20.0359 4.802 22.5879 12 22.5879C19.198 22.5879 21.75 20.0359 21.75 12.8379C21.75 5.63989 19.198 3.08789 12 3.08789Z"
+            fill="#6CBB2D"
+          />
+          <path
+            d="M11.249 16.3379C11.249 16.7519 11.59 17.0879 12.004 17.0879C12.418 17.0879 12.754 16.7519 12.754 16.3379C12.754 15.9239 12.418 15.5879 12.004 15.5879H11.995C11.581 15.5879 11.249 15.9239 11.249 16.3379Z"
+            fill="#6CBB2D"
+          />
+          <path
+            d="M12 8.19287C11.586 8.19287 11.25 8.52887 11.25 8.94287V12.8379C11.25 13.2519 11.586 13.5879 12 13.5879C12.414 13.5879 12.75 13.2519 12.75 12.8379V8.94287C12.75 8.52887 12.414 8.19287 12 8.19287Z"
+            fill="#6CBB2D"
+          />
         </svg>
-                               {pri}
-                                </li>))}
+        {pri}
+      </li>
+    ))}
+  </ul>
+) : (
+  <p className="text-center mt-10 text-gray-500">No alerts</p>
+)}
 
-                        </ul>
                         
                     </div>
                     

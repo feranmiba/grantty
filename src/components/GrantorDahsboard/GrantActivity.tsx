@@ -85,6 +85,7 @@ const GrantActivity = () => {
           <tbody>
             {grantData.map((row, i) => {
               const totalAmountRaised = totalRaised + row.amount_raised
+              console.log(totalRaised)
               return (
               <tr
                 key={i}

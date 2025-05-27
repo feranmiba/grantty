@@ -9,29 +9,29 @@ export const useGranteeDashboardUtils = () => {
   const { token } = useAuthStore();
 
   const getUserCompanyStatus = useCallback( async ()  => {
-   try {
-    const response = await fetch(`${link}/startups/getByUserId`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch companies");
-    }
-
-    const data = await response.json();
-    return data;
-    console.log("User company status:", data);
-    
-   } catch (error) {
-    
-   }   
+    try {
+     const response = await fetch(`${link}/startups`, {
+       method: "GET",
+       headers: {
+         "Content-Type": "application/json",
+         Authorization: `Bearer ${token}`,
+       },
+     });
  
-  }
-    , [user]);
+     if (!response.ok) {
+       throw new Error("Failed to fetch companies");
+     }
+ 
+     const data = await response.json();
+     return data;
+     console.log("User company status:", data);
+     
+    } catch (error) {
+     
+    }   
+  
+   }
+     , [user]);
 
   return { getUserCompanyStatus, }
 }

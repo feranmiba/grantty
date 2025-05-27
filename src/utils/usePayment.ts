@@ -34,7 +34,7 @@ export const usePaymentUtils = () => {
   const getPaymentById = useCallback(
     async (id: number | string) => {
       try {
-        const res = await fetch(`${link}/payments/${id}`, {
+        const res = await fetch(`${link}/payments/startup/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
