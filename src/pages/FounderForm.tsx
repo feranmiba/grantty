@@ -11,6 +11,7 @@ import { File, VideoIcon } from 'lucide-react';
 import { ImageIcon } from 'lucide-react';
 import { FileBadgeIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import DashboardHeader from '@/components/FounderHeader';
 
 
 interface Step {
@@ -206,7 +207,7 @@ const MultiStepForm: React.FC = () => {
 
   return (
     <>
-    <Navbar />
+    <DashboardHeader />
     <div className="flex py-4 w-full lg:px-7 md:px-12 max-w-7xl mx-auto mt-24">
       <div className="w-1/3 pr-4 space-y-10 hidden md:block">
         {steps.map((step, index) => (
