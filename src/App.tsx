@@ -17,6 +17,7 @@ import GranteeDashboard from "./pages/GranteeDashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuthStore} from "./store/useAuthStore";  
+import PaymentSuccess from "./pages/Success";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -39,6 +40,9 @@ const App = () => {
               <Route path="/grant/:startup_id" element={<GrantPage />} />
               <Route path="/frontlett" element={<Frontlett />} />
               <Route path="/grant/grant-frontlett" element={<GrantFrontlettPage />} />
+              <Route path="/payment" element={<PaymentSuccess />} />
+
+              
 
               
 

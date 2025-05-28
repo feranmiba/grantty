@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 interface PaymentData {
   startup_name: string;
@@ -15,11 +16,18 @@ interface PaymentState {
   clearPayment: () => void;
 }
 
-const usePaymentStore = create<PaymentState>((set) => ({
-  payment: null,
-  setPayment: (data) => set({ payment: data }),
-  clearPayment: () => set({ payment: null }),
-}));
+const usePaymentStore = create<PaymentState>()(
+  persist(
+    (set) => ({
+      payment: null,
+      setPayment: (data) => set({ payment: data }),
+      clearPayment: () => set({ payment: null }),
+    }),
+    {
+      name: 'payment-storage',
+      storage: createJSONStorage(() => localStorage), // ✅ safest approach
+    }
+  )
+);
 
 export default usePaymentStore;
-

@@ -1,20 +1,41 @@
-"use client"
-import { useUserStore } from '@/store/useUserStore';
-import { FaUser } from 'react-icons/fa';
-import Logo from '@/assests/Main Logo.png';
+"use client";
+import { useState } from "react";
+import { useUserStore } from "@/store/useUserStore";
+import { useAuthStore } from "@/store/useAuthStore";
+import { FaUser, FaChevronDown } from "react-icons/fa";
+import Logo from "@/assests/Main Logo.png";
+import { FiLogOut } from 'react-icons/fi'; 
+import Alert from '@/assests/alert-WYQZ24EFz8.svg'
 
 const DashboardHeader = () => {
-  const { user } = useUserStore();
+  const { user, clearUser } = useUserStore();
+  const { clearToken } = useAuthStore();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+const confirmLogout = () => {
+  clearToken();
+  clearUser();
+  setDropdownOpen(false);
+  setShowLogoutModal(false);
+  window.location.href = "/";
+};
+
+const setGotoLandingPage = (value: boolean) => {
+  if (value) {
+    window.location.href = "/"; // Redirect to landing page
+  }
+}
 
   return (
-    <header className="flex flex-wrap items-center justify-between px-6 py-4 md:px-24 bg-white border-b border-gray-100 rounded-t-xl">
-      {/* Logo Section */}
+    <header className="flex flex-wrap items-center justify-between px-6 py-4 md:px-24 bg-white border-b border-gray-100 rounded-t-xl relative">
+      {/* Logo */}
       <div className="flex items-center gap-2 flex-shrink-0">
         <img src={Logo} alt="Grantty Logo" className="h-6 md:h-10" />
       </div>
 
       {/* User Info & Button */}
-      <div className="flex items-center gap-3 mt-3 md:mt-0 flex-grow justify-end">
+      <div className="flex items-center gap-3 mt-3 md:mt-0 flex-grow justify-end relative">
         <div className="flex items-center gap-3 text-primary text-base md:text-xl font-semibold whitespace-nowrap">
           <p className="border-r-2 pr-4 flex items-center">
             <svg
@@ -46,9 +67,67 @@ const DashboardHeader = () => {
           <span>{user?.full_name || "User"}</span>
         </div>
 
-        <button className="btn-primary bg-[#9ED219] hover:bg-[#477d1b] text-white rounded-2xl px-4 py-2 text-sm md:text-base whitespace-nowrap">
-          Grantee
+        {/* Grantee Button with Dropdown */}
+        <div className="relative flex items-center">
+          <button
+            className="flex items-center gap-1 bg-[#9ED219] hover:bg-[#477d1b] text-white rounded-2xl px-4 py-2 text-sm md:text-base whitespace-nowrap"
+          >
+            Grantee 
+          </button>
+          <button onClick={() => setDropdownOpen((prev) => !prev)}>
+          <FaChevronDown className="ml-1" />
+
+          </button>
+
+        {dropdownOpen && (
+  <div className="absolute right-0 mt-28 bg-white border border-gray-200 rounded-md shadow-lg z-10 ">
+      <button
+     onClick={() => {
+      setGotoLandingPage(true);
+      setDropdownOpen(false);
+    }}
+      className="flex items-center gap-2 w-full px-2 py-2 text-left text-sm hover:bg-gray-100"
+    >
+      Landing Page
+    </button>
+    <button
+     onClick={() => {
+      setShowLogoutModal(true);
+      setDropdownOpen(false);
+    }}
+      className="flex items-center gap-2 w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
+    >
+      <FiLogOut className="text-gray-600" />
+      Logout
+    </button>
+  </div>
+)}
+        </div>
+
+        {showLogoutModal && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+    <div className="bg-white rounded-xl shadow-lg p-6 w-[90%] max-w-sm text-center">
+      <img src={Alert} alt="Alert Icon" className="w-12 h-12 mb-4 mx-auto" />
+      <h2 className="text-lg font-semibold text-[#1D1D1D] mb-4">Log out</h2>
+      <p className="text-sm text-[#434343] mb-6">You are about to log out of your account, are you sure you want to continue this action?</p>
+      <div className="flex justify-center gap-5">
+        <button
+          onClick={() => setShowLogoutModal(false)}
+          className="px-4 py-2 w-full rounded-lg border text-gray-600 hover:bg-gray-100"
+        >
+          Cancel
         </button>
+        <button
+          onClick={confirmLogout}
+          className="px-4 py-2 w-full rounded-lg bg-[#6CBB2D] text-white hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
     </header>
   );

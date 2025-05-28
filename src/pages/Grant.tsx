@@ -48,20 +48,15 @@ const GrantPage: React.FC = () => {
         const fetchGrantData = async () => {
             try {
                 // Fetch grant data
-                const response = await fetch(`https://grantty-backend.onrender.com/startup/startup/${startup_id}`);
+                const response = await fetch(`https://grantty-backend-fltj.onrender.com/startups/${startup_id}`);
                 const data = await response.json();
     
-                // Fetch raised amount data
-                const responseSec = await fetch(`https://grantty-backend.onrender.com/payment/amount-raised/${startup_id}`);
-                const raisedData = await responseSec.json();
     
-                if (response.ok && data.data && responseSec.ok && raisedData) {
+                if (response.ok && data.data) {
                     // Set the grant data
                     setStartup(data.data);
-                    setGoalAmount(parseFloat(data.data.amount_of_funds));
     
-                    // Set the raised amount from the second response
-                    setRaisedAmount(raisedData.total_amount_raised || 0); // Default to 0 if no data
+                    
     
                 } else {
                     setError('Failed to load grant data.');
@@ -95,7 +90,7 @@ const GrantPage: React.FC = () => {
         const startup_name = startup.startup_name;
      const   full_name = user.full_name || ""
       const  email = user.email || ""
-        const formData = { amount, email, startup_id, callback_url, full_name, reference, startup_name,  };
+        const formData = { amount, email, startup_id, callback_url, full_name,  startup_name,  };
         // setPayment(formData);
     
         try {
@@ -109,9 +104,18 @@ const GrantPage: React.FC = () => {
     
             if (response.ok) {
                 const data = await response.json();
-                const authorizationUrl = data.data;
+                const authorizationUrl = data.data.authorization_url;
+                const reference = data.data.reference;
     
                 if (authorizationUrl) {
+                    setPayment({
+                        amount,
+                        email,
+                        startup_id,
+                        startup_name,
+                        reference,
+                        payment_id: data.data.id, // optional, update if needed
+                      });
                     toast.success('Form submitted successfully, Redirection in progress...');
                     window.location.href = authorizationUrl;
                 } else {

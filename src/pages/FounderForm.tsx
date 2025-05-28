@@ -10,6 +10,7 @@ import { uploadToCloudinary } from '@/utils/CloudinaryUpload';
 import { File, VideoIcon } from 'lucide-react';
 import { ImageIcon } from 'lucide-react';
 import { FileBadgeIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 
 interface Step {
@@ -36,26 +37,27 @@ const MultiStepForm: React.FC = () => {
     startup_email: '',
     business_stage: '',
     picture: null ,
-    team_size: 0,
-    no_of_teams: 0,
+    team_size: null,
+    no_of_teams: null,
     cofounder: '',
     cofounder_img: null,
     profile_image: null ,
     linkedin_profile: '',
-    nin: 0,
-    amount_of_funds: 0,
+    nin: null,
+    amount_of_funds: null,
     usage_of_funds: '',
-    no_of_customers: 0,
+    no_of_customers: null,
     video: null ,
     startup_industry: '',
     full_name: '',
     founder_linkedin_profile: '',
     email_address: '',
-    phone_no: 0,
+    phone_no: null,
     founder_profile_img: null ,
-    founder_nin: 0,
+    founder_nin: null,
     role: '',
     hasLaunched: '',
+    hasrevenue: '',
     hasRaisedBefore: '',
   });
   const [mediaPreviews, setMediaPreviews] = useState<{
@@ -66,12 +68,50 @@ const MultiStepForm: React.FC = () => {
     founder_profile_img: null,
     video: null,
   });
+  const navigate = useNavigate();
+
+
+
+  const businessStages = [
+    "Idea Stage ",
+    "Prototype/MVP ",
+    "Pre-Revenue ",
+    "Early Revenue ",
+    "Growth Stage ",
+    "Expansion Stage ",
+    "Established",
+    "Pivoting/Restructuring",
+  ];
+  
+  const coreIndustries = [
+    "FinTech ",
+    "HealthTech ",
+    "EdTech",
+    "AgriTech ",
+    "CleanTech",
+    "PropTech ",
+    "Retail & E-commerce",
+    "Food & Beverage",
+    "Logistics & Mobility ",
+    "Media & Entertainment",
+    "AI & Data ",
+    "Cybersecurity ",
+    "Manufacturing & Industrial Tech",
+    "Travel & Hospitality",
+    "InsurTech",
+    "HR & Recruitment Tech ",
+    "LegalTech ",
+    "Creative & Design",
+    "Social Impact / Non-Profit",
+    "Telecom & Connectivity",
+  ];
+  
   
   
 
   const { submitStartup, loading, error, success } = useStartup();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, files } = e.target as HTMLInputElement;
   
     if (files && files.length > 0) {
@@ -135,7 +175,13 @@ const MultiStepForm: React.FC = () => {
   
       console.log("Final formData to submit:", formDataToSubmit);
   
-      await submitStartup(formDataToSubmit);
+     await submitStartup(formDataToSubmit);
+    toast.success("Profile created successfully!");
+
+    setTimeout(() => {
+      navigate('/grantee-dashboard');
+    }, 2000);
+
   
       toast.success("Profile created successfully!");
     } catch (error) {
@@ -161,7 +207,7 @@ const MultiStepForm: React.FC = () => {
   return (
     <>
     <Navbar />
-    <div className="flex py-4 w-full max-w-7xl mx-auto mt-24">
+    <div className="flex py-4 w-full lg:px-7 md:px-12 max-w-7xl mx-auto mt-24">
       <div className="w-1/3 pr-4 space-y-10 hidden md:block">
         {steps.map((step, index) => (
           <div key={index} className="flex items-center mb-4">
@@ -239,11 +285,34 @@ const MultiStepForm: React.FC = () => {
                
                 <label className='text-sm text-[#686868]' >NiN</label>
                 <input name="nin" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.nin} placeholder='NIN'  />
-                <label className='text-sm text-[#686868]' >Business Stage</label>
-                <input name="business_stage" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.business_stage} placeholder='Select business stage' required />
-                <label className='text-sm text-[#686868]' >Industry/Sector</label>
-                <input name="startup_industry" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.startup_industry} placeholder='Select industry/sector' required />
-              </>
+                <label className='text-sm text-[#686868]'>Business Stage</label>
+                            <select
+                              name="business_stage"
+                              value={formData.business_stage}
+                              onChange={handleChange}
+                              required
+                              className="border p-3 w-full mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none"
+                            >
+                              <option value="">Select business stage</option>
+                              {businessStages.map((stage, index) => (
+                                <option key={index} value={stage}>{stage}</option>
+                              ))}
+                            </select>
+                            <label className="text-sm text-[#686868]">Industry/Sector</label>
+<select
+  name="startup_industry"
+  value={formData.startup_industry}
+  onChange={handleChange}
+  required
+  className="border p-3 w-full mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none"
+>
+  <option value="">Select industry/sector</option>
+  {coreIndustries.map((industry, index) => (
+    <option key={index} value={industry}>
+      {industry}
+    </option>
+  ))}
+</select></>
             )}
 
             {/* STEP 1 */}
@@ -384,7 +453,7 @@ const MultiStepForm: React.FC = () => {
                 <div className="border p-4 w-full h-32 mb-8 mt-2 bg-[#F7F7F9] rounded-xl flex flex-col items-center justify-center text-center cursor-pointer">
 
                 <input type="file" name="video"     onChange={handleChange}
-                                accept=".png, .jpg, .jpeg"
+                              accept="video/mp4, video/webm, video/ogg, video/quicktime"
                                 className="hidden"
                                 id="fileUpload" />
                                   <label htmlFor="fileUpload" className="cursor-pointer">
@@ -395,7 +464,7 @@ const MultiStepForm: React.FC = () => {
                                   Click to upload or drag and drop
                                 </p>
                                 <p className="text-xs text-gray-400 mt-1">
-                                  PNG, JPG. Max file size: 6MB
+                                MP4, WEBM, MOV. Max file size: 6MB
                                 </p>
                               </label>
                                 </div>
@@ -417,12 +486,24 @@ const MultiStepForm: React.FC = () => {
                     <input type="radio" name="hasLaunched" value="no" onChange={handleChange} /> No
                   </label>
                 </div>
-                {formData.hasLaunched === 'yes' && (
                   <>
                     <label className='text-sm text-[#686868]' >Number of Users</label>
-                    <input name="no_of_customers" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.no_of_customers} placeholder='Current number of Users/Customers' />
+                    <input name="no_of_customers" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" value={formData.no_of_customers} placeholder='Current number of Users/Customers'  disabled={formData.hasLaunched === 'no'} />
                   </>
-                )}
+                <label className="block mb-2">Any Revenue?</label>
+                  <div className="mb-2">
+                  <label className="mr-4">
+                    <input type="radio" name="hasrevenue" value="yes" className='p-4' onChange={handleChange} /> Yes
+                  </label>
+                  <label className='text-sm text-[#686868]' >
+                    <input type="radio" name="hasrevenue" value="no" onChange={handleChange} /> No
+                  </label>
+                </div>
+
+                <label className='text-sm text-[#686868]' >If yes</label>
+                    <input name="revenue" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='Current number of Revenue'   disabled={formData.hasrevenue === 'no'} />
+             
+
               </>
             )}
 
@@ -444,14 +525,18 @@ const MultiStepForm: React.FC = () => {
                     <input type="radio" name="hasRaisedBefore" value="no" onChange={handleChange} /> No
                   </label>
                 </div>
-                {formData.hasRaisedBefore === 'yes' && (
-                  <>
+              
                     <label className='text-sm text-[#686868]' >How much?</label>
-                    <input name="amountRaised" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='How much?' />
+                    <input
+                  name="amountRaised"
+                  onChange={handleChange}
+                  className="border p-3 w-full mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none"
+                  placeholder="How much?"
+                  disabled={formData.hasRaisedBefore === 'no'}
+                />
                     <label className='text-sm text-[#686868]' >From whom?</label>
-                    <input name="raisedFrom" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='From who?' />
-                  </>
-                )}
+                    <input name="raisedFrom" onChange={handleChange} className="border p-3 w-full  mb-8 mt-2 bg-[#F7F7F9] rounded-xl outline-none" placeholder='From who?'   disabled={formData.hasRaisedBefore === 'no'} />
+             
               </>
             )}
 
