@@ -6,16 +6,39 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { User, Mail } from "lucide-react";
 import Navbar from '@/components/Navbar';
+import usePaymentStore from '@/store/usePaymentstore';
+import {toast} from 'react-toastify'
+import { useUserStore } from '@/store/useUserStore';
+
 
 const GrantFrontlettPage = () => {
-  const { toast } = useToast();
   const [amount, setAmount] = useState<number | "">("");
   const [supportAs, setSupportAs] = useState<string>("Individual");
   const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [Email, setEmail] = useState<string>("");
   const [orgName, setOrgName] = useState<string>("");
   const [anonymous, setAnonymous] = useState<boolean>(false);
   const [subscribe, setSubscribe] = useState<boolean>(false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const { setPayment } = usePaymentStore();
+        const { user } = useUserStore();
+  
+
   
   // Predefined amounts
   const amountOptions = [
@@ -27,71 +50,63 @@ const GrantFrontlettPage = () => {
     { value: 50000, label: "₦50,000 ($50)" },
     { value: 100000, label: "₦100,000 ($100)" },
     { value: 250000, label: "₦250,000 ($250)" },
+
+     
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Prepare form data
-    const startup_id = 150;
-    const callback_url = "https://grantty.netlify.app/";
-    const full_name = name;
-    
-    const formData = { 
-      amount, 
-      email, 
-      startup_id, 
-      callback_url, 
-      full_name
-    };
+         e.preventDefault();
+       setLoading(true);
 
-    try {
-      // Show loading toast
-      toast({
-        title: "Processing donation",
-        description: "Please wait while we process your request...",
-      });
+          // Prepare form data
+      const startup_id = 150;
+      const callback_url = "http://localhost:8080/payment";
+        const  full_name = user.full_name || name;
+       const email = user.email || Email
+      const startup_name = "Frontlett";
       
-      const response = await fetch(`https://grantty-backend.onrender.com/payment/paystack/initialize`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const formData = { amount, email, startup_id, callback_url, full_name,  startup_name };
 
-      if (response.ok) {
-        const data = await response.json();
-        const authorizationUrl = data.data;
+         // setPayment(formData);
+     
+         try {
+             const response = await fetch(`https://grantty-backend-fltj.onrender.com/payments/initialize`, {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json',
+                 },
+                 body: JSON.stringify(formData),
+             });
+     
+             if (response.ok) {
+                 const data = await response.json();
+                 const authorizationUrl = data.data.authorization_url;
+                 const reference = data.data.reference;
+     
+                 if (authorizationUrl) {
+                     setPayment({
+                         amount,
+                         email,
+                         startup_id: startup_id.toString(),
+                         startup_name,
+                         reference,
+                         payment_id: data.data.id, // optional, update if needed
+                       });
+                     toast.success('Form submitted successfully, Redirection in progress...');
+                     window.location.href = authorizationUrl;
+                 } else {
+                     alert('Authorization URL not found.');
+                 }
+             } else {
+                 toast.error('Failed to submit form.');
+             }
+         } catch (error) {
+             alert('Error submitting form.');
+         } finally {
+          setLoading(false);
 
-        if (authorizationUrl) {
-          toast({
-            title: "Success!",
-            description: "Form submitted successfully. Redirecting you now...",
-          });
-          window.location.href = authorizationUrl;
-        } else {
-          toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Authorization URL not found.",
-          });
-        }
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Submission Failed",
-          description: "Unable to process your donation at this time.",
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "An unexpected error occurred. Please try again later.",
-      });
-    }
-  };
+         }
+     };
 
   const handleAmountSelect = (value: number) => {
     setAmount(value);
@@ -178,7 +193,7 @@ const GrantFrontlettPage = () => {
               <Input
                 id="name"
                 placeholder="Your Name"
-                value={name}
+                value={name || user?.full_name || ""}
                 onChange={(e) => setName(e.target.value)}
                 className="pl-10"
               />
@@ -193,7 +208,7 @@ const GrantFrontlettPage = () => {
                 id="email"
                 type="email"
                 placeholder="your@email.com"
-                value={email}
+                value={Email || user?.email || ""}
                 onChange={(e) => setEmail(e.target.value)}
                 className="pl-10"
               />
@@ -244,7 +259,7 @@ const GrantFrontlettPage = () => {
             type="submit"
             className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md transition-colors mt-4"
           >
-            Grant Now
+          {loading ? "loading...." : "Grant Now"}
           </button>
         </form>
       </div>

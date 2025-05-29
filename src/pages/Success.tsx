@@ -8,7 +8,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
-  const { payment, clearPayment } = usePaymentStore();
+  const { payment } = usePaymentStore();
 
   const [loading, setLoading] = useState(true);
   const [verified, setVerified] = useState(false);
@@ -37,8 +37,6 @@ const PaymentSuccess = () => {
           const data = await response.json();
           console.log("Verification success:", data);
           setVerified(true);
-          clearPayment(); 
-
         } else {
           setFailed(true);
         }
@@ -47,6 +45,7 @@ const PaymentSuccess = () => {
         setFailed(true);
       } finally {
         setLoading(false);
+
       }
     };
 

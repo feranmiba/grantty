@@ -35,7 +35,7 @@ const Navbar = () => {
     if (isFrontlettRoute) {
       navigate('/grant/grant-frontlett');
     } else {
-      signUp();
+     navigate('frontlett') 
     }
   };
 

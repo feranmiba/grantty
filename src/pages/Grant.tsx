@@ -246,7 +246,8 @@ const GrantPage: React.FC = () => {
                         type="submit"
                         className="w-full py-3 bg-[#163078] text-white rounded-2xl"
                     >
-                       Grantt Now
+                                {loading ? "loading...." : "Grant Now"}
+
                     </button>
                 </form>
                 </div>

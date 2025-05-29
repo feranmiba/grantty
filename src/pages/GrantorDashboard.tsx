@@ -12,6 +12,7 @@ import ProfileSettingsCard from "@/components/GrantorDahsboard/ProfileSettingCar
 import { ArrowDown, ArrowUp, ArrowRight, ChevronDown } from "lucide-react";
 import { usePaymentUtils } from "@/utils/usePayment";
 import { useEffect, useState } from "react";
+import usePaymentStore from "@/store/usePaymentstore";
 
 const Index = () => {
   const { getUserPayment } = usePaymentUtils();
@@ -20,6 +21,14 @@ const Index = () => {
   const [amountDisbursed, setAmountDisbursed] = useState("₦0");
   const [startupGrants, setStartupGrants] = useState<{ [key: number]: number }>({});
   const [activeGrantees, setActiveGrantees] = useState(0);
+  const { clearPayment } = usePaymentStore()
+
+  useEffect(() => {
+    return () => {
+      clearPayment(); // Clear payment data on unmount
+    };
+  }
+, [clearPayment]);
   
   useEffect(() => {
     const fetchPayments = async () => {

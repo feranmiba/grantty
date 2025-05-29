@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SummaryCard from '../GrantorDahsboard/SummaryCard'
 import { useGranteeDashboardUtils } from './utils/utils';
+import { usePaymentUtils } from '@/utils/usePayment';
 
 const expectedFields = [
   "startup_name",
@@ -42,12 +43,43 @@ function MainDash() {
     ]
 
     const { getUserCompanyStatus } = useGranteeDashboardUtils();
+    const { getPaymentById } = usePaymentUtils();
     const [status, setStatus] = useState<"Completed" | "Not Completed">("Not Completed");
+
+      const [grantData, setGrantData] = useState<any[]>([]);
+      const [loading, setLoading] = useState(true);
+      const [totalRaised, setTotalRaised] = useState(0);
 
     useEffect(() => {
       const fetchData = async () => {
         try {
           const response = await getUserCompanyStatus();
+        
+          if (Array.isArray(response?.data) && response.data.length > 0) {
+            const startups = response.data;
+  
+            // Fetch payments for each startup
+            const startupsWithPayments = await Promise.all(
+              startups.map(async (startup: any) => {
+                const payment = await getPaymentById(startup.id);
+                return {
+                  ...startup,
+                  payment: payment?.data || null,
+                };
+              })
+            );
+  
+            setGrantData(startupsWithPayments);
+            console.log(startupsWithPayments)
+  
+            // Calculate total amount raised
+            const total = startupsWithPayments.reduce((sum, startup) => {
+              const amount = startup.payment?.amount_raised || startup.payment?.amount || 0;
+              return sum + amount;
+            }, 0);
+  
+            setTotalRaised(total);
+            console.log(total)
           const data = response?.data?.[0];
   
           if (!data) {
@@ -60,6 +92,7 @@ function MainDash() {
           );
   
           setStatus(allFieldsExist ? "Completed" : "Not Completed");
+          }
         } catch (error) {
           console.error("Error fetching user company status:", error);
           setStatus("Not Completed");
@@ -106,42 +139,42 @@ function MainDash() {
                   
 
                     {priority.length > 0 ? (
-  <ul className='w-full mt-10'>
-    {priority.map((pri, index) => (
-      <li
-        key={index}
-        className='border-t border-[#F0F2F5] text-[16px] py-2 flex gap-3'
-      >
-        <svg
-          width="24"
-          height="25"
-          viewBox="0 0 24 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            opacity="0.4"
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M12 3.08789C4.802 3.08789 2.25 5.63989 2.25 12.8379C2.25 20.0359 4.802 22.5879 12 22.5879C19.198 22.5879 21.75 20.0359 21.75 12.8379C21.75 5.63989 19.198 3.08789 12 3.08789Z"
-            fill="#6CBB2D"
-          />
-          <path
-            d="M11.249 16.3379C11.249 16.7519 11.59 17.0879 12.004 17.0879C12.418 17.0879 12.754 16.7519 12.754 16.3379C12.754 15.9239 12.418 15.5879 12.004 15.5879H11.995C11.581 15.5879 11.249 15.9239 11.249 16.3379Z"
-            fill="#6CBB2D"
-          />
-          <path
-            d="M12 8.19287C11.586 8.19287 11.25 8.52887 11.25 8.94287V12.8379C11.25 13.2519 11.586 13.5879 12 13.5879C12.414 13.5879 12.75 13.2519 12.75 12.8379V8.94287C12.75 8.52887 12.414 8.19287 12 8.19287Z"
-            fill="#6CBB2D"
-          />
-        </svg>
-        {pri}
-      </li>
-    ))}
-  </ul>
-) : (
-  <p className="text-center mt-10 text-gray-500">No alerts</p>
-)}
+            <ul className='w-full mt-10'>
+              {priority.map((pri, index) => (
+                <li
+                  key={index}
+                  className='border-t border-[#F0F2F5] text-[16px] py-2 flex gap-3'
+                >
+                  <svg
+                    width="24"
+                    height="25"
+                    viewBox="0 0 24 25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      opacity="0.4"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M12 3.08789C4.802 3.08789 2.25 5.63989 2.25 12.8379C2.25 20.0359 4.802 22.5879 12 22.5879C19.198 22.5879 21.75 20.0359 21.75 12.8379C21.75 5.63989 19.198 3.08789 12 3.08789Z"
+                      fill="#6CBB2D"
+                    />
+                    <path
+                      d="M11.249 16.3379C11.249 16.7519 11.59 17.0879 12.004 17.0879C12.418 17.0879 12.754 16.7519 12.754 16.3379C12.754 15.9239 12.418 15.5879 12.004 15.5879H11.995C11.581 15.5879 11.249 15.9239 11.249 16.3379Z"
+                      fill="#6CBB2D"
+                    />
+                    <path
+                      d="M12 8.19287C11.586 8.19287 11.25 8.52887 11.25 8.94287V12.8379C11.25 13.2519 11.586 13.5879 12 13.5879C12.414 13.5879 12.75 13.2519 12.75 12.8379V8.94287C12.75 8.52887 12.414 8.19287 12 8.19287Z"
+                      fill="#6CBB2D"
+                    />
+                  </svg>
+                  {pri}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-center mt-10 text-gray-500">No alerts</p>
+          )}
 
                         
                     </div>
@@ -160,7 +193,7 @@ function MainDash() {
               </svg>
               }
             label="Total Grants Given"
-            value={grantsDown}
+            value={totalRaised ? `₦${totalRaised.toLocaleString()}` : "₦0" }
           />
           <SummaryCard
             icon={<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +203,7 @@ function MainDash() {
               </svg>
               }
             label="Total Amount Disbursed"
-            value={amountDisbursed}
+            value={totalRaised ? `₦${totalRaised.toLocaleString()}` : "₦0" }
           />
          
         </div>
