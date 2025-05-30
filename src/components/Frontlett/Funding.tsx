@@ -49,7 +49,7 @@ const FundingSection = () => {
       transition={{ duration: 0.6 }}
       className="py-16 px-4 md:px-8 bg-slate-50"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="md:max-w-7xl mx-auto md:px-14 xl:px-24">
       <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

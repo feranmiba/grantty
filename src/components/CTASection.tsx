@@ -72,7 +72,7 @@ const CTASection = () => {
 
   return (
     <section className="section-padding bg-gradient-to-b from-white to-grantty-lightBlue/20">
-      <div className="container-custom">
+      <div className="container-custom md:px-14 xl:px-24">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6">Join the Grantty Community</h2>
           <p className="text-lg text-secondary/70 max-w-2xl mx-auto">

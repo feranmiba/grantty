@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GranttyLogo from '@/assests/Main Logo white.png'
 
+
 const Footer = () => {
+
+    const [activeHash, setActiveHash] = useState("");
+  
+  useEffect(() => {
+    const handleHashChange = () => {
+      setActiveHash(window.location.hash);
+    };
+  
+    handleHashChange(); // initial value
+    window.addEventListener("hashchange", handleHashChange);
+  
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+  
   return (
     <footer className="bg-grantty-navy text-white pt-16 pb-8">
-      <div className="container-custom">
+      <div className="container-custom xl:px-28">
         <div className="flex items-center justify-between gap-10 md:flex-nowrap flex-wrap">
           <div className="w-full md:w-[20%]">
             <div className="text-2xl font-bold mb-4">
@@ -38,20 +53,50 @@ const Footer = () => {
           </div>
           
           <div className="flex items-center gap-10 flex-wrap">
-            <h4 className="text-lg font-thin">How it Works</h4>
-            <h4 className="text-lg font-thin">Why Grantty</h4>
-            <h4 className="text-lg font-thin">Who can Apply</h4>
-            <h4 className="text-lg font-thin">FAQ</h4>
+          <a
+  href="#how-it-works"
+  className={` hover:text-primary transition-colors ${
+    activeHash === "#how-it-works" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  How It Works
+</a>
+<a
+  href="#why-grantty"
+  className={` hover:text-primary transition-colors ${
+    activeHash === "#why-grantty" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Why Grantty
+</a>
+<a
+  href="#eligibility"
+  className={` hover:text-primary transition-colors ${
+    activeHash === "#eligibility" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Who Can Apply
+</a>
+<a
+  href="#faq"
+  className={` hover:text-primary transition-colors ${
+    activeHash === "#faq" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Faqs
+</a>
             </div>
           
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
+              <li className="flex items-start gap-3" >
+              
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-grantty-blue flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <span className="text-white/70">info@grantty.org</span>
+                <a href="mailto:grantty@grantty.com">                <span className="text-white/70">grantty@grantty.com</span>
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-grantty-blue flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +118,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/70 text-sm mb-4 md:mb-0">
-              © 2025 Grantty. All rights reserved.
+            2025 Grantty Business Support Services.
             </p>
             
             <div className="flex space-x-6">

@@ -43,7 +43,7 @@ const TeamSection = () => {
       transition={{ duration: 0.6 }}
       className="py-16 px-4 md:px-8 bg-white"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto md:px-14 xl:px-24">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

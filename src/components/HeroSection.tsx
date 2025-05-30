@@ -46,7 +46,7 @@ const HeroSection = () => {
   return (
     <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-b from-grantty-lightBlue/30 to-white">
       <div className="container-custom">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:px-10 xl:px-24">
           <div className="order-1 md:order-1 animate-fade-in">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary leading-tight mb-6">
             Support the next great startup - from as low as ₦1,000 or $1
@@ -104,11 +104,11 @@ const HeroSection = () => {
                 </div>
                 
                 <div className="w-full bg-gray-100 rounded-full h-2 mb-3 md:mb-4">
-                  <div className="bg-grantty-green h-2 rounded-full" style={{ width: '85%' }}></div>
+                  <div className="bg-grantty-green h-2 rounded-full" style={{ width: '0%' }}></div>
                 </div>
                 
                 <div className="flex justify-between text-sm mb-5 mt-4 md:mt-2">
-                  <span className="font-medium">₦2,550,000 Raised</span>
+                  <span className="font-medium">₦0 Raised</span>
                   <span className="text-[#1D1D1D]">Goal ₦5,000,000</span>
                 </div>
                 

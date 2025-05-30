@@ -60,7 +60,7 @@ function StrategicPartners() {
   return (
     <>
     <section className='bg-slate-50 py-10 px-5 lg:px-5'>
-    <section className='md:max-w-7xl mx-auto '>
+    <section className='md:max-w-7xl mx-auto md:px-14 xl:px-24 '>
 
     <div className='mt-10 text-2xl md:text-3xl font-bold text-center'>
         <h1>Proposed Strategic Partners</h1>

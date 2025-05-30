@@ -188,7 +188,7 @@ const WhyGranttySection = () => {
 
   return (
     <section id="why-grantty" className="section-padding bg-[#E9EEFB]">
-      <div className="container-custom">
+      <div className="container-custom md:px-14 xl:px-24">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6">Why Choose  <span className='text-[#6CBB2D]'>Grantty?</span></h2>
           <p className="text-lg text-[#1D1D1D] max-w-2xl mx-auto">

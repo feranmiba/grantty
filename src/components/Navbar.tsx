@@ -39,6 +39,20 @@ const Navbar = () => {
     }
   };
 
+  const [activeHash, setActiveHash] = useState("");
+
+useEffect(() => {
+  const handleHashChange = () => {
+    setActiveHash(window.location.hash);
+  };
+
+  handleHashChange(); // initial value
+  window.addEventListener("hashchange", handleHashChange);
+
+  return () => window.removeEventListener("hashchange", handleHashChange);
+}, []);
+
+
   const signIn = () => {
     navigate('/auth/signin');
     console.log('Sign In button clicked');
@@ -46,16 +60,20 @@ const Navbar = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
-      <div className="container-custom flex justify-between items-center">
+      <div className="container-custom flex justify-between items-center xl:px-24">
         <a href="/" className="text-2xl font-bold text-secondary">
           <img src={Logo} alt="Grantty Logo" className="h-8 md:h-10" />
         </a>
 
         <div className="md:hidden flex items-center space-x-2">
+
+        <button className=" py-2 font-semibold px-2 rounded-xl bg-[#549421] hover:bg-[#477d1b] text-white text-[12px]" onClick={handleButtonClick}>
+            {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}
+          </button>
           {user && (
             <div className='border rounded-full px-2 py-1 bg-primary/10 text-primary text-xs font-semibold'>
               <FaUser className='inline-block mr-2 text-xs'  />
-              {user.full_name}
+              {user.full_name.slice(0, 5)}
             </div>
           )}
           <button onClick={() => setIsOpen(!isOpen)} className="text-secondary hover:text-primary">
@@ -64,22 +82,79 @@ const Navbar = () => {
         </div>
 
         <nav className="hidden md:flex space-x-8">
-          <a href="#how-it-works" className="text-secondary/80 hover:text-primary transition-colors">How It Works</a>
-          <a href="#why-grantty" className="text-secondary/80 hover:text-primary transition-colors">Why Grantty</a>
-          <a href="#eligibility" className="text-secondary/80 hover:text-primary transition-colors">Who Can Apply</a>
-          <a href="#faq" className="text-secondary/80 hover:text-primary transition-colors">Faqs</a>
+        <a
+  href="#how-it-works"
+  className={`text-secondary/80 hover:text-primary transition-colors ${
+    activeHash === "#how-it-works" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  How It Works
+</a>
+<a
+  href="#why-grantty"
+  className={`text-secondary/80 hover:text-primary transition-colors ${
+    activeHash === "#why-grantty" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Why Grantty
+</a>
+<a
+  href="#eligibility"
+  className={`text-secondary/80 hover:text-primary transition-colors ${
+    activeHash === "#eligibility" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Who Can Apply
+</a>
+<a
+  href="#faq"
+  className={`text-secondary/80 hover:text-primary transition-colors ${
+    activeHash === "#faq" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Faqs
+</a>
         </nav>
 
-        <div className={`flex-col items-center space-y-4 text-center absolute top-14 left-0 right-0 bg-white p-4 md:hidden ${isOpen ? 'flex' : 'hidden'}`}>
-          <a href="#how-it-works" className="text-secondary/80 hover:text-primary transition-colors">How It Works</a>
-          <a href="#why-grantty" className="text-secondary/80 hover:text-primary transition-colors">Why Grantty</a>
-          <a href="#eligibility" className="text-secondary/80 hover:text-primary transition-colors">Who Can Apply</a>
-          <a href="#faq" className="text-secondary/80 hover:text-primary transition-colors">Faqs</a>
-          <div className="items-center space-x-4 text-[10px] md:text-base flex">
+        <div className={`flex-col items-end space-y-4 text-center absolute top-14 left-0 right-0 bg-white p-4 md:hidden ${isOpen ? 'flex' : 'hidden'}`}>
+        <a
+  href="#how-it-works"
+  className={`text-secondary/80 hover:text-primary transition-colors ${
+    activeHash === "#how-it-works" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  How It Works
+</a>
+<a
+  href="#why-grantty"
+  className={`text-secondary/80 hover:text-primary transition-colors ${
+    activeHash === "#why-grantty" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Why Grantty
+</a>
+<a
+  href="#eligibility"
+  className={`text-secondary/80 hover:text-primary transition-colors ${
+    activeHash === "#eligibility" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Who Can Apply
+</a>
+<a
+  href="#faq"
+  className={`text-secondary/80 hover:text-primary transition-colors ${
+    activeHash === "#faq" ? "border-b-2 border-blue-500" : ""
+  }`}
+>
+  Faqs
+</a>
+
+          <div className="items-center  flex-col space-y-4 text-[10px] md:text-base flex">
           {user ? (
             <div ></div>
           ) : (
-            <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary" onClick={signIn}>Log In</Button>
+            <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary" onClick={signIn}>Log In/sign in</Button>
           )}
           <Button className="btn-primary bg-[#549421] hover:bg-[#477d1b] text-white" onClick={handleButtonClick}>
             {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}
@@ -94,7 +169,7 @@ const Navbar = () => {
               {user.full_name}
             </div>
           ) : (
-            <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary" onClick={signIn}>Log In</Button>
+            <button className="text-[14px]" onClick={signIn}>Log In/Sign in</button>
           )}
           <Button className="btn-primary bg-[#549421] hover:bg-[#477d1b] text-white" onClick={handleButtonClick}>
             {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}

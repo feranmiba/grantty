@@ -36,7 +36,7 @@ function NewsLetter() {
   };
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 py-8 md:py-12">
+    <section className="w-full max-w-7xl mx-auto px-4 py-8 md:py-12 md:px-14 xl:px-24">
       <div className="bg-[#1D1D1D] px-6 py-8 md:px-12 lg:px-14 rounded-3xl text-white">
         <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-center lg:justify-between">
           <h1 className="font-bold text-2xl md:text-3xl text-center lg:text-left">Newsletter</h1>

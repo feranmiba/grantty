@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
 import FrontLett from '../../assests/FrontlettHero.png'
 import { useNavigate } from "react-router-dom";
+import Frontlett from '../../assests/Frontlett.png'
+
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -12,10 +14,15 @@ const HeroSection = () => {
     navigate("/grant/grant-frontlett");
   } 
   return (
-<section className="md:py-20 relative overflow-hidden">
+<section className="md:pt-20 relative overflow-hidden">
   <div className="flex justify-center py-10 px-5 md:px-10 mt-14 md:mt-0">
-    <Badge  variant="outline" className=" bg-[#FF7A500D] text-[#FF7A50] text-[12px] p-3 md:p-2 text-center md:text-base font-extralight lg:text-lg  rounded-xl md:rounded-full">Future of Work {">>"} We’re raising a ₦5m or $3k Grantt to build a new work model for the world. For as low as ₦1,000 or $1 you can help make this happen </Badge>
+    <Badge  variant="outline" className=" bg-[#FF7A500D] text-[#FF7A50] text-[12px] p-3 md:p-2 text-center md:text-base font-extralight lg:text-sm rounded-xl md:rounded-lg">Future of Work {">>"} We’re raising a ₦5m or $3k Grantt to build a new work model for the world. For as low as ₦1,000 or $1 you can help make this happen </Badge>
   </div>
+  <div className="flex justify-center mb-10 mt-5 md:mt-0">
+
+  <img src={Frontlett} alt="Frontlett" className="w-[60%] sm:w-[40%] md:w-[10%]  md:hidden" />
+  </div>
+
   <div className="md:mt-10">
     <div className="flex flex-col lg:flex-row gap-14 justify-between lg:gap-10">
       
@@ -32,7 +39,7 @@ const HeroSection = () => {
            Staff Sharing Platform
           </h1>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Button size="lg" className="bg-[#6CBB2D] shadow-xl hover:bg-[#62a62a] " onClick={grants}>
+            <Button size="lg" className="bg-[#6CBB2D] shadow-xl hover:bg-[#62a62a] hidden md:block" onClick={grants}>
               Grantt Us <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button size="lg" variant="outline" className="border-[#6CBB2D] text-[#6CBB2D]">
@@ -47,7 +54,7 @@ const HeroSection = () => {
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="w-full lg:w-[100%]"
+        className="w-full lg:w-[100%] hidden md:block"
       >
         <img
           src={FrontLett}

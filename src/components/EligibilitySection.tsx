@@ -89,7 +89,7 @@ const EligibilitySection = () => {
 
   return (
     <section id="eligibility" className="section-padding bg-white">
-      <div id="eligibility-section" className="container-custom">
+      <div id="eligibility-section" className="container-custom md:px-14 xl:px-24">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6">Who Can Apply?</h2>
           <p className="text-lg text-secondary/70 max-w-2xl mx-auto">

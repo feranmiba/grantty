@@ -11,7 +11,7 @@ function Frontlett() {
   }
   return (
     <section  className="section-padding bg-[#E9EEFB]">
-        <section className='max-w-7xl mx-auto px-5 md:px-20'>
+        <section className='lg:max-w-7xl mx-auto px-5 md:px-20 xl:px-24'>
         <div className=" relative animate-float">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>
@@ -40,11 +40,11 @@ function Frontlett() {
                     </div>
 
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
-                    <div className="bg-grantty-green h-2 rounded-full" style={{ width: '85%' }}></div>
+                    <div className="bg-grantty-green h-2 rounded-full" style={{ width: '0%' }}></div>
                     </div>
 
                     <div className="flex justify-between text-sm mb-5 mt-2">
-                    <span className="font-medium">₦2,550,000 Raised</span>
+                    <span className="font-medium">₦0 Raised</span>
                     <span className="text-[#1D1D1D]">Goal ₦5,000,000</span>
                     </div>
 

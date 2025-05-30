@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,12 +14,21 @@ const data = [
 ];
 
 const RevenueModel = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => setIsMobile(window.innerWidth < 768);
+    checkScreenSize(); // initial check
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   return (
     <motion.section 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="py-16 px-4 md:px-8 bg-[#333333] text-white"
+      className="py-16 px-4 md:px-14 xl:px-24 bg-[#333333] text-white"
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
@@ -40,35 +50,36 @@ const RevenueModel = () => {
       <p className="text-slate-400 text-center text-sm">Q3 July 2023</p>
     </CardHeader>
     <CardContent>
-      <div className="h-[300px] w-full flex justify-center">
-        <ChartContainer config={{
-          hr: { color: "#4285f4" },
-          platform: { color: "#ff7043" },
-          commission: { color: "#4db6ac" }
-        }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={120}
-                paddingAngle={2}
-                dataKey="value"
-                label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                labelLine={false}
-              >
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <ChartTooltip content={<ChartTooltipContent />} />
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-      </div>
-      <div className="flex justify-center gap-4 mt-4">
+    <div className="w-full h-[250px] sm:h-[300px] md:h-[400px] flex justify-center">
+  <ChartContainer config={{
+    hr: { color: "#4285f4" },
+    platform: { color: "#ff7043" },
+    commission: { color: "#4db6ac" }
+  }}>
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={data}
+          cx="50%"
+          cy="50%"
+          innerRadius={60}
+          outerRadius={isMobile ? 80 : 120}
+          paddingAngle={2}
+          dataKey="value"
+          label={!isMobile ? ({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)` : undefined}
+          labelLine={!isMobile}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color} />
+          ))}
+        </Pie>
+        <ChartTooltip content={<ChartTooltipContent />} />
+      </PieChart>
+    </ResponsiveContainer>
+  </ChartContainer>
+</div>
+
+      <div className="flex flex-wrap justify-center gap-4 mt-4">
         {data.map((item, index) => (
           <div key={index} className="flex items-center gap-2">
             <div className="w-3 h-3" style={{ backgroundColor: item.color }}></div>
@@ -84,7 +95,7 @@ const RevenueModel = () => {
 
         <section className="flex flex-wrap lg:flex-nowrap md:flex justify-between gap-10   mt-10">
 
-            <section className="space-y-10 lg:w-1/2">
+            <section className="space-y-10 w-full lg:w-1/2">
                                   {/* HR Fee Card */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}

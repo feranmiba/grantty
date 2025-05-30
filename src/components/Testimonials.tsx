@@ -1,43 +1,47 @@
 import React from 'react';
 import { IoStar } from 'react-icons/io5';
+import Avatar1 from '@/assests/Avatar1.png'
+import Avatar2 from '@/assests/Avatar2.png'
+import Avatar3 from '@/assests/Avatar3.png'
 
 
 interface Testimonial {
   name: string;
   picture: string;
   testimony: string;
+  company?: string; 
 }
 
 const testimonials: Testimonial[] = [
   {
-    name: "Deborah, Founders of Bag&co",
-    picture:
-      "https://plus.unsplash.com/premium_photo-1723629670116-244c1830a565?q=80&w=1698&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    testimony: "Grantty has transformed our community projects. Funding is now easily accessible and transparent.",
+    name: "Aisha & Kunle",
+    picture: Avatar1,
+    testimony: "Grantty made it possible to expand our educational programs. Highly recommended!",
+    company: "Founders of EcoKart"
   },
   {
     name: "Aisha, Founder of Eco",
-    picture:
-      "https://images.unsplash.com/photo-1632303648216-95b4b700f254?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmlsZSUyMG5pZ2VyaWFufGVufDB8fDB8fHww",
-    testimony: "The application process was simple, and the support from the Grantty team was fantastic.",
+    picture: Avatar2,
+    testimony: "Grantty made it possible to expand our educational programs. Highly recommended!",
+    company: "Founders of EcoKart"
   },
   {
     name: "Alex Johnson",
-    picture:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    testimony: "Receiving funding through Grantty helped me start my non-profit and make a real impact.",
+    picture: Avatar3,
+    testimony: "Grantty made it possible to expand our educational programs. Highly recommended!",
+    company: "Founders of EcoKart"
   },
 ];
 
 function Testimonials() {
   return (
-    <section className="section-padding">
+    <section className="section-padding md:px-14 xl:px-24">
       <h1 className="text-[#1D1D1D] text-3xl font-semibold mb-4 text-center">Testimonials</h1>
       <div className="flex flex-wrap justify-center gap-10 p-4">
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="border shadow-lg rounded-xl p-6 text-start w-full sm:w-[300px] lg:w-[400px]"
+            className="border  rounded-xl p-6 text-start w-full sm:w-[300px] lg:w-[400px]"
           >
             {/* Stars */}
             <div className="flex justify-start mb-2 text-yellow-500">

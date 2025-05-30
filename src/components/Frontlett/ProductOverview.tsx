@@ -93,7 +93,7 @@ const nextSteps = [
 const ProductOverviewSection = () => {
   return (
     <section className="py-5 md:py-20   bg-white">
-     <div className="md:max-5xl lg:max-w-7xl mx-auto px-5 lg:px-8">
+     <div className="md:max-5xl lg:max-w-7xl mx-auto px-5 md:px-14 xl:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ const ProductOverviewSection = () => {
         </div>
       </div>
 
-      <section className="bg-[#333333] md:p-8  mb-16">
+      <section className="bg-[#333333] md:p-8  mb-16 md:px-14 xl:px-24">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -148,7 +148,7 @@ const ProductOverviewSection = () => {
               >
                 <div className="flex items-center mb-2">
                   <div className="p-3 rounded-full bg-[#5D9CEC33] mr-2 flex items-center justify-center">
-                    <img src={tech.img} alt="" />
+                  <img src={tech.img} alt="" className="w-10 h-10 object-contain" />
                   </div>
                   <h4 className="font-semibold text-white">{tech.title}</h4>
                 </div>
@@ -160,7 +160,7 @@ const ProductOverviewSection = () => {
 
         </section>
     
-    <section className="max-w-7xl mx-auto px-5 md:px-10 lg:px-10">
+    <section className="md:max-w-7xl mx-auto px-5 md:px-14 xl:px-24">
     <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

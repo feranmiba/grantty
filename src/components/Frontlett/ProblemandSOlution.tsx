@@ -44,8 +44,8 @@ const problems = {
 
 const ProblemSolutionSection = () => {
   return (
-    <section className="py-20 px-4 md:px-8 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-20 px-4 md:px-14 xl:px-24 bg-white">
+      <div className="md:max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
