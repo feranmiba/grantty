@@ -19,17 +19,7 @@ const GrantFrontlettPage = () => {
   const [orgName, setOrgName] = useState<string>("");
   const [anonymous, setAnonymous] = useState<boolean>(false);
   const [subscribe, setSubscribe] = useState<boolean>(false);
-
-
-
-
-
-
-
-
-
-
-
+  const [currency, setCurrency] = useState("NGN");
 
 
 
@@ -120,23 +110,44 @@ const GrantFrontlettPage = () => {
       <h1 className="text-2xl font-bold mb-6">Grant Frontlett</h1>
       
       <div className="space-y-6">
+      <div className="w-full">
+      <label htmlFor="currency" className="block text-sm font-medium text-gray-600 mb-1">
+        Select Currency
+      </label>
+      <select
+        id="currency"
+        value={currency}
+        onChange={(e) => setCurrency(e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="NGN">NGN (₦)</option>
+        <option value="USD">USD ($)</option>
+      </select>
+    </div>
         <div>
           <h2 className="text-sm font-medium mb-3 text-gray-600">Amount</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {amountOptions.slice(0, 4).map((option) => (
+            {amountOptions.slice(0, 4).map((option) => {
+                  const isDisabled = supportAs === "Organization" && option.value < 15000;
+
+              return (
               <button
                 key={option.value}
                 type="button"
-                onClick={() => handleAmountSelect(option.value)}
-                className={`py-2 px-3 rounded-md text-sm border ${
-                  amount === option.value 
-                    ? "border-primary bg-primary/10 text-primary" 
-                    : "border-gray-200 bg-gray-50 hover:bg-gray-100"
-                }`}
+                onClick={() => !isDisabled && handleAmountSelect(option.value)}
+                                disabled={isDisabled}
+                                className={`py-2 px-3 rounded-md text-sm border transition-colors duration-200
+                                  ${isDisabled
+                                    ? "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed"
+                                    : amount === option.value
+                                    ? "border-primary bg-primary/10 text-primary"
+                                    : "border-gray-200 bg-gray-50 hover:bg-gray-100"
+                                  }`}
+                                
               >
                 {option.label}
               </button>
-            ))}
+            )})}
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">

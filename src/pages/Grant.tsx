@@ -162,25 +162,25 @@ const GrantPage: React.FC = () => {
                     <label className="block">
                         Enter Amount
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
-            {amountOptions.slice(0).map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => handleAmountSelect(option.value)}
-                className={`py-2 px-3 rounded-md text-sm border ${
-                  amount === option.value 
+                    {amountOptions.slice(0).map((option) => (
+                    <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => handleAmountSelect(option.value)}
+                        className={`py-2 px-3 rounded-md text-sm border ${
+                        amount === option.value 
                     ? "border-primary bg-primary/10 text-primary" 
                     : option.value === 100000 
                       ? "border-green-500 bg-green-50 hover:bg-green-100" 
                       : option.value === 250000 
                         ? "border-green-200 bg-green-50 hover:bg-green-100" 
                         : "border-gray-200 bg-gray-50 hover:bg-gray-100"
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
+                            }`}
+                        >
+                        {option.label}
+                    </button>
+                    ))}
+                </div>
           
                     <div className="mt-3">
                         <Input
@@ -204,7 +204,7 @@ const GrantPage: React.FC = () => {
                 <Label htmlFor="organization">Organization</Label>
               </div>
             </RadioGroup>
-          </div>
+                       </div>
                     <label className="block">
                         Name
                         <input

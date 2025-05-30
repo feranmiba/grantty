@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const options = [
   {
@@ -14,7 +15,8 @@ const options = [
     ),
     buttonText: "Start Application",
     buttonVariant: "default",
-    bgColor: "bg-grantty-blue"
+    bgColor: "bg-grantty-blue",
+    path: "/founder"
   },
   {
     id: 2,
@@ -46,6 +48,7 @@ const options = [
 
 const CTASection = () => {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -100,6 +103,7 @@ const CTASection = () => {
                 <Button 
                   variant={option.buttonVariant === "default" ? "default" : "outline"} 
                   className={`w-full h-12  ${option.buttonVariant === "default" ? "bg-[#163078]" : "border-2 border-secondary hover:bg-secondary hover:text-white"}`}
+                  onClick={() => navigate(option.path || '')}
                 >
                   {option.buttonText}
                 </Button>

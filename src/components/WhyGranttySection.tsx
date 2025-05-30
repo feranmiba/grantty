@@ -196,7 +196,7 @@ const WhyGranttySection = () => {
           </p>
         </div>
 
-        <section className='flex  flex-wrap md:flex-nowrap md:gap-0 gap-10'>
+        <section className='flex  flex-wrap-reverse md:flex-nowrap md:gap-0 gap-10'>
 
         <div className="bg-[#1A1F2C] py-10 px-5 md:px-10 rounded-2xl md:rounded-none md:rounded-l-3xl">
         <h1 className='text-3xl text-white font-semibold mb-4'>For Granttees</h1>
