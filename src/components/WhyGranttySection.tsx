@@ -268,7 +268,7 @@ const WhyGranttySection = () => {
             </div>
             
             <div className="text-center p-6">
-              <div className="text-4xl font-bold text-[#6CBB2D] mb-2">{businessInfoList.length - 1}+</div>
+              <div className="text-4xl font-bold text-[#6CBB2D] mb-2">0</div>
               <p className="text-secondary/80">Startups Funded</p>
             </div>
           </div>

@@ -59,7 +59,7 @@ useEffect(() => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-3' : 'bg-white py-5'}`}>
       <div className="container-custom flex justify-between items-center xl:px-24">
         <a href="/" className="text-2xl font-bold text-secondary">
           <img src={Logo} alt="Grantty Logo" className="h-8 md:h-10" />
@@ -67,7 +67,7 @@ useEffect(() => {
 
         <div className="md:hidden flex items-center space-x-2">
 
-        <button className=" py-2 font-semibold px-2 rounded-xl bg-[#549421] hover:bg-[#477d1b] text-white text-[12px]" onClick={handleButtonClick}>
+        <button className=" py-2 font-semibold px-3 rounded-xl bg-[#549421] hover:bg-[#477d1b] text-white text-[14px]" onClick={handleButtonClick}>
             {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}
           </button>
           {user && (
@@ -82,85 +82,70 @@ useEffect(() => {
         </div>
 
         <nav className="hidden md:flex space-x-8">
-        <a
-  href="#how-it-works"
-  className={`text-secondary/80 hover:text-primary transition-colors ${
-    activeHash === "#how-it-works" ? "border-b-2 border-blue-500" : ""
-  }`}
->
-  How It Works
-</a>
-<a
-  href="#why-grantty"
-  className={`text-secondary/80 hover:text-primary transition-colors ${
-    activeHash === "#why-grantty" ? "border-b-2 border-blue-500" : ""
-  }`}
->
-  Why Grantty
-</a>
-<a
-  href="#eligibility"
-  className={`text-secondary/80 hover:text-primary transition-colors ${
-    activeHash === "#eligibility" ? "border-b-2 border-blue-500" : ""
-  }`}
->
-  Who Can Apply
-</a>
-<a
-  href="#faq"
-  className={`text-secondary/80 hover:text-primary transition-colors ${
-    activeHash === "#faq" ? "border-b-2 border-blue-500" : ""
-  }`}
->
-  Faqs
-</a>
-        </nav>
+  {[
+    { href: "#how-it-works", label: "How It Works" },
+    { href: "#why-grantty", label: "Why Grantty" },
+    { href: "#eligibility", label: "Who Can Apply" },
+    { href: "#faq", label: "Faqs" },
+  ].map(({ href, label }) => (
+    <a
+      key={href}
+      href={href}
+      onClick={(e) => {
+        e.preventDefault();
+        if (location.pathname !== "/") {
+          navigate(`/${href}`);
+        } else {
+          window.location.hash = href.slice(1); 
+        }
+      }}
+      className={`cursor-pointer text-secondary/80 hover:text-primary transition-colors ${
+        activeHash === href ? "border-b-2 border-blue-500" : ""
+      }`}
+    >
+      {label}
+    </a>
+  ))}
+</nav>
 
-        <div className={`flex-col items-end space-y-4 text-center absolute top-14 left-0 right-0 bg-white p-4 md:hidden ${isOpen ? 'flex' : 'hidden'}`}>
-        <a
-  href="#how-it-works"
-  className={`text-secondary/80 hover:text-primary transition-colors ${
-    activeHash === "#how-it-works" ? "border-b-2 border-blue-500" : ""
-  }`}
->
-  How It Works
-</a>
-<a
-  href="#why-grantty"
-  className={`text-secondary/80 hover:text-primary transition-colors ${
-    activeHash === "#why-grantty" ? "border-b-2 border-blue-500" : ""
-  }`}
->
-  Why Grantty
-</a>
-<a
-  href="#eligibility"
-  className={`text-secondary/80 hover:text-primary transition-colors ${
-    activeHash === "#eligibility" ? "border-b-2 border-blue-500" : ""
-  }`}
->
-  Who Can Apply
-</a>
-<a
-  href="#faq"
-  className={`text-secondary/80 hover:text-primary transition-colors ${
-    activeHash === "#faq" ? "border-b-2 border-blue-500" : ""
-  }`}
->
-  Faqs
-</a>
 
-          <div className="items-center  flex-col space-y-4 text-[10px] md:text-base flex">
-          {user ? (
-            <div ></div>
-          ) : (
-            <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary" onClick={signIn}>Log In/sign in</Button>
-          )}
-          <Button className="btn-primary bg-[#549421] hover:bg-[#477d1b] text-white" onClick={handleButtonClick}>
-            {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}
-          </Button>
-        </div>
-        </div>
+<div className={`flex-col items-end space-y-4 text-center absolute top-14 left-0 right-0 bg-white p-4 md:hidden ${isOpen ? 'flex' : 'hidden'}`}>
+  {[
+    { href: "#how-it-works", label: "How It Works" },
+    { href: "#why-grantty", label: "Why Grantty" },
+    { href: "#eligibility", label: "Who Can Apply" },
+    { href: "#faq", label: "Faqs" },
+  ].map(({ href, label }) => (
+    <a
+      key={href}
+      href={href}
+      onClick={(e) => {
+        e.preventDefault();
+        setIsOpen(false); // close the mobile menu on click
+        if (location.pathname !== "/") {
+          navigate(`/${href}`);
+        } else {
+          window.location.hash = href.slice(1);
+        }
+      }}
+      className={`text-secondary/80 hover:text-primary transition-colors ${
+        activeHash === href ? "border-b-2 border-blue-500" : ""
+      }`}
+    >
+      {label}
+    </a>
+  ))}
+
+  <div className="items-center flex-col space-y-4 text-[10px] md:text-base flex">
+    {user ? (
+      <div></div>
+    ) : (
+      <Button variant="ghost" className="hover:bg-primary/10 hover:text-primary" onClick={signIn}>
+        Sign in/Log in
+      </Button>
+    )}
+  </div>
+</div>
 
         <div className="items-center space-x-4 text-[10px] md:text-base hidden md:flex">
           {user ? (
@@ -169,7 +154,7 @@ useEffect(() => {
               {user.full_name}
             </div>
           ) : (
-            <button className="text-[14px]" onClick={signIn}>Log In/Sign in</button>
+            <button className="text-[14px]" onClick={signIn}>Sign/Log in</button>
           )}
           <Button className="btn-primary bg-[#549421] hover:bg-[#477d1b] text-white" onClick={handleButtonClick}>
             {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}

@@ -46,7 +46,7 @@ const HeroSection = () => {
   return (
     <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-b from-grantty-lightBlue/30 to-white">
       <div className="container-custom">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:px-10 xl:px-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:px-10 xl:px-16">
           <div className="order-1 md:order-1 animate-fade-in">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-secondary leading-tight mb-6">
             Support the next great startup - from as low as ₦1,000 or $1

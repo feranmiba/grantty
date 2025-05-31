@@ -44,7 +44,7 @@ function Frontlett() {
         className="fixed right-0 top-1/2 md:hidden -rotate-90 bg-[#6CBB2D] hover:bg-[#62a62a] text-white font-medium py-2 px-4 rounded-xl z-50"
         onClick={() => alert('Grant Us clicked')}
       >
-        Grant Us
+        Grantt Us
       </button>
     </main>
   )

@@ -7,23 +7,23 @@ function Frontlett() {
   const navigate = useNavigate();
 
   const Frontlett = () => {
-    navigate('/grant/grant-frontlett');
+    navigate('/frontlett');
   }
   return (
     <section  className="section-padding bg-[#E9EEFB]">
-        <section className='lg:max-w-7xl mx-auto px-5 md:px-20 xl:px-24'>
+        <section className='lg:max-w-7xl mx-auto px-5 md:px-20 xl:px-10'>
         <div className=" relative animate-float">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>
-              <div className="relative bg-white rounded-3xl p-6 shadow-lg  border-2 border-[#6CBB2D]">
-                <section className='flex flex-wrap gap-10 md:flex-nowrap md:gap-40 items-center'>
-                <div className="md:w-[40%]">
+              <div className="relative bg-white rounded-3xl p-6 shadow-lg  border-2 border-[#6CBB2D] px-20 py-12">
+                <section className='flex flex-wrap gap-10 md:flex-nowrap md:gap-14 items-center'>
+                <div className="md:w-[80%]">
                 <p className="space-y-5">
                     <img src={Frontlettt} alt="Frontlett" className=" inline-block mr-2" />
                     </p>
                 <div className='flex items-stretch gap-4 flex-col justify-center mt-10'>    
                     <h4>The World 1st</h4>
-                    <p className="text-2xl text-[#1D1D1D]">Staff Sharing Platform</p>
+                    <p className="text-3xl text-[#1D1D1D] font-semibold">Staff Sharing Platform</p>
                 </div>
                 </div>
 

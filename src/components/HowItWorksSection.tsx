@@ -181,8 +181,38 @@ const HowItWorksSection = () => {
           </p>
         </div>
 
-        <section className='flex  flex-wrap-reverse md:flex-nowrap md:gap-0 gap-10'>
-        <div className="bg-[#1A1F2C] py-10 px-5 md:px-10 rounded-2xl md:rounded-none  md:rounded-l-3xl md:w-[50%]">
+        <section className='flex  flex-wrap md:flex-nowrap md:gap-0 gap-10'>
+       
+        <div className="bg-[#5D9CEC1A] py-10 px-5 md:px-10 rounded-2xl  md:rounded-none  md:rounded-l-3xl md:w-[50%]">
+          <h1 className='text-[#1D1D1D] text-3xl font-semibold mb-4'>For Granttors</h1>
+          {step.map((step) => (
+            <div 
+              key={step.id}
+              data-id={step.id}
+              className={`step-item card p-8 mt-6 transition-all duration-500 ${
+                visibleItems.includes(step.id) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: `${(step.id - 1) * 150}ms` }}
+            >
+              <div className="">
+              <div className="flex items-center gap-6">
+
+        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+          {step.icon}
+        </div>
+        <div className="inline-block bg-grantty-green/10 text-grantty-green text-xs font-medium px-2 py-1 rounded-full mb-1">
+            Step {step.id}
+          </div>
+          </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-secondary mb-3">{step.title}</h3>
+                  <p className="text-secondary/70">{step.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="bg-[#1A1F2C] py-10 px-5 md:px-10 rounded-2xl md:rounded-none  md:rounded-r-3xl md:w-[50%] ">
           <h1 className='text-3xl text-white font-semibold mb-4'>For Granttees</h1>
           {steps.map((step) => (
             <div 
@@ -207,35 +237,6 @@ const HowItWorksSection = () => {
                   
                   <h3 className="text-xl font-semibold text-secondary mb-3">{step.title}</h3>
                   <p className="text-secondary/70 text-[16px]">{step.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="bg-[#5D9CEC1A] py-10 px-5 md:px-10 rounded-2xl md:rounded-none  md:rounded-r-3xl md:w-[50%]">
-          <h1 className='text-[#1D1D1D] text-3xl font-semibold mb-4'>For Granttors</h1>
-          {step.map((step) => (
-            <div 
-              key={step.id}
-              data-id={step.id}
-              className={`step-item card p-8 mt-6 transition-all duration-500 ${
-                visibleItems.includes(step.id) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: `${(step.id - 1) * 150}ms` }}
-            >
-              <div className="">
-              <div className="flex items-center gap-6">
-
-        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-          {step.icon}
-        </div>
-        <div className="inline-block bg-grantty-green/10 text-grantty-green text-xs font-medium px-2 py-1 rounded-full mb-1">
-            Step {step.id}
-          </div>
-          </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-secondary mb-3">{step.title}</h3>
-                  <p className="text-secondary/70">{step.description}</p>
                 </div>
               </div>
             </div>

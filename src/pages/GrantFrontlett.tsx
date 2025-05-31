@@ -29,6 +29,18 @@ const GrantFrontlettPage = () => {
         const { user } = useUserStore();
   
 
+
+        const conversionRate = 1000; // $1 = ₦1000
+
+const formatLabel = (value: number) => {
+  if (currency === "USD") {
+    const dollarValue = value / conversionRate;
+    return `$${dollarValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+  } else {
+    return `₦${value.toLocaleString()}`;
+  }
+};
+
   
   // Predefined amounts
   const amountOptions = [
@@ -126,60 +138,67 @@ const GrantFrontlettPage = () => {
     </div>
         <div>
           <h2 className="text-sm font-medium mb-3 text-gray-600">Amount</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {amountOptions.slice(0, 4).map((option) => {
-                  const isDisabled = supportAs === "Organization" && option.value < 15000;
+        {/* First row */}
+<div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+  {amountOptions.slice(0, 4).map((option) => {
+    const isDisabled = supportAs === "Organization" && option.value < 15000;
 
-              return (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => !isDisabled && handleAmountSelect(option.value)}
-                                disabled={isDisabled}
-                                className={`py-2 px-3 rounded-md text-sm border transition-colors duration-200
-                                  ${isDisabled
-                                    ? "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed"
-                                    : amount === option.value
-                                    ? "border-primary bg-primary/10 text-primary"
-                                    : "border-gray-200 bg-gray-50 hover:bg-gray-100"
-                                  }`}
-                                
-              >
-                {option.label}
-              </button>
-            )})}
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
-            {amountOptions.slice(4).map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => handleAmountSelect(option.value)}
-                className={`py-2 px-3 rounded-md text-sm border ${
-                  amount === option.value 
-                    ? "border-primary bg-primary/10 text-primary" 
-                    : option.value === 100000 
-                      ? "border-green-500 bg-green-50 hover:bg-green-100" 
-                      : option.value === 250000 
-                        ? "border-green-200 bg-green-50 hover:bg-green-100" 
-                        : "border-gray-200 bg-gray-50 hover:bg-gray-100"
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
+    return (
+      <button
+        key={option.value}
+        type="button"
+        onClick={() => !isDisabled && handleAmountSelect(option.value)}
+        disabled={isDisabled}
+        className={`py-2 px-3 rounded-md text-sm border transition-colors duration-200
+          ${isDisabled
+            ? "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed"
+            : amount === option.value
+            ? "border-primary bg-primary/10 text-primary"
+            : "border-gray-200 bg-gray-50 hover:bg-gray-100"
+          }`}
+      >
+        {formatLabel(option.value)}
+      </button>
+    );
+  })}
+</div>
+
+{/* Second row */}
+<div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+  {amountOptions.slice(4).map((option) => (
+    <button
+      key={option.value}
+      type="button"
+      onClick={() => handleAmountSelect(option.value)}
+      className={`py-2 px-3 rounded-md text-sm border ${
+        amount === option.value 
+          ? "border-primary bg-primary/10 text-primary" 
+          : option.value === 100000 
+            ? "border-green-500 bg-green-50 hover:bg-green-100" 
+            : option.value === 250000 
+              ? "border-green-200 bg-green-50 hover:bg-green-100" 
+              : "border-gray-200 bg-gray-50 hover:bg-gray-100"
+      }`}
+    >
+      {formatLabel(option.value)}
+    </button>
+  ))}
+</div>
+
           
           <div className="mt-3">
-            <Input
-              type="number"
-              placeholder="Enter the amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value ? Number(e.target.value) : "")}
-              className="w-full"
-            />
-          </div>
+  <Input
+    type="number"
+    placeholder={`Enter the amount in ${currency === "USD" ? "USD" : "NGN"}`}
+    value={amount}
+    onChange={(e) => setAmount(e.target.value ? Number(e.target.value) : "")}
+    className="w-full"
+  />
+  {currency === "USD" && amount ? (
+    <p className="text-xs text-gray-500 mt-1">Equivalent: ${Math.round(amount / conversionRate)}</p>
+  ) : null}
+</div>
+
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-4">
