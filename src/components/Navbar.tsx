@@ -67,7 +67,7 @@ useEffect(() => {
 
         <div className="md:hidden flex items-center space-x-2">
 
-        <button className=" py-2 font-semibold px-3 rounded-xl bg-[#549421] hover:bg-[#477d1b] text-white text-[14px]" onClick={handleButtonClick}>
+        <button className=" py-2  font-semibold px-2 rounded-xl bg-[#549421] hover:bg-[#477d1b] text-white text-[12px]" onClick={handleButtonClick}>
             {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}
           </button>
           {user && (
@@ -86,7 +86,7 @@ useEffect(() => {
     { href: "#how-it-works", label: "How It Works" },
     { href: "#why-grantty", label: "Why Grantty" },
     { href: "#eligibility", label: "Who Can Apply" },
-    { href: "#faq", label: "Faqs" },
+    { href: "#faq", label: "FAQs" },
   ].map(({ href, label }) => (
     <a
       key={href}
@@ -114,7 +114,7 @@ useEffect(() => {
     { href: "#how-it-works", label: "How It Works" },
     { href: "#why-grantty", label: "Why Grantty" },
     { href: "#eligibility", label: "Who Can Apply" },
-    { href: "#faq", label: "Faqs" },
+    { href: "#faq", label: "FAQs" },
   ].map(({ href, label }) => (
     <a
       key={href}

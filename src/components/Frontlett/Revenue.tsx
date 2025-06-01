@@ -36,61 +36,63 @@ const RevenueModel = () => {
           <p className="text-slate-300">Multiple revenue streams for sustainable growth</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">  
-          {/* Main chart */}
-          <motion.div 
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 0.5, delay: 0.2 }}
-  className="lg:col-span-4 mb-6 flex justify-center items-center"
->
-  <Card className="bg-[#FFFFFF1A] border-slate-700 w-full lg:w-3/4">
-    <CardHeader className="pb-2">
-      <CardTitle className="text-center text-xl text-white">Revenue Model</CardTitle>
-      <p className="text-slate-400 text-center text-sm">Q3 July 2023</p>
-    </CardHeader>
-    <CardContent>
-    <div className="w-full h-[250px] sm:h-[300px] md:h-[400px] flex justify-center">
-  <ChartContainer config={{
-    hr: { color: "#4285f4" },
-    platform: { color: "#ff7043" },
-    commission: { color: "#4db6ac" }
-  }}>
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius={60}
-          outerRadius={isMobile ? 80 : 120}
-          paddingAngle={2}
-          dataKey="value"
-          label={!isMobile ? ({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)` : undefined}
-          labelLine={!isMobile}
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.color} />
+        <div className="grid grid-cols-1 gap-6 px-4 md:px-6">  
+  <motion.div 
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5, delay: 0.2 }}
+    className="w-full flex justify-center"
+  >
+    <Card className="bg-[#FFFFFF1A] border-slate-700 w-full max-w-5xl">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-center text-xl text-white">Revenue Model</CardTitle>
+        <p className="text-slate-400 text-center text-sm">Q3 July 2023</p>
+      </CardHeader>
+      <CardContent>
+        <div className="w-full aspect-[4/3] sm:aspect-[3/2] md:aspect-[16/9]">
+          <ChartContainer
+            config={{
+              hr: { color: "#4285f4" },
+              platform: { color: "#ff7043" },
+              commission: { color: "#4db6ac" }
+            }}
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={data}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={40}
+                  outerRadius={isMobile ? 60 : 100}
+                  paddingAngle={2}
+                  dataKey="value"
+                  label={!isMobile ? ({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)` : undefined}
+                  labelLine={!isMobile}
+                >
+                  {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <ChartTooltip content={<ChartTooltipContent />} />
+              </PieChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 mt-4">
+          {data.map((item, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <div className="w-3 h-3" style={{ backgroundColor: item.color }}></div>
+              <span className="text-sm text-slate-300">{item.name}</span>
+            </div>
           ))}
-        </Pie>
-        <ChartTooltip content={<ChartTooltipContent />} />
-      </PieChart>
-    </ResponsiveContainer>
-  </ChartContainer>
+        </div>
+      </CardContent>
+    </Card>
+  </motion.div>
 </div>
 
-      <div className="flex flex-wrap justify-center gap-4 mt-4">
-        {data.map((item, index) => (
-          <div key={index} className="flex items-center gap-2">
-            <div className="w-3 h-3" style={{ backgroundColor: item.color }}></div>
-            <span className="text-sm text-slate-300 ">{item.name}</span>
-          </div>
-        ))}
-      </div>
-    </CardContent>
-  </Card>
-           </motion.div>
-        </div>
 
 
         <section className="flex flex-wrap lg:flex-nowrap md:flex justify-between gap-10   mt-10">

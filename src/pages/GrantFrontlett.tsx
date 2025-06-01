@@ -119,7 +119,7 @@ const formatLabel = (value: number) => {
         <Navbar />
         <section className='bg-[#000000BF] py-10 min-h-screen mt-20 px-5 md:px-0'>
         <div className="w-full max-w-5xl mx-auto bg-white rounded-xl shadow-sm p-6 mt-8">
-      <h1 className="text-2xl font-bold mb-6">Grant Frontlett</h1>
+      <h1 className="text-2xl font-bold mb-6">Grantt Frontlett</h1>
       
       <div className="space-y-6">
       <div className="w-full">
@@ -289,7 +289,7 @@ const formatLabel = (value: number) => {
             type="submit"
             className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md transition-colors mt-4"
           >
-          {loading ? "loading...." : "Grant Now"}
+          {loading ? "loading...." : "Grantt Now"}
           </button>
         </form>
       </div>
