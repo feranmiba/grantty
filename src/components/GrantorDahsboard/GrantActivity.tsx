@@ -22,24 +22,17 @@ const GrantActivity = () => {
           const startupsWithPayments = await Promise.all(
             startups.map(async (startup: any) => {
               const payment = await getPaymentById(startup.id);
+              console.log(payment)
               return {
                 ...startup,
-                payment: payment?.data || null,
+                payment: payment?.totalAmount || null,
               };
             })
           );
 
           setGrantData(startupsWithPayments);
           console.log(startupsWithPayments)
-
-          // Calculate total amount raised
-          const total = startupsWithPayments.reduce((sum, startup) => {
-            const amount = startup.payment?.amount_raised || startup.payment?.amount || 0;
-            return sum + amount;
-          }, 0);
-
-          setTotalRaised(total);
-          console.log(total)
+         
         } else {
           setGrantData([]);
           setTotalRaised(0);
@@ -94,13 +87,13 @@ const GrantActivity = () => {
                 <td className="px-4 py-5">{row.founder_full_name}</td>
                 <td className="px-4 py-5">{row.startup_name}</td>
                 <td className="px-4 py-5">
-                  {row.payment?.amount
-                    ? `₦${totalAmountRaised.toLocaleString()}`
+                  {row.payment
+                    ? `₦${row.payment?.toLocaleString()}`
                     : "₦0"}
                 </td>
                 <td className="px-4 py-5">
                   {row.amount_of_funds
-                    ? `₦${(row.amount_of_funds - totalAmountRaised).toLocaleString()}`
+                    ? `₦${(row.amount_of_funds - row.payment).toLocaleString()}`
                     : "-"}
                 </td>
               </tr>

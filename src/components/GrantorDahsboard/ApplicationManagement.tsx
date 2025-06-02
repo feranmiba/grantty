@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useGrantorDashboardUtils } from "./hooks/utils";
 import { usePaymentUtils } from "@/utils/usePayment";
+import { useNavigate } from "react-router-dom";
+
 
 const AvailableProjectsTable = () => {
   const { getCompany } = useGrantorDashboardUtils();
@@ -9,6 +11,8 @@ const AvailableProjectsTable = () => {
   const [projectData, setProjectData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
     const [totalRaised, setTotalRaised] = useState(0);
+    const navigate = useNavigate();
+
     
   
 
@@ -24,24 +28,17 @@ const AvailableProjectsTable = () => {
             const startupsWithPayments = await Promise.all(
               startups.map(async (startup: any) => {
                 const payment = await getPaymentById(startup.id);
+                console.log(payment)
                 return {
                   ...startup,
-                  payment: payment?.data || null,
+                  payment: payment?.totalAmount || null,
                 };
               })
             );
   
+  
             setProjectData(startupsWithPayments);
             console.log(startupsWithPayments)
-  
-            // Calculate total amount raised
-            const total = startupsWithPayments.reduce((sum, startup) => {
-              const amount = startup.payment?.amount_raised || startup.payment?.amount || 0;
-              return sum + amount;
-            }, 0);
-  
-            setTotalRaised(total);
-            console.log(total)
           } else {
             setProjectData([]);
             setTotalRaised(0);
@@ -78,29 +75,27 @@ const AvailableProjectsTable = () => {
               <th className="px-4 py-4 font-medium text-gray-500">AMOUNT NEEDED</th>
             </tr>
           </thead>
-          <tbody>
-            {projectData.map((row, i) => {
-              const totalAmountRaised = totalRaised + row.amount_raised
-              return(
-              <tr
-                key={i}
-                className="border-b last:border-b-0 hover:bg-gray-50 transition text-[#21283B] text-base"
-              >
-                <td className="px-4 py-5">{row.founder_full_name}</td>
-                <td className="px-4 py-5">{row.startup_name}</td>
-                <td className="px-4 py-5">
-                  {row.payment?.amount
-                    ? `₦${totalAmountRaised.toLocaleString()}`
-                    : "₦0"}
-                </td>
-                <td className="px-4 py-5">
-                  {row.amount_of_funds
-                    ? `₦${(row.amount_of_funds - totalAmountRaised).toLocaleString()}`
-                    : "-"}
-                </td>
-              </tr>
-            )})}
-          </tbody>
+              <tbody>
+      {projectData.map((row, i) => (
+        <tr
+          key={i}
+          onClick={() => navigate(`/grant/${row.id}`)}
+          className="border-b last:border-b-0 hover:bg-gray-50 transition text-[#21283B] text-base cursor-pointer"
+        >
+          <td className="px-4 py-5">{row.founder_full_name}</td>
+          <td className="px-4 py-5">{row.startup_name}</td>
+          <td className="px-4 py-5">
+            {row.payment ? `₦${row.payment.toLocaleString()}` : "₦0"}
+          </td>
+          <td className="px-4 py-5">
+            {row.amount_of_funds
+              ? `₦${(row.amount_of_funds - row.payment).toLocaleString()}`
+              : "-"}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+
         </table>
       )}
     </div>

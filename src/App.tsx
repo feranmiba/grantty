@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuthStore} from "./store/useAuthStore";  
 import PaymentSuccess from "./pages/Success";
+import VerifyEmail from "./pages/auth/VerifEmail";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth/signin" element={<SignIn />} />
+              <Route path="/auth/verify" element={<VerifyEmail />} />
               <Route path="/auth/signup" element={<SignUp />} />
               <Route path="/grant/:startup_id" element={<GrantPage />} />
               <Route path="/frontlett" element={<Frontlett />} />

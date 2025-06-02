@@ -12,13 +12,14 @@ function SignUp() {
     full_name: "",
     email: "",
     password: "",
+    user_type: "grantor", // Default user type
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -40,13 +41,14 @@ function SignUp() {
   
       if (response?.message) {
         toast.success(response.message); // Show success toast
+        localStorage.setItem("user", JSON.stringify(response.data.email)); 
       } else {
         toast.success("Sign up successful!"); // Show success toast
       }
   
       // Wait for 2 seconds before redirecting
       setTimeout(() => {
-        window.location.href = "/auth/signin";
+        window.location.href = "/auth/verify";
       }, 2000);
     } catch (error: any) {
       setIsLoading(false);
@@ -184,6 +186,23 @@ function SignUp() {
               </button>
             </div>
           </div>
+
+          <div className="flex flex-col gap-1">
+  <label htmlFor="user_type" className="text-sm font-medium text-gray-700">User Type</label>
+  <select
+    id="user_type"
+    name="user_type"
+    value={formData.user_type}
+    onChange={handleChange}
+    required
+    className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+  >
+    <option value="" disabled>Select user type</option>
+    <option value="grantor">Grantor</option>
+    <option value="grantee">Grantee</option>
+  </select>
+</div>
+
 
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: "0 0 10px rgba(59,130,246,0.6)" }}

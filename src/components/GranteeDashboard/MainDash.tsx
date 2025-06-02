@@ -34,10 +34,7 @@ const expectedFields = [
 ];
 
 function MainDash() {
-    const grantsDown = "₦1,000,000";
-    const amountDisbursed = "₦500,000";
-    const activeGrantees = "5";
-    const pendingApplications = "2";
+
     const priority = [
       
     ]
@@ -62,24 +59,21 @@ function MainDash() {
             const startupsWithPayments = await Promise.all(
               startups.map(async (startup: any) => {
                 const payment = await getPaymentById(startup.id);
+                console.log(payment)
+                setTotalRaised(payment?.totalAmount)
+                
                 return {
                   ...startup,
-                  payment: payment?.data || null,
+                  payment: payment?.totalAmount || null,
                 };
               })
             );
-  
+
             setGrantData(startupsWithPayments);
             console.log(startupsWithPayments)
+
   
-            // Calculate total amount raised
-            const total = startupsWithPayments.reduce((sum, startup) => {
-              const amount = startup.payment?.amount_raised || startup.payment?.amount || 0;
-              return sum + amount;
-            }, 0);
-  
-            setTotalRaised(total);
-            console.log(total)
+        
           const data = response?.data?.[0];
   
           if (!data) {

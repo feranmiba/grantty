@@ -16,9 +16,11 @@ import { Label } from "@/components/ui/label";
 
 
 const GrantPage: React.FC = () => {
-    const { startup_id } = useParams<{ startup_id: string }>(); // Retrieve startup_id from URL params
-      const { user } = useUserStore();
-      const { setPayment } = usePaymentStore();
+    const { startup_id } = useParams<{ startup_id: string }>(); 
+    const { user } = useUserStore();
+    const { setPayment } = usePaymentStore();
+    const [currency, setCurrency] = useState("NGN");
+      
     
 
     const [amount, setAmount] = useState<number | "">("");
@@ -32,6 +34,19 @@ const GrantPage: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [startup, setStartup] = useState<any>(null);
+
+
+    const conversionRate = 1000; // $1 = ₦1000
+
+    const formatLabel = (value: number) => {
+      if (currency === "USD") {
+        const dollarValue = value / conversionRate;
+        return `$${dollarValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+      } else {
+        return `₦${value.toLocaleString()}`;
+      }
+    };
+    
 
     const amountOptions = [
         { value: 1000, label: "₦1,000 ($1)" },
@@ -158,52 +173,101 @@ const GrantPage: React.FC = () => {
                 )}
 
 
-                <form onSubmit={handleSubmit} className="space-y-5 mt-10 text-[#686868]">
-                    <label className="block">
-                        Enter Amount
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
-                    {amountOptions.slice(0).map((option) => (
-                    <button
-                        key={option.value}
-                        type="button"
-                        onClick={() => handleAmountSelect(option.value)}
-                        className={`py-2 px-3 rounded-md text-sm border ${
-                        amount === option.value 
-                    ? "border-primary bg-primary/10 text-primary" 
-                    : option.value === 100000 
-                      ? "border-green-500 bg-green-50 hover:bg-green-100" 
-                      : option.value === 250000 
-                        ? "border-green-200 bg-green-50 hover:bg-green-100" 
-                        : "border-gray-200 bg-gray-50 hover:bg-gray-100"
-                            }`}
-                        >
-                        {option.label}
-                    </button>
-                    ))}
-                </div>
-          
-                    <div className="mt-3">
-                        <Input
-                        type="number"
-                        placeholder="Enter the amount"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value ? Number(e.target.value) : "")}
-                        className="w-full"
-                        />
-                    </div>
-                    </label>
-                        <div className="space-y-2">
-            <h2 className="text-sm font-medium text-gray-600">Support as</h2>
-            <RadioGroup defaultValue="Individual" value={supportAs} onValueChange={setSupportAs} className="flex gap-8">
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="Individual" id="individual" />
-                <Label htmlFor="individual">Individual</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="Organization" id="organization" />
-                <Label htmlFor="organization">Organization</Label>
-              </div>
-            </RadioGroup>
+                
+                <form onSubmit={handleSubmit} className="space-y-5 mt-3 text-[#686868]">
+                <div className="w-full">
+      <label htmlFor="currency" className="block text-sm font-medium text-gray-600 mb-1">
+        Select Currency
+      </label>
+      <select
+        id="currency"
+        value={currency}
+        onChange={(e) => setCurrency(e.target.value)}
+        className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="NGN">NGN (₦)</option>
+        <option value="USD">USD ($)</option>
+      </select>
+    </div>
+
+
+                  <div>
+                         <h2 className="text-sm font-medium mb-3 text-gray-600">Amount</h2>
+                       {/* First row */}
+               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                 {amountOptions.slice(0, 4).map((option) => {
+                   const isDisabled = supportAs === "Organization" && option.value < 15000;
+               
+                   return (
+                     <button
+                       key={option.value}
+                       type="button"
+                       onClick={() => !isDisabled && handleAmountSelect(option.value)}
+                       disabled={isDisabled}
+                       className={`py-2 px-3 rounded-md text-sm border transition-colors duration-200
+                         ${isDisabled
+                           ? "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed"
+                           : amount === option.value
+                           ? "border-primary bg-primary/10 text-primary"
+                           : "border-gray-200 bg-gray-50 hover:bg-gray-100"
+                         }`}
+                     >
+                       {formatLabel(option.value)}
+                     </button>
+                   );
+                 })}
+               </div>
+               
+               {/* Second row */}
+               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+                 {amountOptions.slice(4).map((option) => (
+                   <button
+                     key={option.value}
+                     type="button"
+                     onClick={() => handleAmountSelect(option.value)}
+                     className={`py-2 px-3 rounded-md text-sm border ${
+                       amount === option.value 
+                         ? "border-primary bg-primary/10 text-primary" 
+                         : option.value === 100000 
+                           ? "border-green-500 bg-green-50 hover:bg-green-100" 
+                           : option.value === 250000 
+                             ? "border-green-200 bg-green-50 hover:bg-green-100" 
+                             : "border-gray-200 bg-gray-50 hover:bg-gray-100"
+                     }`}
+                   >
+                     {formatLabel(option.value)}
+                   </button>
+                 ))}
+               </div>
+               
+                         
+                         <div className="mt-3">
+                 <Input
+                   type="number"
+                   placeholder={`Enter the amount in ${currency === "USD" ? "USD" : "NGN"}`}
+                   value={amount}
+                   onChange={(e) => setAmount(e.target.value ? Number(e.target.value) : "")}
+                   className="w-full"
+                 />
+                 {currency === "USD" && amount ? (
+                   <p className="text-xs text-gray-500 mt-1">Equivalent: ${Math.round(amount / conversionRate)}</p>
+                 ) : null}
+               </div>
+
+               <div className="space-y-2 mt-5">
+                           <h2 className="text-sm font-medium text-gray-600">Support as</h2>
+                           <RadioGroup defaultValue="Individual" value={supportAs} onValueChange={setSupportAs} className="flex gap-8">
+                             <div className="flex items-center space-x-2">
+                               <RadioGroupItem value="Individual" id="individual" />
+                               <Label htmlFor="individual">Individual</Label>
+                             </div>
+                             <div className="flex items-center space-x-2">
+                               <RadioGroupItem value="Organization" id="organization" />
+                               <Label htmlFor="organization">Organization</Label>
+                             </div>
+                           </RadioGroup>
+                         </div>
+               
                        </div>
                     <label className="block">
                         Name

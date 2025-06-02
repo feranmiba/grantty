@@ -18,31 +18,8 @@ const HeroSection = () => {
     const Frontlett = () => {
       navigate('/frontlett');
     }
-    
-  
-     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch('https://grantty-backend.onrender.com/startup', {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-    
-            if (!response.ok) {
-              throw new Error(`Error: ${response.statusText}`);
-            }
-    
-            const data = await response.json();
-            setBusinessInfoList(data.data);
-          } catch (error) {
-            console.error('Error fetching business data:', error);
-          }
-        };
-    
-        fetchData();
-      }, []);
+
+
   return (
     <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-b from-grantty-lightBlue/30 to-white">
       <div className="container-custom">
@@ -84,7 +61,7 @@ const HeroSection = () => {
                 </div>
               </div>
               <p className="text-sm text-secondary/70">
-                Joined by <span className="font-semibold">42 funders</span> this month
+                Joined by <span className="font-semibold"> funders</span> this month
               </p>
             </div>
           </div>
@@ -95,11 +72,11 @@ const HeroSection = () => {
               <div className="relative bg-white rounded-3xl p-6 shadow-lg  border-2 border-[#6CBB2D]">
                 <div className="flex justify-between items-center mb-8 md:mb-4">
                   <div>
-                    <h3 className="font-bold text-secondary text-2xl">FrontLett</h3>
+                    <h3 className="font-bold text-secondary text-2xl">Frontlett</h3>
                     <p className="text-xl text-[#1D1D1D] mt-5 md:mt-3 mb-3">Abuja, Nigeria</p>
                   </div>
                   <div className="bg-grantty-green/10 text-grantty-green font-medium px-3 py-1 rounded-full text-sm">
-                    85% Funded
+                    0% Funded
                   </div>
                 </div>
                 

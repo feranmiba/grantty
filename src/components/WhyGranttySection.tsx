@@ -263,7 +263,7 @@ const WhyGranttySection = () => {
             </div>
             
             <div className="text-center p-6 border-b-4 border-[#D2D2D2] lg:border-b-0 lg:border-r ">
-              <div className="text-4xl font-bold text-[#6CBB2D] mb-2">₦5M/$3,000</div>
+              <div className="text-4xl font-bold text-[#6CBB2D] mb-2">₦7.5M/$5,000</div>
               <p className="text-secondary/80">Maximum Grant Size</p>
             </div>
             

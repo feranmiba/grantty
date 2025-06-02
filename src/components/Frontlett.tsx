@@ -35,7 +35,7 @@ function Frontlett() {
                         <p className="text-xl text-[#1D1D1D] mt-3 mb-3">Abuja, Nigeria</p>
                     </div>
                     <div className="bg-grantty-green/10 text-grantty-green font-medium px-3 py-1 rounded-full text-sm">
-                        85% Funded
+                        0% Funded
                     </div>
                     </div>
 

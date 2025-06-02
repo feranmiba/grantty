@@ -3,14 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useGrantorDashboardUtils } from "./hooks/utils";
 import { usePaymentUtils } from "@/utils/usePayment";
 
-
-const granteeData = [
-  { project: "Agrivest", amount: "₦50,000", progress: "Completed", nextMilestone: "28-05-2025" },
-  { project: "Agrivest", amount: "₦50,000", progress: "Completed", nextMilestone: "28-05-2025" },
-  { project: "Agrivest", amount: "₦50,000", progress: "Completed", nextMilestone: "28-05-2025" },
-  { project: "Agrivest", amount: "₦50,000", progress: "Completed", nextMilestone: "28-05-2025" },
-];
-
 const GranteeManagementTable = () => {
    const { getCompany } = useGrantorDashboardUtils();
     const { getPaymentById } = usePaymentUtils();
@@ -27,28 +19,20 @@ const GranteeManagementTable = () => {
           if (Array.isArray(companyResponse?.data) && companyResponse.data.length > 0) {
             const startups = companyResponse.data;
   
-            // Fetch payments for each startup
-            const startupsWithPayments = await Promise.all(
-              startups.map(async (startup: any) => {
-                const payment = await getPaymentById(startup.id);
-                return {
-                  ...startup,
-                  payment: payment?.data || null,
-                };
-              })
-            );
+          // Fetch payments for each startup
+          const startupsWithPayments = await Promise.all(
+            startups.map(async (startup: any) => {
+              const payment = await getPaymentById(startup.id);
+              console.log(payment)
+              return {
+                ...startup,
+                payment: payment?.totalAmount || null,
+              };
+            })
+          );
   
             setGrantData(startupsWithPayments);
             console.log(startupsWithPayments)
-  
-            // Calculate total amount raised
-            const total = startupsWithPayments.reduce((sum, startup) => {
-              const amount = startup.payment?.amount_raised || startup.payment?.amount || 0;
-              return sum + amount;
-            }, 0);
-  
-            setTotalRaised(total);
-            console.log(total)
           } else {
             setGrantData([]);
             setTotalRaised(0);
@@ -91,7 +75,7 @@ const GranteeManagementTable = () => {
       <tbody>
       {grantData.map((row, i) => {
           const status =
-          row.amount_of_funds <= totalRaised ? (
+          row.amount_of_funds <= row.payment ? (
             <span className="px-2 py-2 font-semibold rounded text-[#6CBB2D]">Completed</span>
           ) : (
             <span className="px-2 py-2 font-semibold rounded text-[#E53E3E]">Not Completed</span>

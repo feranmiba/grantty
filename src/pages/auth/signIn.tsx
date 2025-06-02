@@ -29,28 +29,35 @@ function SignIn() {
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true); // Set loading to true when starting the sign-in process
+    setIsLoading(true);
   
     try {
       const response = await signIn(formData.email, formData.password);
-      setIsLoading(false); // Reset loading after the request finishes
+      setIsLoading(false);
   
       if (response?.message) {
-        toast.success(response.message);  // Toast on success
+        toast.success(response.message);
       } else {
-        toast.success("Sign in successful!");  // Toast on success
+        toast.success("Sign in successful!");
       }
   
-      // Wait for 2 seconds before redirecting to the home page
+      // Access user_type from the response
+      const userType = response?.data?.user?.user_type;
+  
+      // Redirect based on user_type
       setTimeout(() => {
-        window.location.href = "/";
+        if (userType === "grantor") {
+          window.location.href = "/grantor-dashboard";
+        } else {
+          window.location.href = "/grantee-dashboard";
+        }
       }, 2000);
     } catch (error: any) {
       setIsLoading(false);
       const errorMessage = error.message || "Error signing in, please try again.";
       toast.error(errorMessage);
       console.error("Error signing in:", errorMessage);
-    }    
+    }
   };
   
   
