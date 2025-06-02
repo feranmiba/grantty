@@ -115,8 +115,8 @@ function FaQs() {
               onClick={() => toggleFaqs(index)}
               className="w-full flex justify-between items-center py-3 text-left focus:outline-none"
             >
-              <span className="font-medium text-lg">{faq.question}</span>
-              <span className="text-gray-500">
+              <span className="font-medium text-sm md:text-lg">{faq.question}</span>
+              <span className="text-gray-500 text-xs">
   {activeIndexs === index ? (
     // Minus icon in circle
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

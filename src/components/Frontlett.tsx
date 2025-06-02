@@ -15,7 +15,7 @@ function Frontlett() {
         <div className=" relative animate-float">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/10 rounded-3xl transform rotate-3"></div>
-              <div className="relative bg-white rounded-3xl p-6 shadow-lg  border-2 border-[#6CBB2D] px-20 py-12">
+              <div className="relative bg-white rounded-3xl p-6 shadow-lg  border-2 border-[#6CBB2D] px-8 py-8  md:px-20 md:py-12">
                 <section className='flex flex-wrap gap-10 md:flex-nowrap md:gap-14 items-center'>
                 <div className="md:w-[80%]">
                 <p className="space-y-5">
