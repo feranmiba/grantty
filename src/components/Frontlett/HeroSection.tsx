@@ -37,8 +37,8 @@ const HeroSection = () => {
               className="text-start lg:text-left"
             >
               <h2 className="text-lg text-[#333333] mb-2 font-bold">The World 1st</h2>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-6">
-                Staff and work share Platform
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-6">
+                Staff & work share Platform
               </h1>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button size="lg" className="bg-[#6CBB2D] shadow-xl hover:bg-[#62a62a] hidden md:flex gap-1" onClick={grants}>

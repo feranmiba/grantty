@@ -54,7 +54,7 @@ const whatWeLookFor = [
   },
   {
     title: 'Responsible Budgeting',
-    description: 'Transparent, realistic use of the ₦5M / $3,000 grant.'
+    description: 'Transparent, realistic use of the ₦7.5M / $5,000 grant.'
   },
   {
     title: 'Vision & Value',

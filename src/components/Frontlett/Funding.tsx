@@ -7,7 +7,7 @@ const FundingSection = () => {
   const fundAllocation = [
     {
       title: "MVP Development",
-      amount: "30% (N2.5m) ($1,500)",
+      amount: "30% (N2.25m) ($1,500)",
       icon: <Code className="h-5 w-5 text-blue-500" />,
     },
     {
@@ -57,7 +57,7 @@ const FundingSection = () => {
           className="mb-12 mt-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-slate-800 text-center">Use of Funds</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-2 md:gap-6">
             {fundAllocation.map((item, index) => (
               <motion.div
                 key={index}

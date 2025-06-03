@@ -156,8 +156,8 @@ useEffect(() => {
           ) : (
             <button className="text-[14px]" onClick={signIn}>Sign/Log in</button>
           )}
-          <Button className="btn-primary bg-[#549421] hover:bg-[#477d1b] text-white" onClick={handleButtonClick}>
-            {isFrontlettRoute ? 'Grantt This Business' : 'Granttees'}
+          <Button className={`btn-primary bg-[#549421] hover:bg-[#477d1b] text-white ${isFrontlettRoute ? 'hidden' : 'block'}`} onClick={handleButtonClick}>
+            {isFrontlettRoute ? '' : 'Granttees'}
           </Button>
         </div>
       </div>

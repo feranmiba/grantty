@@ -23,7 +23,7 @@ function Frontlett() {
                     </p>
                 <div className='flex items-stretch gap-4 flex-col justify-center mt-10'>    
                     <h4>The World 1st</h4>
-                    <p className="text-3xl text-[#1D1D1D] font-semibold">Staff Sharing Platform</p>
+                    <p className="text-3xl text-[#1D1D1D] font-semibold">Staff & work share Platform</p>
                 </div>
                 </div>
 
@@ -31,7 +31,7 @@ function Frontlett() {
 
                     <div className="flex justify-between items-center mb-4">
                     <div>
-                        <h3 className="font-bold text-secondary text-2xl">FrontLett</h3>
+                        <h3 className="font-bold text-secondary text-2xl">Frontlett</h3>
                         <p className="text-xl text-[#1D1D1D] mt-3 mb-3">Abuja, Nigeria</p>
                     </div>
                     <div className="bg-grantty-green/10 text-grantty-green font-medium px-3 py-1 rounded-full text-sm">
