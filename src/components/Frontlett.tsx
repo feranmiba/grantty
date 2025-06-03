@@ -45,7 +45,7 @@ function Frontlett() {
 
                     <div className="flex justify-between text-sm mb-5 mt-2">
                     <span className="font-medium">₦0 Raised</span>
-                    <span className="text-[#1D1D1D]">Goal ₦5,000,000</span>
+                    <span className="text-[#1D1D1D]">Goal ₦7,500,000</span>
                     </div>
 
                 <div className="text-center mt-5" >

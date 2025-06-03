@@ -19,7 +19,7 @@ const HeroSection = () => {
     <section className="md:pt-20 relative overflow-hidden">
       <div className="flex justify-center py-10 px-5 md:px-10 mt-14 md:mt-0">
         <Badge variant="outline" className="bg-[#FF7A500D] text-[#FF7A50] text-[12px] p-3 md:p-2 text-center md:text-base font-extralight lg:text-sm rounded-xl md:rounded-lg">
-          Future of Work {">>"} We’re raising a ₦5m or $3k Grantt to build a new work model for the world. For as low as ₦1,000 or $1 you can help make this happen
+          Future of Work {">>"} We’re raising a ₦7.5m or $5k Grantt to build a new work model for the world. For as low as ₦1,000 or $1 you can help make this happen
         </Badge>
       </div>
 
@@ -38,7 +38,7 @@ const HeroSection = () => {
             >
               <h2 className="text-lg text-[#333333] mb-2 font-bold">The World 1st</h2>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-6">
-                Staff Sharing Platform
+                Staff and work share Platform
               </h1>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button size="lg" className="bg-[#6CBB2D] shadow-xl hover:bg-[#62a62a] hidden md:flex gap-1" onClick={grants}>

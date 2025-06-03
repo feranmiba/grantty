@@ -9,6 +9,10 @@ import Navbar from '@/components/Navbar';
 import usePaymentStore from '@/store/usePaymentstore';
 import {toast} from 'react-toastify'
 import { useUserStore } from '@/store/useUserStore';
+import Frontlettt from '@/assests/Frontlett.png'
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 const GrantFrontlettPage = () => {
@@ -20,6 +24,10 @@ const GrantFrontlettPage = () => {
   const [anonymous, setAnonymous] = useState<boolean>(false);
   const [subscribe, setSubscribe] = useState<boolean>(false);
   const [currency, setCurrency] = useState("NGN");
+  const [paymentMethod, setPaymentMethod] = useState<'online' | 'offline'>('online');
+
+  const navigate = useNavigate();
+
 
 
 
@@ -56,9 +64,36 @@ const formatLabel = (value: number) => {
      
   ];
 
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (!inputValue) {
+      setAmount("");
+      return;
+    }
+  
+    const value = Number(inputValue);
+  
+    if (currency === "USD") {
+      // Convert USD to NGN internally
+      const amountInNaira = Math.round(value * conversionRate);
+      setAmount(amountInNaira); // Stored as NGN
+    } else {
+      // Directly store as NGN
+      setAmount(value);
+    }
+  };
+  
   const handleSubmit = async (e: React.FormEvent) => {
          e.preventDefault();
        setLoading(true);
+
+       if (paymentMethod === 'offline') {
+        toast.success('Offline method selected, redirecting...');
+        navigate('/payment-details');
+        setLoading(false);
+        return;
+      }
 
           // Prepare form data
       const startup_id = 150;
@@ -66,6 +101,8 @@ const formatLabel = (value: number) => {
         const  full_name = user.full_name || name;
        const email = user.email || Email
       const startup_name = "Frontlett";
+
+   
       
       const formData = { amount, email, startup_id, callback_url, full_name,  startup_name };
 
@@ -119,7 +156,11 @@ const formatLabel = (value: number) => {
         <Navbar />
         <section className='bg-[#000000BF] py-10 min-h-screen mt-20 px-5 md:px-0'>
         <div className="w-full max-w-5xl mx-auto bg-white rounded-xl shadow-sm p-6 mt-8">
-      <h1 className="text-2xl font-bold mb-6">Grantt Frontlett</h1>
+        <p>
+      <img src={Frontlettt} alt="Frontlett" className=" inline-block mr-2 w-32 mb-3" />
+      </p>
+      <h1 className="text-2xl font-bold mb-3">Grantt Frontlett</h1>
+   
       
       <div className="space-y-6">
       <div className="w-full">
@@ -186,18 +227,26 @@ const formatLabel = (value: number) => {
 </div>
 
           
-          <div className="mt-3">
+<div className="mt-3 relative">
+  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+    {currency === "USD" ? "$" : "₦"}
+  </span>
+
   <Input
     type="number"
     placeholder={`Enter the amount in ${currency === "USD" ? "USD" : "NGN"}`}
-    value={amount}
-    onChange={(e) => setAmount(e.target.value ? Number(e.target.value) : "")}
-    className="w-full"
+    value={
+      currency === "USD"
+        ? amount
+          ? Math.round(amount / conversionRate)
+          : ""
+        : amount
+    }
+    onChange={handleAmountChange}
+    className="w-full pl-8" // padding-left to avoid overlap with the sign
   />
-  {currency === "USD" && amount ? (
-    <p className="text-xs text-gray-500 mt-1">Equivalent: ${Math.round(amount / conversionRate)}</p>
-  ) : null}
 </div>
+
 
         </div>
         
@@ -226,6 +275,7 @@ const formatLabel = (value: number) => {
                 value={name || user?.full_name || ""}
                 onChange={(e) => setName(e.target.value)}
                 className="pl-10"
+                required
               />
             </div>
           </div>
@@ -241,6 +291,7 @@ const formatLabel = (value: number) => {
                 value={Email || user?.email || ""}
                 onChange={(e) => setEmail(e.target.value)}
                 className="pl-10"
+                required
               />
             </div>
           </div>
@@ -284,6 +335,27 @@ const formatLabel = (value: number) => {
               Subscribe me to updates from this startup
             </label>
           </div>
+
+
+          <div className="space-y-2">
+              <h2 className="text-sm font-medium text-gray-600">Payment Method</h2>
+              <RadioGroup
+                defaultValue="online"
+                value={paymentMethod}
+                onValueChange={(value) => setPaymentMethod(value as 'online' | 'offline')}
+                className="flex gap-8"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="online" id="online" />
+                  <Label htmlFor="online">Online Payment</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="offline" id="offline" />
+                  <Label htmlFor="offline">Offline Bank Transfer</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
           
           <button
             type="submit"

@@ -12,7 +12,7 @@ const faqData = [
   },
   {
     question: "How much funding can I receive",
-    answer: "Each approved application can receive up to ₦5,000,000 0r $3,000, depending on the total amount raised from grantors",
+    answer: "Each approved application can receive up to ₦7,500,000 0r $5,000, depending on the total amount raised from grantors",
   },
   {
     question: "How will I receive the funds?",
@@ -71,7 +71,7 @@ function FaQs() {
               onClick={() => toggleFaq(index)}
               className="w-full flex justify-between items-center py-3 text-left focus:outline-none"
             >
-              <span className="font-medium text-lg">{faq.question}</span>
+              <span className="font-medium text-sm md:text-lg">{faq.question}</span>
               <span className="text-gray-500">
   {activeIndex === index ? (
     // Minus icon in circle

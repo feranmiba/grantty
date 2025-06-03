@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuthStore} from "./store/useAuthStore";  
 import PaymentSuccess from "./pages/Success";
+import PaymentDetails from "./pages/PaymentDetails";
 import VerifyEmail from "./pages/auth/VerifEmail";
 
 // Create a client
@@ -43,6 +44,7 @@ const App = () => {
               <Route path="/frontlett" element={<Frontlett />} />
               <Route path="/grant/grant-frontlett" element={<GrantFrontlettPage />} />
               <Route path="/payment" element={<PaymentSuccess />} />
+              <Route path="/payment-details" element={<PaymentDetails />} />
 
               
 

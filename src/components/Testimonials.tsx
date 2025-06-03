@@ -35,7 +35,7 @@ const testimonials: Testimonial[] = [
 
 function Testimonials() {
   return (
-    <section className="section-padding md:px-14 xl:px-24">
+    <section className="section-padding px-5 md:px-14 xl:px-24">
       <h1 className="text-[#1D1D1D] text-3xl font-semibold mb-4 text-center">Testimonials</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 xl:px-40">
   {testimonials.map((testimonial, index) => (

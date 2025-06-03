@@ -83,7 +83,7 @@ const Footer = () => {
     activeHash === "#faq" ? "border-b-2 border-blue-500" : ""
   }`}
 >
-  Faqs
+  FAQs
 </a>
             </div>
           
@@ -93,7 +93,7 @@ const Footer = () => {
               <li className="flex items-start gap-3" >
               
              
-                <a href="mailto:grantty@grantty.com">                <span className="text-white/70">grantty@grantty.com</span>
+                <a href="mailto:grantty@grantty.com">                <span className="text-white/70">info@grantty.com</span>
                 </a>
               </li>
               <li className="flex items-start gap-3">

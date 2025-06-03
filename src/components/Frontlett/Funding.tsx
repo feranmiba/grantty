@@ -7,22 +7,22 @@ const FundingSection = () => {
   const fundAllocation = [
     {
       title: "MVP Development",
-      amount: "30% (N1.5m) ($900)",
+      amount: "30% (N2.5m) ($1,500)",
       icon: <Code className="h-5 w-5 text-blue-500" />,
     },
     {
       title: "Salaries & Operations",
-      amount: "30% (N1.5m) ($900)",
+      amount: "30% (N2.5m) ($1,500)",
       icon: <DollarSign className="h-5 w-5 text-blue-500" />,
     },
     {
       title: "Sales & Marketing",
-      amount: "20% (N1m) ($600)",
+      amount: "20% (N1.5m) ($1000)",
       icon: <LineChart className="h-5 w-5 text-blue-500" />,
     },
     {
       title: "Regulatory Compliance",
-      amount: "20% (N1m) ($600)",
+      amount: "20% (N1.5m) ($1000)",
       icon: <Scale className="h-5 w-5 text-blue-500" />,
     },
   ];

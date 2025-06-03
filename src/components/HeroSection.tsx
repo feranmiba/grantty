@@ -3,11 +3,14 @@ import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Frontlettt from '@/assests/Frontlett.png';
+import { X } from 'lucide-react';
 
 
 const HeroSection = () => {
     const [businessInfoList, setBusinessInfoList] = useState<any[]>([]);
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+
 
 
     const signUp = () => {
@@ -86,7 +89,7 @@ const HeroSection = () => {
                 
                 <div className="flex justify-between text-sm mb-5 mt-4 md:mt-2">
                   <span className="font-medium">₦0 Raised</span>
-                  <span className="text-[#1D1D1D]">Goal ₦5,000,000</span>
+                  <span className="text-[#1D1D1D]">Goal ₦7,500,000</span>
                 </div>
                 
                 <div className="flex items-center space-x-2 mt-14 md:mt-8 mb-4 text-[#1D1D1D]">
@@ -95,8 +98,20 @@ const HeroSection = () => {
                     </p>
                   <div className='flex items-stretch gap-4 flex-col justify-center'>    
                     <h4>The World 1st</h4>
-                    <p className="text-xl md:text-2xl ">Staff Sharing Platform</p>
+                    <p className="text-xl md:text-2xl ">Staff & work  Share Platform</p>
                   </div>
+               
+                </div>
+
+                <div>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-[#6CBB2D] text-[#6CBB2D]"
+                  onClick={() => setShowModal(true)}
+                >
+                  Watch Video
+                </Button>
                 </div>
                 
                 <div className="text-center mt-5">
@@ -106,6 +121,32 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
+
+        {showModal && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex justify-center items-center px-4">
+          <div className="bg-white rounded-2xl w-full max-w-4xl p-6 relative shadow-lg overflow-y-auto max-h-[90vh]">
+            <button
+              className="absolute top-4 right-4 text-gray-600 hover:text-red-500"
+              onClick={() => setShowModal(false)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <h2 className="text-xl font-semibold mb-4 text-center">Frontlett Platform Walkthroughs</h2>
+
+            <div className="">
+              <div>
+                <iframe
+                  className="w-full h-64 rounded-lg"
+                  src="https://drive.google.com/file/d/10ia7RmcS-VybIOfrh1EbH9aBi_FCoOCv/view"
+                  allow="autoplay"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </section>
   );

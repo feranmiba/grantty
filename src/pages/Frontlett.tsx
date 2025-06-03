@@ -37,7 +37,7 @@ function Frontlett() {
       <RevenueModel />
       <GoToMarketSection />
       <FundingSection />
-      <TeamSection />
+      {/* <TeamSection /> */}
       <Footer />
 
       <button
