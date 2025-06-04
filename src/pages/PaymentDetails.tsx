@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Copy, CheckCircle, X } from "lucide-react";
@@ -15,6 +16,18 @@ import success from '@/assests/success-56EqqIzm6f.svg';
 const PaymentDetails = () => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+const [modalVisible, setModalVisible] = useState(false);
+
+useEffect(() => {
+  if (showModal) {
+    // Trigger fade/scale in on mount
+    const timeout = setTimeout(() => setModalVisible(true), 10);
+    return () => clearTimeout(timeout);
+  } else {
+    setModalVisible(false);
+  }
+}, [showModal]);
+
   const navigate = useNavigate();
 
 
@@ -64,12 +77,13 @@ const PaymentDetails = () => {
                 Kindly make your offline bank transfer payment using this provided account details
               </p>
             </div>
-            <section className="flex gap-2 flex-wrap md:flex-nowrap">
-
-            <div className="space-y-3 bg-green-50 border border-green-200 rounded-lg text-[16px] text-[#686868] w-full md:w-1/2">
+            <section className="flex gap-5  flex-wrap md:flex-nowrap">
+              <div className="w-full md:w-1/2 mt-3 bg-green-50 border border-green-200 rounded-lg pt-3">
+              <p className="text-center font-bold">Nigeria Bank</p>
+              <div className="space-y-3   text-[16px] text-[#686868] mt-2">
               <div className=" rounded-lg p-4 flex justify-between items-center">
                 <div>
-                  <div className="">Bank name (₦) </div>
+                  <div className="font-bold">Bank Name (₦) </div>
                 </div>
                 <div>
                 <div className="">{bankDetails.bankName}</div>
@@ -79,7 +93,7 @@ const PaymentDetails = () => {
 
               <div className=" rounded-lg p-4 flex justify-between items-center  ">
                 <div>
-                  <div className="mb-1">Account number</div>
+                  <div className="mb-1 font-bold">Account Number</div>
                 </div>
                 <div className="flex items-center space-x-2">
                 <div className="">{bankDetails.accountNumber}</div>
@@ -100,7 +114,7 @@ const PaymentDetails = () => {
 
               <div className=" p-4 flex justify-between items-center">
                 <div>
-                  <div className="">Account name</div>
+                  <div className="font-bold">Account Name</div>
                 </div>
                 <div>
                 <div className="">{bankDetails.accountName}</div>
@@ -109,10 +123,16 @@ const PaymentDetails = () => {
               
               </div>
             </div>
-            <div className="space-y-3 bg-green-50 border border-green-200 rounded-lg text-[16px] text-[#686868] w-full md:w-1/2">
+              </div>
+
+
+              <div className="w-full md:w-1/2 mt-3 bg-green-50 border border-green-200 rounded-lg pt-3">
+              <p className="text-center font-bold">US Bank</p>
+           
+            <div className="space-y-3  text-[16px] text-[#686868] mt-2">
               <div className=" rounded-lg p-4 flex justify-between items-center">
                 <div>
-                  <div className="">Bank name($) </div>
+                  <div className="font-bold">Bank Name($) </div>
                 </div>
                 <div>
                 <div className="">{bankDetailsUsd.bankName}</div>
@@ -122,7 +142,7 @@ const PaymentDetails = () => {
 
               <div className=" rounded-lg p-4 flex justify-between items-center  ">
                 <div>
-                  <div className="mb-1">Account number</div>
+                  <div className="mb-1 font-bold">Account Number</div>
                 </div>
                 <div className="flex items-center space-x-2">
                 <div className="">{bankDetailsUsd.accountNumber}</div>
@@ -143,7 +163,7 @@ const PaymentDetails = () => {
 
               <div className=" p-4 flex justify-between items-center">
                 <div>
-                  <div className="">Account name</div>
+                  <div className="font-bold">Account Name</div>
                 </div>
                 <div>
                 <div className="">{bankDetailsUsd.accountName}</div>
@@ -153,7 +173,7 @@ const PaymentDetails = () => {
               </div>
               <div className=" p-4 flex justify-between items-center">
                 <div>
-                  <div className="">Routing Number</div>
+                  <div className="font-bold">Routing Number</div>
                 </div>
                 <div>
                 <div className="">{bankDetailsUsd.routing_no}</div>
@@ -161,6 +181,7 @@ const PaymentDetails = () => {
                 </div>
               
               </div>
+            </div>
             </div>
             </section>
 
@@ -214,23 +235,31 @@ const PaymentDetails = () => {
         </Card>
       </div>
 
-      {showModal && (
+
+{showModal && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="relative bg-white rounded-2xl shadow-lg p-6 max-w-xl w-full text-center space-y-4">
-      
+    <div
+      className={`relative bg-white rounded-2xl shadow-lg p-6 max-w-xl w-full text-center space-y-4 transition-all duration-300 ease-out
+        ${modalVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+    >
       {/* Close Icon */}
       <button
         className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-        onClick={() => setShowModal(false)}
+        onClick={() => {
+          setModalVisible(false);
+          setTimeout(() => setShowModal(false), 300); // wait for animation to complete
+        }}
       >
         <X className="w-5 h-5" />
       </button>
-      <div className="flex flex-col items-center space-y-4 justify-center">
-      <img src={success} alt="" />
 
+      <div className="flex flex-col items-center space-y-4 justify-center">
+        <img src={success} alt="" />
       </div>
+
       <p className="text-[#1D1D1D] text-[18px] font-semibold my-3">
-      Your Grantt towards Frontlett will be processed      </p>
+        Your Grantt towards Frontlett will be processed
+      </p>
 
       <Button
         onClick={() => navigate("/grantor-dashboard")}
@@ -241,6 +270,8 @@ const PaymentDetails = () => {
     </div>
   </div>
 )}
+
+
 
 
     </div>

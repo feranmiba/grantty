@@ -86,7 +86,7 @@ useEffect(() => {
     { href: "#how-it-works", label: "How It Works" },
     { href: "#why-grantty", label: "Why Grantty" },
     { href: "#eligibility", label: "Who Can Apply" },
-    { href: "#faq", label: "FAQs" },
+    { href: "#faq", label: "FAQ" },
   ].map(({ href, label }) => (
     <a
       key={href}
@@ -114,7 +114,7 @@ useEffect(() => {
     { href: "#how-it-works", label: "How It Works" },
     { href: "#why-grantty", label: "Why Grantty" },
     { href: "#eligibility", label: "Who Can Apply" },
-    { href: "#faq", label: "FAQs" },
+    { href: "#faq", label: "FAQ" },
   ].map(({ href, label }) => (
     <a
       key={href}

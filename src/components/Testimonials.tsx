@@ -40,30 +40,39 @@ function Testimonials() {
     <section className="section-padding px-5 md:px-14 xl:px-24">
       <h1 className="text-[#1D1D1D] text-3xl font-semibold mb-4 text-center">Testimonials</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 xl:px-40">
-  {testimonials.map((testimonial, index) => (
-    <div
-      key={index}
-      className="border rounded-xl p-6 text-start w-full"
-    >
-      {/* Stars */}
-      <div className="flex justify-start mb-2 text-yellow-500">
-        {Array(5).fill('').map((_, idx) => (
-          <IoStar key={idx} className="w-5 h-5" />
-        ))}
-      </div>
-      <div className="flex flex-col items-start gap-4 mt-4">
-        <p className="text-gray-600">{testimonial.testimony}</p>
-        <div className="flex gap-5 justify-start mt-3">
-          <img
-            src={testimonial.picture}
-            alt={testimonial.name}
-            className="w-10 h-10 rounded-full mb-2 object-cover"
-          />
+      {testimonials.map((testimonial, index) => (
+  <div
+    key={index}
+    className="border rounded-xl p-6 text-start w-full flex flex-col justify-between" // makes the card use full height
+  >
+    {/* Stars */}
+    <div className="flex justify-start mb-2 text-yellow-500">
+      {Array(5).fill('').map((_, idx) => (
+        <IoStar key={idx} className="w-5 h-5" />
+      ))}
+    </div>
+
+    {/* Main content area with space between text and author */}
+    <div className="flex flex-col justify-between flex-grow">
+      {/* Testimonial */}
+      <p className="text-gray-600 mb-6">{testimonial.testimony}</p>
+
+      {/* Author info at the bottom */}
+      <div className="flex gap-5 items-center">
+        <img
+          src={testimonial.picture}
+          alt={testimonial.name}
+          className="w-10 h-10 rounded-full object-cover"
+        />
+        <div>
           <h3 className="text-lg font-semibold">{testimonial.name}</h3>
+          <p className="text-base font-medium">{testimonial.company}</p>
         </div>
       </div>
     </div>
-  ))}
+  </div>
+))}
+
 </div>
 
     </section>

@@ -84,7 +84,7 @@ const Footer = () => {
     activeHash === "#faq" ? "border-b-2 border-blue-500" : ""
   }`}
 >
-  FAQs
+  FAQ
 </a>
             </div>
           
