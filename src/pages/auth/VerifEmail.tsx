@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';  // <-- import useNavigate
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -14,6 +15,7 @@ const VerifyEmail = () => {
   const [resendTimer, setResendTimer] = useState(0);
   const [email, setEmail] = useState('amiolademilade@gmail.com');
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const navigate = useNavigate();  // <-- initialize navigate hook
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
@@ -48,10 +50,12 @@ const VerifyEmail = () => {
 
       toast({ title: 'Success', description: 'OTP verified!', variant: 'default' });
 
-      // store token if returned
       if (data.token) {
         localStorage.setItem('token', data.token);
       }
+
+      // Navigate to signin page after successful verification
+      navigate('/auth/signin');
 
     } catch (error: any) {
       toast({ title: 'Error', description: error.message, variant: 'destructive' });

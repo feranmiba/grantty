@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import useAuth from "./utils/useAuth";
 import { toast } from "react-toastify";
-import { ClipLoader } from "react-spinners"; // Import the spinner
+import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+const link = "https://grantty-backend-fltj.onrender.com"; // backend base URL
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -13,9 +15,33 @@ function SignIn() {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useAuth();
   const navigate = useNavigate();
+
+  // Function to fetch startups for the logged-in user using the token
+  const getUserCompanyStatus = async (token: string) => {
+  try {
+    const response = await fetch(`${link}/user/startups`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch companies");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching startup data:", error);
+    return null;
+  }
+};
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,43 +50,71 @@ function SignIn() {
       [name]: value,
     });
   };
+
   const handleSignUp = () => {
     navigate("/auth/signup");
-  }
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-  
-    try {
-      const response = await signIn(formData.email, formData.password);
-      setIsLoading(false);
-  
-      if (response?.message) {
-        toast.success(response.message);
-      } else {
-        toast.success("Sign in successful!");
-      }
-  
-      // Access user_type from the response
-      const userType = response?.data?.user?.user_type;
-  
-      // Redirect based on user_type
-      setTimeout(() => {
-        if (userType === "grantor") {
-          window.location.href = "/grantor-dashboard";
-        } else {
-          window.location.href = "/grantee-dashboard";
-        }
-      }, 2000);
-    } catch (error: any) {
-      setIsLoading(false);
-      const errorMessage = error.message || "Error signing in, please try again.";
-      toast.error(errorMessage);
-      console.error("Error signing in:", errorMessage);
-    }
   };
-  
-  
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setIsLoading(true);
+
+  try {
+    const response = await signIn(formData.email, formData.password);
+    setIsLoading(false);
+
+    if (response?.message) {
+      toast.success(response.message);
+    } else {
+      toast.success("Sign in successful!");
+    }
+
+    const userType = response?.data?.user?.user_type;
+    const token = response?.data?.token;
+
+    if (!token) {
+      toast.error("No token received. Please try again.");
+      return;
+    }
+
+    if (userType === "grantor") {
+      window.location.href = "/";
+      return;
+    }
+
+    if (userType === "grantee") {
+      const startups = await getUserCompanyStatus(token);
+
+      console.log("Startups response:", startups);
+
+      setTimeout(() => {
+        if (
+          startups?.data &&
+          Array.isArray(startups.data) &&
+          startups.data.length > 0
+        ) {
+          // ✅ User already has a startup
+          window.location.href = "/grantee-dashboard";
+        } else {
+          // ❌ No startup found
+          window.location.href = "/founder";
+        }
+      }, 10000); // Wait 10 seconds
+      return;
+    }
+
+    // Fallback redirect
+    window.location.href = "/";
+  } catch (error: any) {
+    setIsLoading(false);
+    const errorMessage = error.message || "Error signing in, please try again.";
+    toast.error(errorMessage);
+    console.error("Error signing in:", errorMessage);
+  }
+};
+
+
+
   return (
     <section className="h-screen w-full flex flex-col md:flex-row overflow-hidden">
       <motion.div
@@ -76,7 +130,7 @@ function SignIn() {
             transition={{ delay: 0.4 }}
             className="text-3xl font-bold leading-snug"
           >
-         Welcome to Grantty 👋🏼
+            Welcome to Grantty 👋🏼
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -86,32 +140,32 @@ function SignIn() {
           >
             We missed you! Log in to continue your journey.
           </motion.p>
-              <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                      className="flex items-center justify-center flex-col bg-white rounded-2xl border-2  py-8 p-4 shadow-lg text-black"
-                    >
-                      <p>Kindly select an option</p>
-                      <div className="flex items-center justify-center rounded-lg p-4 gap-5  ml-2 border-2 mt-5 hover:bg-[#F4F5F7] cursor-pointer" onClick={handleSignUp}>
-                        <p className="w-7 h-7 border-[#B4B4B4] border-2  rounded-full"></p>
-                        <div className="space-y-3">
-                          <h1 className="font-semibold text-xl">Sign Up</h1>
-                          <p>You don’t have an account with us</p>
-                        </div>
-          
-                      </div>
-          
-                      <div className="flex items-center justify-center rounded-lg p-4 gap-5  ml-2 border-2 mt-5 hover:bg-[#F4F5F7] cursor-pointer" >
-                        <p className="w-7 h-7 border-[#B4B4B4] border-2  rounded-full"></p>
-                        <div className="space-y-3">
-                          <h1 className="font-semibold text-xl">Log In</h1>
-                          <p>You have an existing account with us</p>
-                        </div>
-          
-                      </div>
-          
-                    </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="flex items-center justify-center flex-col bg-white rounded-2xl border-2  py-8 p-4 shadow-lg text-black"
+          >
+            <p>Kindly select an option</p>
+            <div
+              className="flex items-center justify-center rounded-lg p-4 gap-5  ml-2 border-2 mt-5 hover:bg-[#F4F5F7] cursor-pointer"
+              onClick={handleSignUp}
+            >
+              <p className="w-7 h-7 border-[#B4B4B4] border-2  rounded-full"></p>
+              <div className="space-y-3">
+                <h1 className="font-semibold text-xl">Sign Up</h1>
+                <p>You don’t have an account with us</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center rounded-lg p-4 gap-5  ml-2 border-2 mt-5 hover:bg-[#F4F5F7] cursor-pointer">
+              <p className="w-7 h-7 border-[#B4B4B4] border-2  rounded-full"></p>
+              <div className="space-y-3">
+                <h1 className="font-semibold text-xl">Log In</h1>
+                <p>You have an existing account with us</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
 
@@ -142,7 +196,9 @@ function SignIn() {
 
         <form onSubmit={handleSubmit} className="space-y-7">
           <div className="flex flex-col gap-1">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
+            <label htmlFor="email" className="text-sm font-medium text-gray-700">
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -155,7 +211,9 @@ function SignIn() {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
+            <label htmlFor="password" className="text-sm font-medium text-gray-700">
+              Password
+            </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -182,11 +240,7 @@ function SignIn() {
             type="submit"
             className="w-full bg-[#163078] text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition-all mt-5"
           >
-            {isLoading ? (
-              <ClipLoader size={24} color="#ffffff" /> // Show spinner while loading
-            ) : (
-              "Log In"
-            )}
+            {isLoading ? <ClipLoader size={24} color="#ffffff" /> : "Log In"}
           </motion.button>
         </form>
       </motion.div>
@@ -195,5 +249,3 @@ function SignIn() {
 }
 
 export default SignIn;
-
-
