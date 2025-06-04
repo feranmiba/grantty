@@ -11,6 +11,7 @@ import {toast} from 'react-toastify'
 import { useUserStore } from '@/store/useUserStore';
 import Frontlettt from '@/assests/Frontlett.png'
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 
@@ -29,7 +30,12 @@ const GrantFrontlettPage = () => {
   const navigate = useNavigate();
 
 
-
+useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      navigate('/auth/signin');
+    }
+  }, [navigate]);
 
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -85,67 +91,75 @@ const formatLabel = (value: number) => {
   };
   
   const handleSubmit = async (e: React.FormEvent) => {
-         e.preventDefault();
-       setLoading(true);
+  e.preventDefault();
+  
+  // Use the email from either user store or local state
+  const email = user?.email || Email;
+  
+  // Validation: check amount and email
+  if (!amount || amount <= 0) {
+    toast.error("Please enter a valid amount.");
+    return;
+  }
+  
+  if (!email || email.trim() === "") {
+    toast.error("Please enter your email.");
+    return;
+  }
 
-       if (paymentMethod === 'offline') {
-        toast.success('Offline method selected, redirecting...');
-        navigate('/payment-details');
-        setLoading(false);
-        return;
+  setLoading(true);
+
+  if (paymentMethod === 'offline') {
+    toast.success('Offline method selected, redirecting...');
+    navigate('/payment-details');
+    setLoading(false);
+    return;
+  }
+
+  // Prepare form data
+  const startup_id = 150;
+  const callback_url = "http://localhost:8080/payment";
+  const full_name = user?.full_name || name;
+  const startup_name = "Frontlett";
+
+  const formData = { amount, email, startup_id, callback_url, full_name, startup_name };
+
+  try {
+    const response = await fetch(`https://grantty-backend-fltj.onrender.com/payments/initialize`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const authorizationUrl = data.data.authorization_url;
+      const reference = data.data.reference;
+
+      if (authorizationUrl) {
+        setPayment({
+          amount,
+          email,
+          startup_id: startup_id.toString(),
+          startup_name,
+          reference,
+          payment_id: data.data.id,
+        });
+        toast.success('Form submitted successfully, Redirection in progress...');
+        window.location.href = authorizationUrl;
+      } else {
+        alert('Authorization URL not found.');
       }
+    } else {
+      toast.error('Failed to submit form.');
+    }
+  } catch (error) {
+    alert('Error submitting form.');
+  } finally {
+    setLoading(false);
+  }
+};
 
-          // Prepare form data
-      const startup_id = 150;
-      const callback_url = "http://localhost:8080/payment";
-        const  full_name = user.full_name || name;
-       const email = user.email || Email
-      const startup_name = "Frontlett";
-
-   
-      
-      const formData = { amount, email, startup_id, callback_url, full_name,  startup_name };
-
-         // setPayment(formData);
-     
-         try {
-             const response = await fetch(`https://grantty-backend-fltj.onrender.com/payments/initialize`, {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                 },
-                 body: JSON.stringify(formData),
-             });
-     
-             if (response.ok) {
-                 const data = await response.json();
-                 const authorizationUrl = data.data.authorization_url;
-                 const reference = data.data.reference;
-     
-                 if (authorizationUrl) {
-                     setPayment({
-                         amount,
-                         email,
-                         startup_id: startup_id.toString(),
-                         startup_name,
-                         reference,
-                         payment_id: data.data.id, // optional, update if needed
-                       });
-                     toast.success('Form submitted successfully, Redirection in progress...');
-                     window.location.href = authorizationUrl;
-                 } else {
-                     alert('Authorization URL not found.');
-                 }
-             } else {
-                 toast.error('Failed to submit form.');
-             }
-         } catch (error) {
-             alert('Error submitting form.');
-         } finally {
-          setLoading(false);
-
-         }
-     };
 
   const handleAmountSelect = (value: number) => {
     setAmount(value);

@@ -1,58 +1,77 @@
 import { CheckCircle, ArrowLeft, Receipt, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import usePaymentStore from "@/store/usePaymentstore";
 import ClipLoader from "react-spinners/ClipLoader";
+import usePaymentStore from "@/store/usePaymentstore";
+
+interface PaymentInfo {
+  reference: string;
+  startup_id: string;
+  amount: number;
+}
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { payment } = usePaymentStore();
 
   const [loading, setLoading] = useState(true);
   const [verified, setVerified] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>({
+    reference: "",
+    startup_id: "",
+    amount: 0,
+  });
+
+  // Extract only the `reference` query param
+  const query = new URLSearchParams(location.search);
+  const reference = query.get("reference");
+  const token = localStorage.getItem("authToken");
 
   useEffect(() => {
-    const verifyPayment = async () => {
-      if (!payment?.reference || !payment?.startup_id) {
-        setFailed(true);
-        setLoading(false);
-        return;
-      }
+  const verifyPayment = async () => {
+    if (!reference) {
+      setFailed(true);
+      setLoading(false);
+      return;
+    }
 
-      try {
-        const response = await fetch(
-          `https://grantty-backend-fltj.onrender.com/payments/verify/${payment.reference}?startup_id=${payment.startup_id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Verification success:", data);
-          setVerified(true);
-        } else {
-          setFailed(true);
+    try {
+      const res = await fetch(
+        ` https://grantty-backend-fltj.onrender.com/payments/verify/${reference}?startup_id=1`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Verification error:", error);
-        setFailed(true);
-      } finally {
-        setLoading(false);
+      );
 
-      }
-    };
+      if (!res.ok) throw new Error("Verification failed");
 
-    verifyPayment();
-  }, [payment]);
+      const data = await res.json();
+      setPaymentInfo({
+        reference: data.reference || reference,
+        amount: (data.amount || 0) / 100,
+        startup_id: "1",
+      });
 
-  if (loading) {
+      setVerified(true);
+    } catch (err) {
+      console.error("Verification error:", err);
+      setFailed(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  verifyPayment();
+}, [reference]);
+
+if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <ClipLoader size={50} color="#10B981" />
@@ -60,7 +79,7 @@ const PaymentSuccess = () => {
     );
   }
 
-  if (failed) {
+  if (failed || !verified) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-red-50 p-4 text-center">
         <div>
@@ -74,7 +93,6 @@ const PaymentSuccess = () => {
     );
   }
 
-  // ✅ Payment success UI
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-lg border-0">
@@ -94,7 +112,7 @@ const PaymentSuccess = () => {
           <div className="bg-gray-50 rounded-lg p-4 space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">Transaction ID:</span>
-              <span className="text-sm font-mono font-medium">#{payment?.reference}</span>
+              <span className="text-sm font-mono font-medium">#{paymentInfo.reference}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">Date:</span>
@@ -102,7 +120,12 @@ const PaymentSuccess = () => {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">Amount</span>
-              <span className="text-sm font-medium text-green-600">₦{payment?.amount.toLocaleString()}</span>
+              <span className="text-sm font-medium text-green-600">
+                ₦
+                {new Intl.NumberFormat("en-NG", {
+                  style: "decimal",
+                }).format(paymentInfo.amount)}
+              </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">Status:</span>
@@ -145,8 +168,8 @@ const PaymentSuccess = () => {
           <div className="text-center pt-4 border-t">
             <p className="text-xs text-gray-500">
               Need help? Contact our support team at{" "}
-              <a href="mailto:support@example.com" className="text-green-600 hover:underline">
-              info@grantty.org
+              <a href="mailto:info@grantty.org" className="text-green-600 hover:underline">
+                info@grantty.org
               </a>
             </p>
           </div>
