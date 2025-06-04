@@ -30,6 +30,7 @@ const PaymentSuccess = () => {
   const query = new URLSearchParams(location.search);
   const reference = query.get("reference");
   const token = localStorage.getItem("authToken");
+  const startup_id =  payment.startup_id || "2"; 
 
   useEffect(() => {
   const verifyPayment = async () => {
@@ -41,7 +42,7 @@ const PaymentSuccess = () => {
 
     try {
       const res = await fetch(
-        ` https://grantty-backend-fltj.onrender.com/payments/verify/${reference}?startup_id=1`,
+        ` https://grantty-backend-fltj.onrender.com/payments/verify/${reference}?startup_id=${startup_id}`,
         {
           method: "GET",
           headers: {
