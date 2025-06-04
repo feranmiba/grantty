@@ -19,7 +19,7 @@ const Privacy = () => {
           
           <div className="prose prose-lg max-w-none">
             <p className="text-[#1D1D1D] mb-6 text-center text-[16px] md:text-xl">
-              Grantify ("we," "our," "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and protect your information.
+              Grantty ("we," "our," "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and protect your information.
             </p>
 
             <section className="mb-8">
@@ -72,7 +72,7 @@ const Privacy = () => {
             </section>
 
             <div className="mt-8 pt-6">
-              <p className="text-[#1D1D1D] text-[16px] md:text-xl">Contact: support@grantify.org</p>
+              <p className="text-[#1D1D1D] text-[16px] md:text-xl">Contact: support@grantty.org</p>
             </div>
           </div>
         </div>

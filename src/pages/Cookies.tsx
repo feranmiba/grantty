@@ -22,7 +22,7 @@ const Cookies = () => {
 
             <section className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold text-[#6CBB2D] mb-4">What are Cookies:</h2>
-              <p className="text-[#1D1D1D]">
+              <p className="text-[#1D1D1D] text-[16px] md:text-xl">
                 Cookies are small files placed on your device to collect standard internet log information and visitor behavior.
               </p>
             </section>
@@ -60,7 +60,7 @@ const Cookies = () => {
             </section>
 
             <div className="mt-8 pt-6">
-              <p className="text-[#1D1D1D] text-[16px] md:text-xl">Contact: support@grantify.org</p>
+              <p className="text-[#1D1D1D] text-[16px] md:text-xl">Contact: support@grantty.org</p>
             </div>
           </div>
         </div>

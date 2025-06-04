@@ -80,7 +80,7 @@ const Terms = () => {
             </section>
 
             <div className="mt-8 pt-6 text-[16px] md:text-xl">
-              <p className="text-[#1D1D1D]">Contact: support@grantify.org</p>
+              <p className="text-[#1D1D1D]">Contact: support@grantty.org</p>
             </div>
           </div>
         </div>
