@@ -102,10 +102,10 @@ if (loading) {
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
           <CardTitle className="text-2xl font-bold text-gray-900">
-            Payment Successful!
+            Grantt Successful!
           </CardTitle>
           <CardDescription className="text-gray-600 mt-2">
-            Thank you for your purchase. Your payment has been processed successfully.
+            Thank you for your Grantt. Your payment has been processed successfully.
           </CardDescription>
         </CardHeader>
 
@@ -122,10 +122,7 @@ if (loading) {
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">Amount</span>
               <span className="text-sm font-medium text-green-600">
-                ₦
-                {new Intl.NumberFormat("en-NG", {
-                  style: "decimal",
-                }).format(paymentInfo.amount)}
+                ₦{payment.amount.toLocaleString()}
               </span>
             </div>
             <div className="flex justify-between items-center">
