@@ -42,7 +42,7 @@ const HeroSection = () => {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button className="btn-primary bg-[#6CBB2D] hover:bg-[#5d9d28]" size="lg" onClick={signUp}>
-              Grantt Now
+              Apply for Grantt
               </Button>
               <Button variant="outline" className="btn-secondary text-[#6CBB2D]" size="lg" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
                 Learn How It Works

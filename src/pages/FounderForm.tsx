@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useStartup from '@/utils/useStartup';
 import { toast } from "react-toastify"; 
@@ -29,6 +29,12 @@ const steps: Step[] = [
 ];
 
 const MultiStepForm: React.FC = () => {
+    // Scroll to top on mount
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
+
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     startup_name: '',
@@ -70,6 +76,72 @@ const MultiStepForm: React.FC = () => {
     video: null,
   });
   const navigate = useNavigate();
+
+  const validateStep = () => {
+    if (currentStep === 0) {
+      const {
+        startup_name,
+        startup_website,
+        profile_image,
+        startup_location,
+        startup_email,
+        startup_industry ,
+        nin
+      } = formData;
+  
+      if (
+        ! startup_name ||
+        !startup_website ||
+        !profile_image ||
+        !startup_location ||
+        !startup_email ||
+        !startup_industry ||
+        nin
+      ) {
+        toast.error("Please fill in all required fields for this step.");
+        return false;
+      }
+    }
+    if (currentStep === 1) {
+      const {
+        full_name,
+        email_address,
+        phone_no,
+        founder_profile_img,
+        founder_nin,
+        founder_linkedin_profile,
+        role
+      } = formData;
+  
+      if (
+        !full_name ||
+        !email_address ||
+        !phone_no ||
+        !formData.founder_profile_img || 
+        !founder_nin ||
+        !founder_linkedin_profile ||
+        !role
+      ) {
+        toast.error("Please fill in all required fields for this step.");
+        return false;
+      }
+    }
+  
+    if (currentStep === 2) {
+      const {
+        startup_description,
+      } = formData;
+  
+      if (
+        !startup_description
+      ) {
+        toast.error("Please complete all required fields for this step.");
+        return false;
+      }
+    }
+  
+    return true;
+  };
 
 
 
@@ -202,8 +274,11 @@ const MultiStepForm: React.FC = () => {
 
   
 
-  const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
-  const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
+  const nextStep = () => {
+    if (!validateStep()) return; // Don't go to next step if validation fails
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+    const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
 
   return (
     <>
