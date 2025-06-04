@@ -39,9 +39,9 @@ const Cookies = () => {
             <section className="mb-8">
               <h2 className="text-xl md:text-2xl font-semibold text-[#6CBB2D] mb-4">Types of Cookies:</h2>
               <ul className="space-y-2 text-[#1D1D1D] text-[16px] md:text-xl">
-                <li>• <strong>Essential Cookies:</strong> Required for basic functions</li>
-                <li>• <strong>Analytics Cookies:</strong> Help us understand user activity</li>
-                <li>• <strong>Marketing Cookies:</strong> Used to show relevant ads and campaigns (if applicable)</li>
+                <li>• Essential Cookies: Required for basic functions</li>
+                <li>• Analytics Cookies: Help us understand user activity</li>
+                <li>• Marketing Cookies: Used to show relevant ads and campaigns (if applicable)</li>
               </ul>
             </section>
 
