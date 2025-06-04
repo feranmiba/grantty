@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import GranttyLogo from '@/assests/Main Logo white.png'
-
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
 
     const [activeHash, setActiveHash] = useState("");
-  
+    const navigate = useNavigate();
   useEffect(() => {
     const handleHashChange = () => {
       setActiveHash(window.location.hash);
@@ -118,9 +119,9 @@ const Footer = () => {
             </p>
             
             <div className="flex space-x-6">
-              <a href="#" className="text-white/70 text-sm hover:text-white transition-colors border-r-2 pr-5">Privacy Policy</a>
-              <a href="#" className="text-white/70 text-sm hover:text-white transition-colors  border-r-2 pr-5">Terms of Service</a>
-              <a href="#" className="text-white/70 text-sm hover:text-white transition-colors">Cookie Policy</a>
+              <Link to={'/privacy'} className="text-white/70 text-sm hover:text-white transition-colors border-r-2 pr-5">Privacy Policy</Link>
+              <Link to={'/terms'} className="text-white/70 text-sm hover:text-white transition-colors  border-r-2 pr-5">Terms of Service</Link>
+              <Link to={'/cookies'} className="text-white/70 text-sm hover:text-white transition-colors">Cookie Policy</Link>
             </div>
           </div>
         </div>

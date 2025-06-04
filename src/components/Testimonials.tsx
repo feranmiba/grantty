@@ -1,8 +1,8 @@
 import React from 'react';
 import { IoStar } from 'react-icons/io5';
-import Avatar1 from '@/assests/Avatar1.png'
-import Avatar2 from '@/assests/Avatar2.png'
-import Avatar3 from '@/assests/Avatar3.png'
+import Avatar1 from '@/assests/reinhard.png'
+import Avatar2 from '@/assests/david.png'
+import Avatar3 from '@/assests/victor.png'
 
 
 interface Testimonial {
@@ -12,24 +12,26 @@ interface Testimonial {
   company?: string; 
 }
 
+
+
 const testimonials: Testimonial[] = [
   {
-    name: "Aisha & Kunle",
+    name: " Reinhard Igwe",
     picture: Avatar1,
-    testimony: "Grantty made it possible to expand our educational programs. Highly recommended!",
-    company: "Founders of EcoKart"
+    testimony: "Grantty is exactly what young entrepreneurs like me need—simple, fair, and built for real people with real ideas.",
+    company: "Startup Founder"
   },
   {
-    name: "Aisha, Founder of Eco",
+    name: " David Ker",
     picture: Avatar2,
-    testimony: "Grantty made it possible to expand our educational programs. Highly recommended!",
-    company: "Founders of EcoKart"
+    testimony: "This is the kind of innovation that levels the playing field. I can’t wait to support small businesses through Grantty.",
+    company: "Founder Creative Window"
   },
   {
-    name: "Alex Johnson",
+    name: " Victor Adams",
     picture: Avatar3,
-    testimony: "Grantty made it possible to expand our educational programs. Highly recommended!",
-    company: "Founders of EcoKart"
+    testimony: "With Grantty, even N1,000 can help build someone’s dream. That’s why I’m in.",
+    company: "Director DCSI Africa"
   },
 ];
 

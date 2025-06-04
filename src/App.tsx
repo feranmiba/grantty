@@ -20,6 +20,9 @@ import { useAuthStore} from "./store/useAuthStore";
 import PaymentSuccess from "./pages/Success";
 import PaymentDetails from "./pages/PaymentDetails";
 import VerifyEmail from "./pages/auth/VerifEmail";
+import Terms from "./pages/TermsOfServices";
+import Privacy from "./pages/Privacy";
+import Cookies from "./pages/Cookies";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -45,6 +48,15 @@ const App = () => {
               <Route path="/grant/grant-frontlett" element={<GrantFrontlettPage />} />
               <Route path="/payment" element={<PaymentSuccess />} />
               <Route path="/payment-details" element={<PaymentDetails />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/cookies" element={<Cookies />} />
+
+              
+
+              
+
+              
 
               
 

@@ -21,6 +21,7 @@ const HeroSection = () => {
     const Frontlett = () => {
       navigate('/frontlett');
     }
+    
 
 
   return (
@@ -124,7 +125,7 @@ const HeroSection = () => {
 
         {showModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex justify-center items-center px-4">
-          <div className="bg-white rounded-2xl w-full max-w-4xl p-6 relative shadow-lg overflow-y-auto max-h-[90vh]">
+          <div className="bg-white rounded-2xl w-full max-w-3xl p-6 relative shadow-lg overflow-y-auto max-h-[190vh]">
             <button
               className="absolute top-4 right-4 text-gray-600 hover:text-red-500"
               onClick={() => setShowModal(false)}
@@ -132,13 +133,13 @@ const HeroSection = () => {
               <X className="w-6 h-6" />
             </button>
 
-            <h2 className="text-xl font-semibold mb-4 text-center">Frontlett Platform Walkthroughs</h2>
+            <h2 className="text-xl font-semibold mb-4 text-center">Frontlett Introduction Video</h2>
 
             <div className="">
               <div>
                 <iframe
                   className="w-full h-64 rounded-lg"
-                  src="https://drive.google.com/file/d/10ia7RmcS-VybIOfrh1EbH9aBi_FCoOCv/view"
+                  src="https://drive.google.com/file/d/1Pl0lPn5R0k77QEBNd0U0gPS2px1pGaI7/preview"
                   allow="autoplay"
                   allowFullScreen
                 ></iframe>

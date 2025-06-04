@@ -24,6 +24,13 @@ const PaymentDetails = () => {
     accountName: "Grantty Business Support Services"
   };
 
+  const bankDetailsUsd = {
+    bankName: "Wells Fargo",
+    accountNumber: "40630294915016011",
+    accountName: "Grantty Business Support Services",
+    routing_no: "121000248"
+  };
+
   const contactInfo = {
     email: "Info@grantty.com",
     whatsapp: "07041200171"
@@ -47,12 +54,6 @@ const PaymentDetails = () => {
     <div className="min-h-screen mt-20 bg-[#000000BF] py-10 p-4">
       <div className="max-w-4xl mx-auto">
         <Card className="bg-white shadow-lg rounded-2xl overflow-hidden">
- 
-
-      
-      
-
-
           <CardContent className="p-6 space-y-1">
             <div>
             <p>
@@ -63,11 +64,12 @@ const PaymentDetails = () => {
                 Kindly make your offline bank transfer payment using this provided account details
               </p>
             </div>
+            <section className="flex gap-2 flex-wrap md:flex-nowrap">
 
-            <div className="space-y-3 bg-green-50 border border-green-200 rounded-lg text-[16px] text-[#686868]">
+            <div className="space-y-3 bg-green-50 border border-green-200 rounded-lg text-[16px] text-[#686868] w-full md:w-1/2">
               <div className=" rounded-lg p-4 flex justify-between items-center">
                 <div>
-                  <div className="">Bank name</div>
+                  <div className="">Bank name (₦) </div>
                 </div>
                 <div>
                 <div className="">{bankDetails.bankName}</div>
@@ -107,6 +109,61 @@ const PaymentDetails = () => {
               
               </div>
             </div>
+            <div className="space-y-3 bg-green-50 border border-green-200 rounded-lg text-[16px] text-[#686868] w-full md:w-1/2">
+              <div className=" rounded-lg p-4 flex justify-between items-center">
+                <div>
+                  <div className="">Bank name($) </div>
+                </div>
+                <div>
+                <div className="">{bankDetailsUsd.bankName}</div>
+                </div>
+               
+              </div>
+
+              <div className=" rounded-lg p-4 flex justify-between items-center  ">
+                <div>
+                  <div className="mb-1">Account number</div>
+                </div>
+                <div className="flex items-center space-x-2">
+                <div className="">{bankDetailsUsd.accountNumber}</div>
+
+                <button
+                  onClick={() => copyToClipboard(bankDetailsUsd.accountNumber, "Account number")}
+                  className=""
+                >
+                  {copiedField === "Account number" ? (
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
+                </button>
+                </div>
+            
+              </div>
+
+              <div className=" p-4 flex justify-between items-center">
+                <div>
+                  <div className="">Account name</div>
+                </div>
+                <div>
+                <div className="">{bankDetailsUsd.accountName}</div>
+
+                </div>
+              
+              </div>
+              <div className=" p-4 flex justify-between items-center">
+                <div>
+                  <div className="">Routing Number</div>
+                </div>
+                <div>
+                <div className="">{bankDetailsUsd.routing_no}</div>
+
+                </div>
+              
+              </div>
+            </div>
+            </section>
+
 
             <div className="space-y-3 text-[#1D1D1D] text-[16px]">
               <div className="">Send proof of payment to:</div>

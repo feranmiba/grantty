@@ -2,8 +2,10 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Code, Users, LineChart, Scale } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const FundingSection = () => {
+  const navigate = useNavigate();
   const fundAllocation = [
     {
       title: "MVP Development",
@@ -12,7 +14,7 @@ const FundingSection = () => {
     },
     {
       title: "Salaries & Operations",
-      amount: "30% (N2.5m) ($1,500)",
+      amount: "30% (N2.25m) ($1,500)",
       icon: <DollarSign className="h-5 w-5 text-blue-500" />,
     },
     {
@@ -26,6 +28,10 @@ const FundingSection = () => {
       icon: <Scale className="h-5 w-5 text-blue-500" />,
     },
   ];
+
+  const handleGrant = () => {
+    navigate("/grant/grant-frontlett");
+  }
 
   const whyNowReasons = [
     {
@@ -102,6 +108,18 @@ const FundingSection = () => {
             ))}
           </div>
         </motion.div>
+
+
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-16 flex justify-center"
+        >
+          <button className="bg-[#549421] hover:bg-[#477d1b] text-white py-3 px-4 rounded-lg text-[18px]" onClick={handleGrant}>
+            Grantt this business
+          </button>
+          </motion.div>
 
     
 
