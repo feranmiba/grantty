@@ -36,7 +36,7 @@ const useStartup = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const token = useAuthStore((state) => state.token);
-  const link = "https://grantty-backend-fltj.onrender.com";
+  const link = "https://grantty-backend-21eu.onrender.com";
 
 
   const submitStartup = useCallback(async (data: any) => {
@@ -44,7 +44,7 @@ const useStartup = () => {
     setError(null);
     setSuccess(false);
   
-    try {
+    try { 
       const response = await fetch(`${link}/startups`, {
         method: 'POST',
         headers: {

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useUserStore } from "@/store/useUserStore";
 
-const link = "https://grantty-backend-fltj.onrender.com";
+const link = "https://grantty-backend-21eu.onrender.com";
 
 export const useGranteeDashboardUtils = () => {
   const { user } = useUserStore();

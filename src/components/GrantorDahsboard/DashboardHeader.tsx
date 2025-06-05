@@ -64,39 +64,41 @@ const setGotoLandingPage = (value: boolean) => {
                 </div>
 
                 {/* Logout Dropdown */}
-           
-
-                {/* Hide Grantor Button on small screens */}
-                <div className="hidden md:block bg-[#9ED219] hover:bg-[#477d1b] text-white rounded-2xl px-4 py-1 text-sm">
-                    Grantor
-                </div>
                 <button    onClick={() => setDropdownOpen(!dropdownOpen)}>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="font-semibold" />
 
                 </button>
-                {dropdownOpen && (
-  <div className="absolute right-0 mt-28 bg-white border border-gray-200 rounded-md shadow-lg z-10 ">
+
+                {/* Hide Grantor Button on small screens */}
+                <div className="hidden md:block bg-[#9ED219] hover:bg-[#477d1b] text-white rounded-2xl px-5 py-2 text-base">
+                    Grantor
+                </div>
+               
+                <section className="relative">
+  {dropdownOpen && (
+    <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
       <button
-     onClick={() => {
-      setGotoLandingPage(true);
-      setDropdownOpen(false);
-    }}
-      className="flex items-center gap-2 w-full px-2 py-2 text-left text-sm hover:bg-gray-100"
-    >
-      Landing Page
-    </button>
-    <button
-     onClick={() => {
-      setShowLogoutModal(true);
-      setDropdownOpen(false);
-    }}
-      className="flex items-center gap-2 w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
-    >
-      <FiLogOut className="text-gray-600" />
-      Logout
-    </button>
-  </div>
-)}
+  onClick={() => {
+    setGotoLandingPage(true);
+    setDropdownOpen(false);
+  }}        className="w-full flex items-center px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-150 rounded-t-lg"
+      >
+        HomePage
+      </button>
+      <button
+        onClick={() => {
+          setShowLogoutModal(true);
+          setDropdownOpen(false);
+        }}
+        className="w-full flex items-center gap-2 px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-150 rounded-b-lg"
+      >
+        <span>Logout</span>
+        <FiLogOut className="text-gray-600" />
+      </button>
+    </div>
+  )}
+</section>
+
 
 {showLogoutModal && (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">

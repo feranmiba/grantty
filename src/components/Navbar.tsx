@@ -4,20 +4,34 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useUserStore } from '@/store/useUserStore';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from "@/store/useAuthStore";
 import { FaUser } from 'react-icons/fa';
 import { Menu, X } from 'lucide-react';
 import Logo from '../assests/Main Logo.png';
+import { FiLogOut } from 'react-icons/fi';
+import Alert from '@/assests/alert-WYQZ24EFz8.svg'
 
 const Navbar = () => {
+  const { clearToken, token } = useAuthStore();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [activeHash, setActiveHash] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const { user } = useUserStore();
-  const { token } = useAuthStore();
+
+  const confirmLogout = () => {
+    clearToken();
+    clearUser();
+    setDropdownOpen(false);
+    setShowLogoutModal(false);
+    window.location.href = "/";
+  };
+
+
+  const { user, clearUser } = useUserStore();
   const isFrontlettRoute = location.pathname === '/frontlett';
 
   useEffect(() => {
@@ -40,6 +54,7 @@ const Navbar = () => {
   const signIn = () => {
     navigate('/auth/signin');
   };
+
 
   const handleButtonClick = () => {
     if (isFrontlettRoute) {
@@ -94,7 +109,7 @@ const Navbar = () => {
           </button>
           {user && user.full_name ? (
             <button
-              onClick={handleUserClick}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
               className="border rounded-full px-2 py-1 bg-primary/10 text-primary text-xs font-semibold hover:underline flex items-center"
               aria-label="Go to dashboard"
             >
@@ -102,6 +117,31 @@ const Navbar = () => {
               {user.full_name.slice(0, 5)}
             </button>
           ) : null}
+
+
+<section className="relative">
+  {dropdownOpen && (
+    <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+      <button
+        onClick={handleUserClick}
+        className="w-full flex items-center px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-150 rounded-t-lg"
+      >
+        Dashboard
+      </button>
+      <button
+        onClick={() => {
+          setShowLogoutModal(true);
+          setDropdownOpen(false);
+        }}
+        className="w-full flex items-center gap-2 px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-150 rounded-b-lg"
+      >
+        <span>Logout</span>
+        <FiLogOut className="text-gray-600" />
+      </button>
+    </div>
+  )}
+</section>
+
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-secondary hover:text-primary"
@@ -185,7 +225,7 @@ const Navbar = () => {
         <div className="items-center space-x-4 text-[10px] md:text-base hidden md:flex">
           {user && user.full_name ? (
             <button
-              onClick={handleUserClick}
+            onClick={() =>  setDropdownOpen(!dropdownOpen)}
               className="border rounded-full px-2 md:px-4 py-2 bg-primary/10 text-primary font-semibold flex items-center hover:underline"
               aria-label="Go to dashboard"
             >
@@ -197,6 +237,29 @@ const Navbar = () => {
               Sign/Log in
             </button>
           )}
+<section className="relative">
+  {dropdownOpen && (
+    <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+      <button
+        onClick={handleUserClick}
+        className="w-full flex items-center px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-150 rounded-t-lg"
+      >
+        Dashboard
+      </button>
+      <button
+        onClick={() => {
+          setShowLogoutModal(true);
+          setDropdownOpen(false);
+        }}
+        className="w-full flex items-center gap-2 px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-150 rounded-b-lg"
+      >
+        <span>Logout</span>
+        <FiLogOut className="text-gray-600" />
+      </button>
+    </div>
+  )}
+</section>
+
           {!isFrontlettRoute && (
             <Button
               className="btn-primary bg-[#549421] hover:bg-[#477d1b] text-white"
@@ -206,6 +269,34 @@ const Navbar = () => {
             </Button>
           )}
         </div>
+
+
+        {showLogoutModal && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+    <div className="bg-white rounded-xl shadow-lg p-6 w-[90%] max-w-sm text-center">
+      <img src={Alert} alt="Alert Icon" className="w-12 h-12 mb-4 mx-auto" />
+      <h2 className="text-lg font-semibold text-[#1D1D1D] mb-4">Log out</h2>
+      <p className="text-sm text-[#434343] mb-6">You are about to log out of your account, are you sure you want to continue this action?</p>
+      <div className="flex justify-center gap-5">
+        <button
+          onClick={() => setShowLogoutModal(false)}
+          className="px-4 py-2 w-full rounded-lg border text-gray-600 hover:bg-gray-100"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={confirmLogout}
+          className="px-4 py-2 w-full rounded-lg bg-[#6CBB2D] text-white hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+       
+
+               
       </div>
     </header>
   );

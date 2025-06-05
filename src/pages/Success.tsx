@@ -42,7 +42,7 @@ const PaymentSuccess = () => {
 
     try {
       const res = await fetch(
-        ` https://grantty-backend-fltj.onrender.com/payments/verify/${reference}?startup_id=${startup_id}`,
+        ` https://grantty-backend-21eu.onrender.com/payments/verify/${reference}?startup_id=${startup_id}`,
         {
           method: "GET",
           headers: {

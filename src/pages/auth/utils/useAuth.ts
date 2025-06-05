@@ -3,7 +3,7 @@ import { useAuthStore } from "../../../store/useAuthStore";
 import { useToastStore } from "../../../store/useToastStore";
 import { useUserStore } from "@/store/useUserStore";
 
-const link = "https://grantty-backend-fltj.onrender.com";
+const link = "https://grantty-backend-21eu.onrender.com";
 
 const useAuth = () => {
   const setToken = useAuthStore((state) => state.setToken);

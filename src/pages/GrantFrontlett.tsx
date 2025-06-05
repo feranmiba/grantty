@@ -125,7 +125,7 @@ const formatLabel = (value: number) => {
   const formData = { amount, email, startup_id, callback_url, full_name, startup_name };
 
   try {
-    const response = await fetch(`https://grantty-backend-fltj.onrender.com/payments/initialize`, {
+    const response = await fetch(`https://grantty-backend-21eu.onrender.com/payments/initialize`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),

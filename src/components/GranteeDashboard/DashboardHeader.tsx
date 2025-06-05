@@ -67,6 +67,11 @@ const setGotoLandingPage = (value: boolean) => {
           <span>{user?.full_name || "User"}</span>
         </div>
 
+        <button onClick={() => setDropdownOpen((prev) => !prev)}>
+          <FaChevronDown className="font-semibold" />
+
+          </button>
+
         {/* Grantee Button with Dropdown */}
         <div className="relative flex items-center">
           <button
@@ -74,34 +79,33 @@ const setGotoLandingPage = (value: boolean) => {
           >
             Grantee 
           </button>
-          <button onClick={() => setDropdownOpen((prev) => !prev)}>
-          <FaChevronDown className="ml-1" />
+     
 
-          </button>
-
-        {dropdownOpen && (
-  <div className="absolute right-0 mt-28 bg-white border border-gray-200 rounded-md shadow-lg z-10 ">
+          <section className="relative">
+  {dropdownOpen && (
+    <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
       <button
-     onClick={() => {
-      setGotoLandingPage(true);
-      setDropdownOpen(false);
-    }}
-      className="flex items-center gap-2 w-full px-2 py-2 text-left text-sm hover:bg-gray-100"
-    >
-      Landing Page
-    </button>
-    <button
-     onClick={() => {
-      setShowLogoutModal(true);
-      setDropdownOpen(false);
-    }}
-      className="flex items-center gap-2 w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
-    >
-      <FiLogOut className="text-gray-600" />
-      Logout
-    </button>
-  </div>
-)}
+  onClick={() => {
+    setGotoLandingPage(true);
+    setDropdownOpen(false);
+  }}        className="w-full flex items-center px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-150 rounded-t-lg"
+      >
+        HomePage
+      </button>
+      <button
+        onClick={() => {
+          setShowLogoutModal(true);
+          setDropdownOpen(false);
+        }}
+        className="w-full flex items-center gap-2 px-4 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-150 rounded-b-lg"
+      >
+        <span>Logout</span>
+        <FiLogOut className="text-gray-600" />
+      </button>
+    </div>
+  )}
+</section>
+
         </div>
 
         {showLogoutModal && (

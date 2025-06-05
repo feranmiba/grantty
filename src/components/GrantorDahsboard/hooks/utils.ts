@@ -3,7 +3,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { useUserStore } from "@/store/useUserStore";
 import { usePaymentUtils } from "@/utils/usePayment";
 
-const link = "https://grantty-backend-fltj.onrender.com";
+const link = "https://grantty-backend-21eu.onrender.com";
 
 export const useGrantorDashboardUtils = () => {
   const { user } = useUserStore();

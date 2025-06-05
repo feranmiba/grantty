@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
 import { Mail, ArrowLeft, Loader2 } from 'lucide-react';
 
-const API_BASE_URL = "https://grantty-backend-fltj.onrender.com"; // ⛳ Replace this with your backend
+const API_BASE_URL = "https://grantty-backend-21eu.onrender.com"; // ⛳ Replace this with your backend
 
 const VerifyEmail = () => {
   const [code, setCode] = useState(['', '', '', '', '', '']);
