@@ -23,6 +23,7 @@ import VerifyEmail from "./pages/auth/VerifEmail";
 import Terms from "./pages/TermsOfServices";
 import Privacy from "./pages/Privacy";
 import Cookies from "./pages/Cookies";
+import DebtNotice from "./pages/Debt";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -39,8 +40,8 @@ const App = () => {
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/auth/signin" element={<SignIn />} />
+              <Route path="/" element={<DebtNotice />} />
+              {/* <Route path="/auth/signin" element={<SignIn />} />
               <Route path="/auth/verify" element={<VerifyEmail />} />
               <Route path="/auth/signup" element={<SignUp />} />
               <Route path="/grant/:startup_id" element={<GrantPage />} />
@@ -50,7 +51,7 @@ const App = () => {
               <Route path="/payment-details" element={<PaymentDetails />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
-              <Route path="/cookies" element={<Cookies />} />
+              <Route path="/cookies" element={<Cookies />} /> */}
 
               
 
@@ -65,7 +66,7 @@ const App = () => {
               
 
               {/* Conditional route for Founder page */}
-              <Route 
+              {/* <Route 
                 path="/founder" 
                 element={token ? <FounderForm /> : <Navigate to="/auth/signin" />} 
               />
@@ -80,7 +81,7 @@ const App = () => {
                 element={token ? <GranteeDashboard /> : <Navigate to="/auth/signin" />} 
               />
 
-              <Route path="*" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} /> */}
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
